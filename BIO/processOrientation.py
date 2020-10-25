@@ -2,6 +2,7 @@ import numpy as np
 import cv2
 import processSegmentation
 import math
+from matplotlib import pyplot as plt
 
 def orientFieldEstimation(orig_img, height, width):
     white = cv2.imread("./processedImg/white.jpg")
@@ -124,12 +125,24 @@ def getOrientationFeatures(file):
     cv2.imwrite("./processedImg/claheImg.png", img)
 
     img = cv2.imread('./processedImg/claheImg.png')
+    img_clahe = cv2.imread('./processedImg/claheImg.png',0)
 
     height = img.shape[0]
     width = img.shape[1]
 
-    oriented_thinned_image = orientFieldEstimation(img, height, width)
-    cv2.imshow('Oriented thinned image', oriented_thinned_image)
+    oriented_image = orientFieldEstimation(img, height, width)
+    #cv2.imshow('Oriented thinned image', oriented_image)
+
+    figure = plt.figure(figsize=(30, 30))
+    original_plot = figure.add_subplot(1,2,1)
+    original_plot.set_title("Preprocessed Image", fontsize=10)
+    original_plot.imshow(img_clahe, cmap='Greys',  interpolation='nearest')
+
+    image_plot = figure.add_subplot(1,2,2)
+    image_plot.set_title("Orientation Field", fontsize=10)
+    image_plot.imshow(oriented_image)
+    plt.show()
 
     cv2.waitKey(0)
+    cv2.destroyAllWindows()
     return
