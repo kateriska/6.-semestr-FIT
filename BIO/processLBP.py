@@ -69,6 +69,65 @@ def findWhiteRegions(height, width, lbp_image):
 
     return lbp_image
 
+def computeAverageColorForBlock(lbp_image):
+    rows = np.size(lbp_image, 0)
+    cols = np.size(lbp_image, 1)
+
+    block_div = 7
+    step = 14
+    white_block_pixels = [[]]
+
+    for i in range(block_div, rows-block_div, step):
+        for j in range(block_div, cols-block_div, step):
+            sum_gray_level_pixels = 0.0
+            pixel_count = 0
+            for u in range(i-block_div, i+block_div):
+                for v in range(j-block_div, j+block_div):
+                    gray_level_value = lbp_image[u][v][0]
+                    pixel_count += 1
+                    sum_gray_level_pixels += gray_level_value
+
+            average_block_color = round(sum_gray_level_pixels / pixel_count)
+            #print(average_block_color)
+
+            for u in range(i-block_div, i+block_div):
+                for v in range(j-block_div, j+block_div):
+                    if (average_block_color == 255):
+                        np.append(white_block_pixels, [u,v])
+                    lbp_image[u, v] = [average_block_color,average_block_color,average_block_color]
+
+
+    for i in range(0, rows):
+        for j in range(0, cols):
+            gray_level_value = lbp_image[i][j][0]
+            print(gray_level_value)
+            if (gray_level_value == 255):
+                white_block_pixels.append([i,j])
+
+    #print(white_block_pixels)
+
+
+    return white_block_pixels
+
+def markWhiteBlocks(img, white_block_pixels):
+    print(white_block_pixels)
+    rows = np.size(img, 0)
+    cols = np.size(img, 1)
+
+    for i in range(0, rows):
+        for j in range(0, cols):
+            pixel_coordinate_list = []
+            pixel_coordinate_list.append(i)
+            pixel_coordinate_list.append(j)
+            print(pixel_coordinate_list)
+            for k in range(0, len(white_block_pixels)):
+                #print(white_block_pixels[k])
+
+                if (white_block_pixels[k] == pixel_coordinate_list):
+                    img[i, j] = [220,20,60]
+                    break
+                    #img[i, j] = [220,20,60]
+    return img
 
 def getLBPfeatures(file):
     img = cv2.imread(file,0)
@@ -96,16 +155,20 @@ def getLBPfeatures(file):
 
     hist_lbp = cv2.calcHist([lbp_image], [0], None, [256], [0, 256])
 
-    lbp_image = findWhiteRegions(height, width, lbp_image)
+    #lbp_image = findWhiteRegions(height, width, lbp_image)
+    white_block_pixels = computeAverageColorForBlock(lbp_image)
+    #print(img.shape)
+    #print(lbp_image.shape)
+    marked_img = markWhiteBlocks(img, white_block_pixels)
 
     # show LBP image and LBP histogram
     figure = plt.figure(figsize=(30, 30))
-    image_plot = figure.add_subplot(1,2,1)
-    image_plot.imshow(lbp_image)
+    image_plot = figure.add_subplot(2,2,1)
+    image_plot.imshow(marked_img)
     image_plot.set_xticks([])
     image_plot.set_yticks([])
     image_plot.set_title("LBP image", fontsize=10)
-    current_plot = figure.add_subplot(1, 2, 2)
+    current_plot = figure.add_subplot(2, 2, 2)
     current_plot.plot(hist_lbp, color = (0, 0, 0.2))
 
     current_plot.set_xlim([0,256])
