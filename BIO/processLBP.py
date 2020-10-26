@@ -57,6 +57,18 @@ def processLBP(img, x, y, lbp_values):
     lbp_values.append(value_dec) # append new decimal value of pixel to array of whole processed lbp image
     return value_dec
 
+def findWhiteRegions(height, width, lbp_image):
+    print(lbp_image.shape)
+    for i in range(0, height):
+        for j in range(0, width):
+            #print(lbp_image[i][j])
+            gray_level_value = lbp_image[i][j][0]
+            #print(gray_level_value)
+            if (gray_level_value == 255):
+                lbp_image[i, j] = [220,20,60]
+
+    return lbp_image
+
 
 def getLBPfeatures(file):
     img = cv2.imread(file,0)
@@ -83,6 +95,8 @@ def getLBPfeatures(file):
             lbp_image[i, j] = processLBP(img_gray, i, j, lbp_values)
 
     hist_lbp = cv2.calcHist([lbp_image], [0], None, [256], [0, 256])
+
+    lbp_image = findWhiteRegions(height, width, lbp_image)
 
     # show LBP image and LBP histogram
     figure = plt.figure(figsize=(30, 30))
