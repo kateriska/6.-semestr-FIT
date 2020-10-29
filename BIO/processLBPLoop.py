@@ -1,6 +1,7 @@
 import numpy as np
 import cv2
 from matplotlib import pyplot as plt
+import glob
 
 import processSegmentation
 
@@ -109,7 +110,7 @@ def computeAverageColorForBlock(lbp_image):
 
     return white_block_pixels
 
-def markWhiteBlocks(img, white_block_pixels, right_angle_pixels):
+def markWhiteBlocks(img, white_block_pixels):
     print(white_block_pixels)
     rows = np.size(img, 0)
     cols = np.size(img, 1)
@@ -138,39 +139,44 @@ def markWhiteBlocks(img, white_block_pixels, right_angle_pixels):
                 img[i, j] = [220,20,60]
     return img
 
-def getLBPfeatures(file, right_angle_pixels):
-    img = cv2.imread(file,0)
-    img = cv2.normalize(img,None,0,255,cv2.NORM_MINMAX)
-    img = processSegmentation.imgSegmentation(img)
-    cv2.imwrite("./processedImg/segImg.png", img)
+def getLBPfeatures():
 
-    img = cv2.imread('./processedImg/segImg.png',0)
-    #img = cv2.GaussianBlur(img,(5,5),0)
+    for file in glob.glob('./Imgs/Imgs1/*'):
+        file_substr = file.split('/')[-1] # get name of processed file
+        img = cv2.imread(file,0)
+        img = cv2.normalize(img,None,0,255,cv2.NORM_MINMAX)
+        img = processSegmentation.imgSegmentation(img)
+        cv2.imwrite("./processedImg/segImg.png", img)
 
-    clahe = cv2.createCLAHE(clipLimit=5.0, tileGridSize=(8,8))
-    img = clahe.apply(img)
-    cv2.imwrite("./processedImg/claheImg.png", img)
+        img = cv2.imread('./processedImg/segImg.png',0)
+        #img = cv2.GaussianBlur(img,(5,5),0)
 
-    img = cv2.imread('./processedImg/claheImg.png')
-    height, width, channel = img.shape
-    img_gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
-    lbp_image = np.zeros((height, width,3), np.uint8)
+        clahe = cv2.createCLAHE(clipLimit=5.0, tileGridSize=(8,8))
+        img = clahe.apply(img)
+        cv2.imwrite("./processedImg/claheImg.png", img)
 
-# processing LBP algorithm
-    lbp_values = []
-    for i in range(0, height):
-        for j in range(0, width):
-            lbp_image[i, j] = processLBP(img_gray, i, j, lbp_values)
+        img = cv2.imread('./processedImg/claheImg.png')
+        height, width, channel = img.shape
+        img_gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
+        lbp_image = np.zeros((height, width,3), np.uint8)
 
-    hist_lbp = cv2.calcHist([lbp_image], [0], None, [256], [0, 256])
+        # processing LBP algorithm
+        lbp_values = []
+        for i in range(0, height):
+            for j in range(0, width):
+                lbp_image[i, j] = processLBP(img_gray, i, j, lbp_values)
+
+    #hist_lbp = cv2.calcHist([lbp_image], [0], None, [256], [0, 256])
 
     #lbp_image = findWhiteRegions(height, width, lbp_image)
-    white_block_pixels = computeAverageColorForBlock(lbp_image)
+        white_block_pixels = computeAverageColorForBlock(lbp_image)
     #print(img.shape)
     #print(lbp_image.shape)
-    marked_img = markWhiteBlocks(img, white_block_pixels, right_angle_pixels)
-
+        marked_img = markWhiteBlocks(img, white_block_pixels)
+        cv2.imwrite("./markedImg/markedImg1/" + file_substr, marked_img)
+    #cv2.imwrite("./markedImg/" + file_substr)
     # show LBP image and LBP histogram
+    '''
     figure = plt.figure(figsize=(30, 30))
     image_plot = figure.add_subplot(1,2,1)
     image_plot.imshow(marked_img)
@@ -191,5 +197,6 @@ def getLBPfeatures(file, right_angle_pixels):
 
     cv2.waitKey(0)
     cv2.destroyAllWindows()
+    '''
 
     return

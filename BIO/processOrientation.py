@@ -23,6 +23,7 @@ def computeAngle(phi_x, phi_y):
 
 def orientFieldEstimation(orig_img, height, width):
     white = cv2.imread("./processedImg/white.jpg")
+    right_angle_pixels = []
 
     img = np.float32(orig_img)
 
@@ -61,17 +62,27 @@ def orientFieldEstimation(orig_img, height, width):
                 angle -= math.pi
             orientation[int(i / step)][int(j / step)] = angle
 
+            if (angle == math.pi / 2):
+                for u in range(i-block_div, i+block_div):
+                    for v in range(j-block_div, j+block_div):
+                        right_angle_pixels.append([u,v])
+
             # draw to color image
             phi_x = math.cos(angle) * (block_div - 1)
             phi_y = math.sin(angle) * (block_div - 1)
             cv2.line(color_img, (int(j + phi_x), int(i + phi_y)), (int(j - phi_x), int(i - phi_y)), (0, 0, 255), 1)
             cv2.line(white, (int(j + phi_x), int(i + phi_y)), (int(j - phi_x), int(i - phi_y)), (0, 0, 255), 1)
+
+
+
+
     print(orientation)
+    print(orientation.shape)
     #cv2.imshow('Orientation Field', white)
     #cv2.waitKey(0)
     #cv2.destroyAllWindows()
 
-    return color_img
+    return color_img, right_angle_pixels
 
 def getOrientationFeatures(file):
     img = cv2.imread(file,0)
@@ -92,7 +103,9 @@ def getOrientationFeatures(file):
     height = img.shape[0]
     width = img.shape[1]
 
-    oriented_image = orientFieldEstimation(img, height, width)
+    oriented_image, right_angle_pixels = orientFieldEstimation(img, height, width)
+    print(right_angle_pixels)
+    '''
 
     while True:
         cv2.imshow("Orientation Field", oriented_image)
@@ -101,7 +114,8 @@ def getOrientationFeatures(file):
         if key == ord("q"):
             break
     cv2.destroyAllWindows()
-    
+    '''
+
 
     #cv2.imshow('Oriented thinned image', oriented_image)
     '''
@@ -118,4 +132,4 @@ def getOrientationFeatures(file):
     cv2.waitKey(0)
     cv2.destroyAllWindows()
     '''
-    return
+    return right_angle_pixels
