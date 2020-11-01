@@ -1,4 +1,14 @@
-1. c) LOOP BEGIN at /home/training/dd-20-28-39/aom/aom_dsp/aom_convolve.c(43,5) inlined into /home/training/dd-20-28-39/aom/aom_dsp/aom_convolve.c(95,3)
+1. 
+a) maximalni dosazene zrychleni
+funkce automaticky vektorizovane z convolve.c s vyuzitim souboru optrpt:
+funkce                     estimated potential speedup
+av1_dist_wtd_convolve_2d_c 	4.530
+av1_convolve_2d_sr_c 		4.530
+av1_dist_wtd_convolve_x_c 	4.530
+celkem zrychleni: 		13.59
+
+
+c) LOOP BEGIN at /home/training/dd-20-28-39/aom/aom_dsp/aom_convolve.c(43,5) inlined into /home/training/dd-20-28-39/aom/aom_dsp/aom_convolve.c(95,3)
       remark #15344: loop was not vectorized: vector dependence prevents vectorization. First dependence is shown below. Use level 5 report for details
       remark #15346: vector dependence: assumed ANTI dependence between x_filter[k] (25:41) and dst[x] (47:7)
 
