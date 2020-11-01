@@ -1,0 +1,54 @@
+diff --git a/CMakeLists.txt b/CMakeLists.txt
+index 2ef0863..b04413d 100644
+--- a/CMakeLists.txt
++++ b/CMakeLists.txt
+@@ -764,5 +764,10 @@ foreach(aom_source_var ${aom_source_vars})
+   endif()
+ endforeach()
+ 
++# set new compiler flags for Task 1
++set_source_files_properties(../aom/aom_dsp/aom_convolve.c PROPERTIES COMPILE_FLAGS "-qopt-report=4 -qopt-report-phase=vec,loop -qopenmp-simd")
++set_source_files_properties(../aom/av1/common/convolve.c PROPERTIES COMPILE_FLAGS "-qopt-report=4 -qopt-report-phase=vec,loop")
++
++
+ # Generate aom.pc and setup install rule.
+ setup_aom_install_targets()
+diff --git a/aom_dsp/aom_convolve.c b/aom_dsp/aom_convolve.c
+index 7879b88..e74c697 100644
+--- a/aom_dsp/aom_convolve.c
++++ b/aom_dsp/aom_convolve.c
+@@ -40,6 +40,7 @@ static void convolve_horiz(const uint8_t *src, ptrdiff_t src_stride,
+   src -= SUBPEL_TAPS / 2 - 1;
+   for (int y = 0; y < h; ++y) {
+     int x_q4 = x0_q4;
++    #pragma omp simd 
+     for (int x = 0; x < w; ++x) {
+       const uint8_t *const src_x = &src[x_q4 >> SUBPEL_BITS];
+       const int16_t *const x_filter = x_filters[x_q4 & SUBPEL_MASK];
+@@ -60,6 +61,7 @@ static void convolve_vert(const uint8_t *src, ptrdiff_t src_stride,
+ 
+   for (int x = 0; x < w; ++x) {
+     int y_q4 = y0_q4;
++    #pragma omp simd
+     for (int y = 0; y < h; ++y) {
+       const unsigned char *src_y = &src[(y_q4 >> SUBPEL_BITS) * src_stride];
+       const int16_t *const y_filter = y_filters[y_q4 & SUBPEL_MASK];
+@@ -152,8 +154,10 @@ static void highbd_convolve_horiz(const uint8_t *src8, ptrdiff_t src_stride,
+   uint16_t *src = CONVERT_TO_SHORTPTR(src8);
+   uint16_t *dst = CONVERT_TO_SHORTPTR(dst8);
+   src -= SUBPEL_TAPS / 2 - 1;
++  
+   for (int y = 0; y < h; ++y) {
+     int x_q4 = x0_q4;
++    #pragma omp simd
+     for (int x = 0; x < w; ++x) {
+       const uint16_t *const src_x = &src[x_q4 >> SUBPEL_BITS];
+       const int16_t *const x_filter = x_filters[x_q4 & SUBPEL_MASK];
+@@ -175,6 +179,7 @@ static void highbd_convolve_vert(const uint8_t *src8, ptrdiff_t src_stride,
+   src -= src_stride * (SUBPEL_TAPS / 2 - 1);
+   for (int x = 0; x < w; ++x) {
+     int y_q4 = y0_q4;
++    #pragma omp simd
+     for (int y = 0; y < h; ++y) {
+       const uint16_t *src_y = &src[(y_q4 >> SUBPEL_BITS) * src_stride];
+       const int16_t *const y_filter = y_filters[y_q4 & SUBPEL_MASK];
