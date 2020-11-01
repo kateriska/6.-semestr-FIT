@@ -1,0 +1,21 @@
+1. c) LOOP BEGIN at /home/training/dd-20-28-39/aom/aom_dsp/aom_convolve.c(43,5) inlined into /home/training/dd-20-28-39/aom/aom_dsp/aom_convolve.c(95,3)
+      remark #15344: loop was not vectorized: vector dependence prevents vectorization. First dependence is shown below. Use level 5 report for details
+      remark #15346: vector dependence: assumed ANTI dependence between x_filter[k] (25:41) and dst[x] (47:7)
+
+LOOP BEGIN at /home/training/dd-20-28-39/aom/aom_dsp/aom_convolve.c(176,3) inlined into /home/training/dd-20-28-39/aom/aom_dsp/aom_convolve.c(215,3)
+   remark #25101: Loop Interchange not done due to: Original Order seems proper
+   remark #25452: Original Order found to be proper, but by a close margin
+   remark #15541: outer loop was not auto-vectorized: consider using SIMD directive
+
+LOOP BEGIN at /home/training/dd-20-28-39/aom/aom_dsp/aom_convolve.c(155,3) inlined into /home/training/dd-20-28-39/aom/aom_dsp/aom_convolve.c(201,3)
+   remark #15541: outer loop was not auto-vectorized: consider using SIMD directive
+
+2. 
+a) Překryv mu vadí, protože nedokáže určit, zda se pole nepřekrývají (pointer aliasing)
+b) Horizontalni konvoluce na urovni x - Existence zavislosti mezi iteracemi
+      Na urovni y - Pouzivani bitovych operaci pro deleni indexu
+c) Urychlení horizontální konvoluce - z 2.24 s na 1.32 s - zrychlení o 0.92
+
+Urychlení vertikální konvoluce - z 2.905 s na 1.645 s - zrychlení o 1.26
+
+Vertikální konvoluci se mi podařila urychlit více. Zásadní rozdíl je v postupu procházení 2D pole. U vertikální procházíme po řádcích, u horizontální po sloupcích. A obecně je procházení po sloupcích nevýhodné při přístupu do paměti (výpadky).
