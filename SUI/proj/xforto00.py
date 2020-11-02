@@ -72,6 +72,7 @@ class AI:
 
 
         if turns:
+            print(turns)
             turn = turns[0]
             self.logger.debug("Possible turn: {}".format(turn))
 
@@ -96,9 +97,24 @@ class AI:
             # check whether helped previous processed attack and attacked target is still in our areas
             if (len(self.processed_turns_targets) > 0):
                 #print(self.processed_turns_improvements)
-                print(self.processed_turns_improvements[-1])
+                #print(self.processed_turns_improvements[-1])
                 if (self.processed_turns_improvements[-1] != 0):
-                    self.g.write(str(self.processed_turns_improvements[-1]) + "\n")
+                    #self.g.write(str(self.processed_turns_improvements[-1]) + "\n")
+                    score_player_value_float = float (turn[3])
+                    dice_player_value_float = float (turn[4])
+                    owned_fields_player_float = float (turn[5])
+                    effortless_target_areas_sum_player_float = float (turn[6])
+                    largest_region_player_float = float (turn[7])
+
+                    score_oponent_value_float = float (turn[8])
+                    dice_oponent_value_float = float (turn[9])
+                    owned_fields_oponent_float = float (turn[10])
+                    effortless_target_areas_sum_oponent_float = float (turn[11])
+                    largest_region_oponent_float = float (turn[12])
+
+
+                    self.g.write(str(score_player_value_float) + ", " + str(dice_player_value_float) + ", " + str(owned_fields_player_float) + ", " + str(effortless_target_areas_sum_player_float) + ", " +  str(largest_region_player_float) + ", " + str(score_oponent_value_float) + ", " + str(dice_oponent_value_float) + ", " + str(owned_fields_oponent_float) + ", " + str(effortless_target_areas_sum_oponent_float) + ", " + str(largest_region_oponent_float) + "\n")
+
                     if (self.processed_turns_targets[-1] in owned_fields_ai_names):
                         self.logger.debug("This attack help.")
                         self.f.write("1" + "\n")
@@ -187,9 +203,16 @@ class AI:
                 improvement = new_win_prob - win_prob
 
                 if improvement > -1:
-                    turns.append([area_name, target.get_name(), improvement])
+                    turns.append([area_name, target.get_name(), improvement, score_player_value, dice_player_value, owned_fields_player,effortless_target_areas_sum_player, largest_region_player, score_oponent_value, dice_oponent_value, owned_fields_oponent, effortless_target_areas_sum_oponent, largest_region_oponent])
+
+
+                #get_train_vector_info(score_player_value, dice_player_value, owned_fields_player,effortless_target_areas_sum_player, largest_region_player, score_oponent_value, dice_oponent_value, owned_fields_oponent, effortless_target_areas_sum_oponent, largest_region_oponent)
+
 
         return sorted(turns, key=lambda turn: turn[2], reverse=True)
+
+    #def get_train_vector_info(score_player_value, dice_player_value, owned_fields_player,effortless_target_areas_sum_player, largest_region_player, score_oponent_value, dice_oponent_value, owned_fields_oponent, effortless_target_areas_sum_oponent, largest_region_oponent):
+
 
     def get_score_by_player(self, player_name, skip_area=None):
         """Get score of a player
