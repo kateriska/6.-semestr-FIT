@@ -14,6 +14,17 @@ class AI:
     As a feature to describe the state, a vector of players' scores is used.
     The agent choses such moves, that will have the highest improvement in
     the estimated probability.
+
+    This is AI used for training and getting trained vectors for MLP ANN for xforto00test,
+    normally trained on tournament for 4 players, 50 games.
+
+    Classes are 0 or 1.
+
+    For each processed attack we decide in next round, whether area on which we attacked
+    is in our regions or some oponent took it from us.
+
+    Class 1 - Area is still in our regions.
+    Class 0 - Area was won by someone else.
     """
     def __init__(self, player_name, board, players_order):
         """
@@ -52,9 +63,10 @@ class AI:
             8: numpy.random.normal(mu, sigma, size=(8)),
         }[self.players]
 
-        self.processed_turns_targets = []
-        self.processed_turns_improvements = []
+        self.processed_turns_targets = [] # list for saving targets on which we are decided to attack
+        self.processed_turns_improvements = [] # list for saving improvement value for processed attacks
 
+        # open files for writing trained feature vectors of attacks and class whether this attack helped us or not
         self.f = open("./trainFiles/trainedClasses.csv","a")
         self.g = open("./trainFiles/trainedImprovements.csv","a")
 
@@ -68,11 +80,9 @@ class AI:
         self.board = board
         self.logger.debug("Looking for possible turns.")
         turns = self.possible_turns()
-        #turn_processed = False
-
 
         if turns:
-            print(turns)
+            #print(turns)
             turn = turns[0]
             self.logger.debug("Possible turn: {}".format(turn))
 
@@ -81,20 +91,17 @@ class AI:
             self.logger.debug(owned_fields_ai)
             owned_fields_ai_names = []
 
-
-
             if (len(owned_fields_ai) > 0):
                 for owned_field in owned_fields_ai:
                     self.logger.debug(owned_field.get_name())
                     owned_fields_ai_names.append(owned_field.get_name())
-
 
             self.logger.debug("Printing processed turns targets")
             self.logger.debug(self.processed_turns_targets)
             self.logger.debug("Printing processed turns improvements")
             self.logger.debug(self.processed_turns_improvements)
 
-            # check whether helped previous processed attack and attacked target is still in our areas
+            # check whether helped previous processed attack and attacked target is still in our areas in our next round
             if (len(self.processed_turns_targets) > 0):
                 #print(self.processed_turns_improvements)
                 #print(self.processed_turns_improvements[-1])
@@ -112,28 +119,24 @@ class AI:
                     effortless_target_areas_sum_oponent_float = float (turn[11])
                     largest_region_oponent_float = float (turn[12])
 
-
+                    # write feature vector to file of trained vectors
                     self.g.write(str(score_player_value_float) + ", " + str(dice_player_value_float) + ", " + str(owned_fields_player_float) + ", " + str(effortless_target_areas_sum_player_float) + ", " +  str(largest_region_player_float) + ", " + str(score_oponent_value_float) + ", " + str(dice_oponent_value_float) + ", " + str(owned_fields_oponent_float) + ", " + str(effortless_target_areas_sum_oponent_float) + ", " + str(largest_region_oponent_float) + "\n")
 
                     if (self.processed_turns_targets[-1] in owned_fields_ai_names):
-                        self.logger.debug("This attack help.")
+                        self.logger.debug("Attack in previous round helped us.")
                         self.f.write("1" + "\n")
                     else:
-                        self.logger.debug("This attack doesnt help.")
+                        self.logger.debug("Attack in previous round didnt help us.")
                         self.f.write("0" + "\n")
 
-            #new_attack = BattleCommand(turn[0], turn[1])
 
-            #turn_processed = True
-            # save new attack to list
+            # save new attack which we are ready to process to list
             self.processed_turns_targets.append(turn[1])
 
-            improvement_float = float (turn[2]) * 1000000
+            improvement_float = float (turn[2]) * 1000000 # multiply with constant, because improvement could be very small
             self.processed_turns_improvements.append(improvement_float)
-            #self.g.write(str(improvement_float) + "\n")
 
-            return BattleCommand(turn[0], turn[1])
-
+            return BattleCommand(turn[0], turn[1]) # we are attacking in this round
 
         self.logger.debug("No more plays.")
         return EndTurnCommand()
@@ -203,15 +206,10 @@ class AI:
                 improvement = new_win_prob - win_prob
 
                 if improvement > -1:
+                    # write neccesary info about turn (area_name, target name, calculated improvement) and also additional info about player, oponent for writing to training vector
                     turns.append([area_name, target.get_name(), improvement, score_player_value, dice_player_value, owned_fields_player,effortless_target_areas_sum_player, largest_region_player, score_oponent_value, dice_oponent_value, owned_fields_oponent, effortless_target_areas_sum_oponent, largest_region_oponent])
 
-
-                #get_train_vector_info(score_player_value, dice_player_value, owned_fields_player,effortless_target_areas_sum_player, largest_region_player, score_oponent_value, dice_oponent_value, owned_fields_oponent, effortless_target_areas_sum_oponent, largest_region_oponent)
-
-
         return sorted(turns, key=lambda turn: turn[2], reverse=True)
-
-    #def get_train_vector_info(score_player_value, dice_player_value, owned_fields_player,effortless_target_areas_sum_player, largest_region_player, score_oponent_value, dice_oponent_value, owned_fields_oponent, effortless_target_areas_sum_oponent, largest_region_oponent):
 
 
     def get_score_by_player(self, player_name, skip_area=None):

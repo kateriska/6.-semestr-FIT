@@ -15,6 +15,13 @@ class AI:
     As a feature to describe the state, a vector of players' scores is used.
     The agent choses such moves, that will have the highest improvement in
     the estimated probability.
+
+    This is AI used for training. Feature vectors are extracted and their class
+    is predicted based on trained MLP ANN (scikit-learn library). The possible attack
+    with highest proba of class 1 is processed.
+
+    TO DO - Use some other type of MLP ANN (e.g. PyTorch), work with scikit-learn is
+    really simple and I don't know whether it is allowed.
     """
     def __init__(self, player_name, board, players_order):
         """
@@ -52,13 +59,15 @@ class AI:
             8: numpy.random.normal(mu, sigma, size=(8)),
         }[self.players]
 
+        # generate trained vectors and their classes from csv files
         self.trained_results = numpy.genfromtxt('./trainFiles/trainedClasses.csv',dtype=int)
-        self.trained_vectors = numpy.genfromtxt('./trainFiles/trainedImprovements.csv',dtype=float)
+        self.trained_vectors = numpy.genfromtxt('./trainFiles/trainedImprovements.csv',dtype=float, delimiter=",")
 
-        self.trained_vectors_preprocessed = preprocessing.scale(self.trained_vectors).reshape(-1, 1)
-        print(self.trained_vectors_preprocessed)
+        # do preprocessing of trained_vectors (more suitable for fitting MLP)
+        self.trained_vectors_preprocessed = preprocessing.scale(self.trained_vectors)
 
-        self.clf = MLPClassifier(solver='lbfgs', alpha=1e-5, hidden_layer_sizes=(5, 2))
+        # init and train MLP MLPClassifier with vectors for training (extracted in xforto00 AI)
+        self.clf = MLPClassifier(solver='adam', alpha=1e-5, hidden_layer_sizes=(5, 2), learning_rate_init=0.01, max_iter=500)
         self.clf.fit(self.trained_vectors_preprocessed, self.trained_results) # train SVM with trained vectors and their results
 
     def ai_turn(self, board, nb_moves_this_turn, nb_turns_this_game, time_left):
@@ -71,25 +80,47 @@ class AI:
         self.logger.debug("Looking for possible turns.")
         turns = self.possible_turns()
         calculated_improvements = []
+        calculated_features = [] # for adding trained vectors for class prediction
 
         if (turns):
-            for turn in turns:
-                improvement_float = float (turn[2]) * 1000000
+            for t in turns:
+                self.logger.debug("Looking for possible turns.")
+                improvement_float = float (t[2]) * 1000000
                 calculated_improvements.append(improvement_float)
 
-            tested_vectors_preprocessed = preprocessing.scale(calculated_improvements).reshape(-1, 1)
-            print(tested_vectors_preprocessed)
+                score_player_value_float = float (t[3])
+                dice_player_value_float = float (t[4])
+                owned_fields_player_float = float (t[5])
+                effortless_target_areas_sum_player_float = float (t[6])
+                largest_region_player_float = float (t[7])
+
+                score_oponent_value_float = float (t[8])
+                dice_oponent_value_float = float (t[9])
+                owned_fields_oponent_float = float (t[10])
+                effortless_target_areas_sum_oponent_float = float (t[11])
+                largest_region_oponent_float = float (t[12])
+
+                # add all calculated features and create tested vector for MLP
+                calculated_features.append([score_player_value_float, dice_player_value_float, owned_fields_player_float,effortless_target_areas_sum_player_float, largest_region_player_float, score_oponent_value_float, dice_oponent_value_float, owned_fields_oponent_float, effortless_target_areas_sum_oponent_float, largest_region_oponent_float])
+
+            # do preprocessing also for trained vectors for better fitting to MLP
+            tested_vectors_preprocessed = preprocessing.scale(calculated_features)
+
             prediction = self.clf.predict_proba(tested_vectors_preprocessed) # predict results of tested vectors
-            print(prediction)
-            best_prediction = max(prediction)
-            best_index = prediction.index(best_prediction)
+            self.logger.debug(prediction)
+            # get only proba of positive class
+            predicted_positive_class_proba = prediction[:,1]
+            prediction_list = predicted_positive_class_proba.tolist()
+            # find the biggest proba of class 1 in all tested vectors and index of this prediction (index of this turn in turns list as well)
+            best_prediction = max(prediction_list)
+            best_index = prediction_list.index(best_prediction)
 
 
         if turns:
             turn = turns[best_index]
             self.logger.debug("Possible turn: {}".format(turn))
 
-            return BattleCommand(turn[0], turn[1])
+            return BattleCommand(turn[0], turn[1]) # finally attack
 
         self.logger.debug("No more plays.")
         return EndTurnCommand()
@@ -159,7 +190,8 @@ class AI:
                 improvement = new_win_prob - win_prob
 
                 if improvement > -1:
-                    turns.append([area_name, target.get_name(), improvement])
+                    # write neccesary info about turn (area_name, target name, calculated improvement) and also additional info about player, oponent for writing to testing vector
+                    turns.append([area_name, target.get_name(), improvement, score_player_value, dice_player_value, owned_fields_player,effortless_target_areas_sum_player, largest_region_player, score_oponent_value, dice_oponent_value, owned_fields_oponent, effortless_target_areas_sum_oponent, largest_region_oponent])
 
         return sorted(turns, key=lambda turn: turn[2], reverse=True)
 
