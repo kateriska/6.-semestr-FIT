@@ -2,11 +2,15 @@ import numpy
 import logging
 from sklearn import preprocessing
 from sklearn.neural_network import MLPClassifier
+from sklearn.metrics import plot_roc_curve
 
 from .utils import probability_of_successful_attack, sigmoid
 from .utils import possible_attacks, effortless_target_areas, get_player_largest_region
 
 from dicewars.client.ai_driver import BattleCommand, EndTurnCommand
+
+import matplotlib.pyplot as plt
+
 
 
 class AI:
@@ -67,8 +71,12 @@ class AI:
         self.trained_vectors_preprocessed = preprocessing.scale(self.trained_vectors)
 
         # init and train MLP MLPClassifier with vectors for training (extracted in xforto00 AI)
-        self.clf = MLPClassifier(solver='adam', alpha=1e-5, hidden_layer_sizes=(5, 2), learning_rate_init=0.01, max_iter=500)
+        self.clf = MLPClassifier(solver='adam', alpha=1e-5, hidden_layer_sizes=(35, 35, 35), max_iter=5000000000)
         self.clf.fit(self.trained_vectors_preprocessed, self.trained_results) # train SVM with trained vectors and their results
+        ax = plt.gca()
+        svc_disp = plot_roc_curve(self.clf, self.trained_vectors_preprocessed, self.trained_results)
+        svc_disp.plot(ax=ax, alpha=1e-5)
+        plt.savefig('learn_graph.png')
 
     def ai_turn(self, board, nb_moves_this_turn, nb_turns_this_game, time_left):
         """AI agent's turn
@@ -164,7 +172,7 @@ class AI:
 
             atk_prob = probability_of_successful_attack(self.board, area_name, target.get_name())
 
-            if (increase_score or atk_power == 8) and (atk_prob > 0.35):
+            if (increase_score or atk_power == 8) and (atk_prob > 0.2):
                 new_features = []
                 for p in self.players_order:
                     idx = self.players_order.index(p)
@@ -189,9 +197,9 @@ class AI:
 
                 improvement = new_win_prob - win_prob
 
-                if improvement > -1:
+                #if improvement > -1:
                     # write neccesary info about turn (area_name, target name, calculated improvement) and also additional info about player, oponent for writing to testing vector
-                    turns.append([area_name, target.get_name(), improvement, score_player_value, dice_player_value, owned_fields_player,effortless_target_areas_sum_player, largest_region_player, score_oponent_value, dice_oponent_value, owned_fields_oponent, effortless_target_areas_sum_oponent, largest_region_oponent])
+                turns.append([area_name, target.get_name(), improvement, score_player_value, dice_player_value, owned_fields_player,effortless_target_areas_sum_player, largest_region_player, score_oponent_value, dice_oponent_value, owned_fields_oponent, effortless_target_areas_sum_oponent, largest_region_oponent])
 
         return sorted(turns, key=lambda turn: turn[2], reverse=True)
 
