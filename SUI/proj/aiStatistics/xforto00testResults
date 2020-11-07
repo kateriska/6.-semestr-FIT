@@ -43,3 +43,12 @@ dt.sdc       52.50 % winrate [ 21  / 40  ] nan/0   52.5/40 nan/0   nan/0    nan/
 dt.rand      50.00 % winrate [ 20  / 40  ] 50.0/40 nan/0   nan/0   nan/0    nan/0    50.0/40     
 dt.ste       45.00 % winrate [ 18  / 40  ] nan/0   nan/0   45.0/40 nan/0    nan/0    45.0/40     
 xlogin00     30.00 % winrate [ 12  / 40  ] nan/0   nan/0   nan/0   nan/0    30.0/40  30.0/40   
+
+(env-sui) katerina@katerina-ASUS:~/Documents/SUI/SUI-private$ python3 ./scripts/dicewars-tournament.py -r -g 3 -n 100 --ai-under-test xforto00test -b 101 -s 1337 -l ./logs -d
+.            .     % winrate [ .   / .   ] dt.rand  dt.sdc   dt.ste   dt.wpm_c xlogin00 xforto00test
+dt.sdc       50.41 % winrate [ 62  / 123 ] 48.5/33  50.4/123 42.4/33  43.3/30  70.4/27  50.4/123    
+dt.wpm_c     41.88 % winrate [ 49  / 117 ] 33.3/27  26.7/30  47.6/21  41.9/117 56.4/39  41.9/117    
+dt.ste       35.83 % winrate [ 43  / 120 ] 50.0/36  24.2/33  35.8/120 28.6/21  36.7/30  35.8/120    
+xforto00test 34.00 % winrate [ 102 / 300 ] 33.3/120 30.9/123 31.7/120 32.5/117 41.7/120 34.0/300    
+dt.rand      29.17 % winrate [ 35  / 120 ] 29.2/120 21.2/33  25.0/36  37.0/27  37.5/24  29.2/120    
+xlogin00     7.50  % winrate [ 9   / 120 ] 8.3/24   0.0/27   20.0/30  2.6/39   7.5/120  7.5/120   
