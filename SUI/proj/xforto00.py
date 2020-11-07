@@ -67,8 +67,8 @@ class AI:
         self.processed_turns_improvements = [] # list for saving improvement value for processed attacks
 
         # open files for writing trained feature vectors of attacks and class whether this attack helped us or not
-        self.f = open("./trainFiles/trainedClasses.csv","a")
-        self.g = open("./trainFiles/trainedImprovements.csv","a")
+        self.f = open("./valFiles/valClasses.csv","a")
+        self.g = open("./valFiles/valFeatures.csv","a")
         #self.j = open("./trainFiles/trainedClassesRatio.csv","a")
         #self.h = open("./trainFiles/trainedFeaturesRatio.csv","a")
     def ai_turn(self, board, nb_moves_this_turn, nb_turns_this_game, time_left):
