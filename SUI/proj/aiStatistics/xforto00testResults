@@ -15,3 +15,31 @@ dt.wpm_c     43.59 % winrate [ 51 / 117 ] 29.6/27  30.0/30  47.6/21  43.6/117 61
 xforto00test 32.67 % winrate [ 98 / 300 ] 36.7/120 29.3/123 30.0/120 27.4/117 40.0/120 32.7/300    
 dt.rand      23.33 % winrate [ 28 / 120 ] 23.3/120 12.1/33  11.1/36  40.7/27  37.5/24  23.3/120    
 xlogin00     9.17  % winrate [ 11 / 120 ] 12.5/24  7.4/27   16.7/30  2.6/39   9.2/120  9.2/120 
+
+(env-sui) katerina@katerina-ASUS:~/Documents/SUI/SUI-private$ python3 ./scripts/dicewars-tournament.py -r -g 4 -n 100 --ai-under-test xforto00test -b 101 -s 1337 -l ./logs -d
+.            .     % winrate [ .   / .   ] dt.rand  dt.sdc   dt.ste   dt.wpm_c xlogin00 xforto00test
+dt.ste       47.92 % winrate [ 115 / 240 ] 54.3/116 47.5/120 47.9/240 39.7/116 50.0/128 47.9/240    
+dt.wpm_c     36.44 % winrate [ 86  / 236 ] 35.8/120 34.5/116 36.2/116 36.4/236 39.2/120 36.4/236    
+dt.sdc       32.92 % winrate [ 79  / 240 ] 36.4/140 32.9/240 28.3/120 27.6/116 39.4/104 32.9/240    
+xforto00test 18.50 % winrate [ 74  / 400 ] 21.0/248 17.5/240 13.3/240 19.5/236 21.2/236 18.5/400    
+dt.rand      11.69 % winrate [ 29  / 248 ] 11.7/248 10.7/140 7.8/116  14.2/120 14.2/120 11.7/248    
+xlogin00     7.20  % winrate [ 17  / 236 ] 8.3/120  6.7/104  6.2/128  7.5/120  7.2/236  7.2/236  
+
+Corrected feature score:
+(env-sui) katerina@katerina-ASUS:~/Documents/SUI/SUI-private$ python3 ./scripts/dicewars-tournament.py -r -g 4 -n 100 --ai-under-test xforto00test -b 101 -s 1337 -l ./logs -d
+.            .     % winrate [ .   / .   ] dt.rand  dt.sdc   dt.ste   dt.wpm_c xlogin00 xforto00test
+dt.ste       42.92 % winrate [ 103 / 240 ] 49.1/116 43.3/120 42.9/240 33.6/116 45.3/128 42.9/240    
+dt.wpm_c     37.29 % winrate [ 88  / 236 ] 38.3/120 32.8/116 35.3/116 37.3/236 42.5/120 37.3/236    
+dt.sdc       29.58 % winrate [ 71  / 240 ] 30.7/140 29.6/240 26.7/120 29.3/116 31.7/104 29.6/240    
+xforto00test 19.50 % winrate [ 78  / 400 ] 21.0/248 20.0/240 16.7/240 18.6/236 21.2/236 19.5/400    
+dt.rand      14.11 % winrate [ 35  / 248 ] 14.1/248 15.7/140 9.5/116  15.0/120 15.8/120 14.1/248    
+xlogin00     10.59 % winrate [ 25  / 236 ] 12.5/120 8.7/104  10.2/128 10.8/120 10.6/236 10.6/236    
+
+(env-sui) katerina@katerina-ASUS:~/Documents/SUI/SUI-private$ python3 ./scripts/dicewars-tournament.py -r -g 2 -n 100 --ai-under-test xforto00test -b 101 -s 1337 -l ./logs -d
+.            .     % winrate [ .   / .   ] dt.rand dt.sdc  dt.ste  dt.wpm_c xlogin00 xforto00test
+dt.wpm_c     55.00 % winrate [ 22  / 40  ] nan/0   nan/0   nan/0   55.0/40  nan/0    55.0/40     
+xforto00test 53.50 % winrate [ 107 / 200 ] 50.0/40 47.5/40 55.0/40 45.0/40  70.0/40  53.5/200    
+dt.sdc       52.50 % winrate [ 21  / 40  ] nan/0   52.5/40 nan/0   nan/0    nan/0    52.5/40     
+dt.rand      50.00 % winrate [ 20  / 40  ] 50.0/40 nan/0   nan/0   nan/0    nan/0    50.0/40     
+dt.ste       45.00 % winrate [ 18  / 40  ] nan/0   nan/0   45.0/40 nan/0    nan/0    45.0/40     
+xlogin00     30.00 % winrate [ 12  / 40  ] nan/0   nan/0   nan/0   nan/0    30.0/40  30.0/40   
