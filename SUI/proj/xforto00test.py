@@ -5,7 +5,7 @@ from sklearn.neural_network import MLPClassifier
 from sklearn.metrics import plot_roc_curve
 
 from .utils import probability_of_successful_attack, sigmoid
-from .utils import possible_attacks, effortless_target_areas, get_player_largest_region
+from .utils import possible_attacks, effortless_target_areas, get_player_largest_region, get_score_current_player
 
 from dicewars.client.ai_driver import BattleCommand, EndTurnCommand
 
@@ -143,7 +143,7 @@ class AI:
 
         # get features for player's score, dice, number of owned fields, sum of effortless targets to attack
         for p in self.players_order:
-            score_player_value = self.get_score_by_player(p)
+            score_player_value = get_score_current_player(self.board, p)
             dice_player_value = self.board.get_player_dice(p)
             owned_fields_player = len(self.board.get_player_areas(p))
             effortless_target_areas_sum_player = effortless_target_areas(self.board, p)
@@ -172,7 +172,7 @@ class AI:
 
             atk_prob = probability_of_successful_attack(self.board, area_name, target.get_name())
 
-            if (increase_score or atk_power == 8) and (atk_prob > 0.2):
+            if (increase_score or atk_power == 8) and (atk_prob > 0.3):
                 new_features = []
                 for p in self.players_order:
                     idx = self.players_order.index(p)
@@ -181,7 +181,7 @@ class AI:
                         new_features.append(features[idx] + 1 if increase_score else features[idx])
 
                     elif p == opponent_name: # compute features for oponent
-                        score_oponent_value = self.get_score_by_player(p, skip_area=target.get_name())
+                        score_oponent_value = get_score_current_player(self.board, p, skip_area=target.get_name())
                         dice_oponent_value = self.board.get_player_dice(p)
                         owned_fields_oponent = len(self.board.get_player_areas(p))
                         effortless_target_areas_sum_oponent = effortless_target_areas(self.board, p)
