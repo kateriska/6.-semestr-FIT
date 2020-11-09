@@ -462,21 +462,19 @@ LOOP BEGIN at /home/training/dd-20-28-39/aom/av1/common/convolve.c(267,3)
    remark #15542: loop was not vectorized: inner loop was already vectorized
 
    LOOP BEGIN at /home/training/dd-20-28-39/aom/av1/common/convolve.c(269,5)
-      remark #25096: Loop Interchange not done due to: Imperfect Loop Nest (Either at Source or due to other Compiler Transformations)
-      remark #25451: Advice: Loop Interchange, if possible, might help loopnest. Suggested Permutation : ( 1 2 ) --> ( 2 1 ) 
-      remark #15389: vectorization support: reference src_horiz[y*src_stride+x-fo_horiz+k] has unaligned access   [ /home/training/dd-20-28-39/aom/av1/common/convolve.c(273,30) ]
-      remark #15389: vectorization support: reference im_block[y*w+x] has unaligned access   [ /home/training/dd-20-28-39/aom/av1/common/convolve.c(276,7) ]
-      remark #15381: vectorization support: unaligned access used inside loop body
+      remark #15328: vectorization support: non-unit strided load was emulated for the variable <src_horiz[y*src_stride+x-fo_horiz+k]>, stride is unknown to compiler   [ /home/training/dd-20-28-39/aom/av1/common/convolve.c(273,30) ]
+      remark #15329: vectorization support: non-unit strided store was emulated for the variable <im_block[y*w+x]>, stride is unknown to compiler   [ /home/training/dd-20-28-39/aom/av1/common/convolve.c(276,7) ]
       remark #15305: vectorization support: vector length 32
-      remark #15309: vectorization support: normalized vectorization overhead 0.603
+      remark #15309: vectorization support: normalized vectorization overhead 0.116
       remark #15301: SIMD LOOP WAS VECTORIZED
-      remark #15450: unmasked unaligned unit stride loads: 1 
-      remark #15451: unmasked unaligned unit stride stores: 1 
+      remark #15452: unmasked strided loads: 1 
+      remark #15453: unmasked strided stores: 1 
       remark #15475: --- begin vector cost summary ---
       remark #15476: scalar cost: 14 
-      remark #15477: vector cost: 2.280 
-      remark #15478: estimated potential speedup: 4.830 
+      remark #15477: vector cost: 10.210 
+      remark #15478: estimated potential speedup: 1.360 
       remark #15488: --- end vector cost summary ---
+      remark #25015: Estimate of max trip count of loop=540
 
       LOOP BEGIN at /home/training/dd-20-28-39/aom/av1/common/convolve.c(272,7)
          remark #15548: loop was vectorized along with the outer loop
@@ -485,19 +483,17 @@ LOOP BEGIN at /home/training/dd-20-28-39/aom/av1/common/convolve.c(267,3)
 
    LOOP BEGIN at /home/training/dd-20-28-39/aom/av1/common/convolve.c(269,5)
    <Remainder loop for vectorization>
-      remark #15389: vectorization support: reference src_horiz[y*src_stride+x-fo_horiz+k] has unaligned access   [ /home/training/dd-20-28-39/aom/av1/common/convolve.c(273,30) ]
-      remark #15389: vectorization support: reference im_block[y*w+x] has unaligned access   [ /home/training/dd-20-28-39/aom/av1/common/convolve.c(276,7) ]
-      remark #15381: vectorization support: unaligned access used inside loop body
       remark #15305: vectorization support: vector length 8
-      remark #15309: vectorization support: normalized vectorization overhead 1.125
+      remark #15309: vectorization support: normalized vectorization overhead 0.244
       remark #15301: REMAINDER LOOP WAS VECTORIZED
-      remark #15450: unmasked unaligned unit stride loads: 1 
-      remark #15451: unmasked unaligned unit stride stores: 1 
+      remark #15452: unmasked strided loads: 1 
+      remark #15453: unmasked strided stores: 1 
       remark #15475: --- begin vector cost summary ---
       remark #15476: scalar cost: 14 
-      remark #15477: vector cost: 2.280 
-      remark #15478: estimated potential speedup: 4.830 
+      remark #15477: vector cost: 10.210 
+      remark #15478: estimated potential speedup: 1.360 
       remark #15488: --- end vector cost summary ---
+      remark #25015: Estimate of max trip count of loop=2160
 
       LOOP BEGIN at /home/training/dd-20-28-39/aom/av1/common/convolve.c(272,7)
          remark #15548: loop was vectorized along with the outer loop
@@ -506,6 +502,7 @@ LOOP BEGIN at /home/training/dd-20-28-39/aom/av1/common/convolve.c(267,3)
 
    LOOP BEGIN at /home/training/dd-20-28-39/aom/av1/common/convolve.c(269,5)
    <Remainder loop for vectorization>
+      remark #25015: Estimate of max trip count of loop=17280
 
       LOOP BEGIN at /home/training/dd-20-28-39/aom/av1/common/convolve.c(272,7)
          remark #25460: No loop optimizations reported
@@ -516,21 +513,30 @@ LOOP END
 LOOP BEGIN at /home/training/dd-20-28-39/aom/av1/common/convolve.c(286,3)
    remark #15542: loop was not vectorized: inner loop was already vectorized
 
-   LOOP BEGIN at /home/training/dd-20-28-39/aom/av1/common/convolve.c(287,5)
-      remark #15542: loop was not vectorized: inner loop was already vectorized
+   LOOP BEGIN at /home/training/dd-20-28-39/aom/av1/common/convolve.c(288,5)
+      remark #15313: simd loop was not vectorized: unsupported data type
+      remark #15552: loop was not vectorized with "simd"
+      remark #15442: entire loop may be executed in remainder
+      remark #15450: unmasked unaligned unit stride loads: 1 
+      remark #15452: unmasked strided loads: 1 
+      remark #15475: --- begin vector cost summary ---
+      remark #15476: scalar cost: 7 
+      remark #15477: vector cost: 4.370 
+      remark #15478: estimated potential speedup: 1.470 
+      remark #15488: --- end vector cost summary ---
 
-      LOOP BEGIN at /home/training/dd-20-28-39/aom/av1/common/convolve.c(289,7)
+      LOOP BEGIN at /home/training/dd-20-28-39/aom/av1/common/convolve.c(290,7)
       <Peeled loop for vectorization>
          remark #25015: Estimate of max trip count of loop=15
       LOOP END
 
-      LOOP BEGIN at /home/training/dd-20-28-39/aom/av1/common/convolve.c(289,7)
-         remark #15389: vectorization support: reference y_filter[k] has unaligned access   [ /home/training/dd-20-28-39/aom/av1/common/convolve.c(290,16) ]
+      LOOP BEGIN at /home/training/dd-20-28-39/aom/av1/common/convolve.c(290,7)
+         remark #15389: vectorization support: reference y_filter[k] has unaligned access   [ /home/training/dd-20-28-39/aom/av1/common/convolve.c(291,16) ]
          remark #15381: vectorization support: unaligned access used inside loop body
-         remark #15328: vectorization support: non-unit strided load was emulated for the variable <&im_block[fo_vert*w][(y-fo_vert+k)*w+x]>, stride is unknown to compiler   [ /home/training/dd-20-28-39/aom/av1/common/convolve.c(290,30) ]
+         remark #15328: vectorization support: non-unit strided load was emulated for the variable <&im_block[fo_vert*w][(y-fo_vert+k)*w+x]>, stride is unknown to compiler   [ /home/training/dd-20-28-39/aom/av1/common/convolve.c(291,30) ]
          remark #15305: vectorization support: vector length 16
          remark #15309: vectorization support: normalized vectorization overhead 0.500
-         remark #15355: vectorization support: sum is int type reduction   [ /home/training/dd-20-28-39/aom/av1/common/convolve.c(288,19) ]
+         remark #15355: vectorization support: sum is int type reduction   [ /home/training/dd-20-28-39/aom/av1/common/convolve.c(288,5) ]
          remark #15300: LOOP WAS VECTORIZED
          remark #15442: entire loop may be executed in remainder
          remark #15450: unmasked unaligned unit stride loads: 1 
@@ -542,7 +548,7 @@ LOOP BEGIN at /home/training/dd-20-28-39/aom/av1/common/convolve.c(286,3)
          remark #15488: --- end vector cost summary ---
       LOOP END
 
-      LOOP BEGIN at /home/training/dd-20-28-39/aom/av1/common/convolve.c(289,7)
+      LOOP BEGIN at /home/training/dd-20-28-39/aom/av1/common/convolve.c(290,7)
       <Remainder loop for vectorization>
       LOOP END
    LOOP END
@@ -554,24 +560,24 @@ Begin optimization report for: av1_dist_wtd_convolve_y_c(const uint8_t *, int, u
     Report from: Loop nest & Vector optimizations [loop, vec]
 
 
-LOOP BEGIN at /home/training/dd-20-28-39/aom/av1/common/convolve.c(336,3)
+LOOP BEGIN at /home/training/dd-20-28-39/aom/av1/common/convolve.c(337,3)
    remark #15542: loop was not vectorized: inner loop was already vectorized
 
-   LOOP BEGIN at /home/training/dd-20-28-39/aom/av1/common/convolve.c(337,5)
+   LOOP BEGIN at /home/training/dd-20-28-39/aom/av1/common/convolve.c(338,5)
       remark #15542: loop was not vectorized: inner loop was already vectorized
 
-      LOOP BEGIN at /home/training/dd-20-28-39/aom/av1/common/convolve.c(339,7)
+      LOOP BEGIN at /home/training/dd-20-28-39/aom/av1/common/convolve.c(340,7)
       <Peeled loop for vectorization>
          remark #25015: Estimate of max trip count of loop=15
       LOOP END
 
-      LOOP BEGIN at /home/training/dd-20-28-39/aom/av1/common/convolve.c(339,7)
-         remark #15389: vectorization support: reference y_filter[k] has unaligned access   [ /home/training/dd-20-28-39/aom/av1/common/convolve.c(340,16) ]
+      LOOP BEGIN at /home/training/dd-20-28-39/aom/av1/common/convolve.c(340,7)
+         remark #15389: vectorization support: reference y_filter[k] has unaligned access   [ /home/training/dd-20-28-39/aom/av1/common/convolve.c(341,16) ]
          remark #15381: vectorization support: unaligned access used inside loop body
-         remark #15328: vectorization support: non-unit strided load was emulated for the variable <src[(y-fo_vert+k)*src_stride+x]>, stride is unknown to compiler   [ /home/training/dd-20-28-39/aom/av1/common/convolve.c(340,30) ]
+         remark #15328: vectorization support: non-unit strided load was emulated for the variable <src[(y-fo_vert+k)*src_stride+x]>, stride is unknown to compiler   [ /home/training/dd-20-28-39/aom/av1/common/convolve.c(341,30) ]
          remark #15305: vectorization support: vector length 16
          remark #15309: vectorization support: normalized vectorization overhead 0.493
-         remark #15355: vectorization support: res is int type reduction   [ /home/training/dd-20-28-39/aom/av1/common/convolve.c(340,9) ]
+         remark #15355: vectorization support: res is int type reduction   [ /home/training/dd-20-28-39/aom/av1/common/convolve.c(341,9) ]
          remark #15300: LOOP WAS VECTORIZED
          remark #15442: entire loop may be executed in remainder
          remark #15450: unmasked unaligned unit stride loads: 1 
@@ -583,7 +589,7 @@ LOOP BEGIN at /home/training/dd-20-28-39/aom/av1/common/convolve.c(336,3)
          remark #15488: --- end vector cost summary ---
       LOOP END
 
-      LOOP BEGIN at /home/training/dd-20-28-39/aom/av1/common/convolve.c(339,7)
+      LOOP BEGIN at /home/training/dd-20-28-39/aom/av1/common/convolve.c(340,7)
       <Remainder loop for vectorization>
       LOOP END
    LOOP END
@@ -595,24 +601,24 @@ Begin optimization report for: av1_dist_wtd_convolve_x_c(const uint8_t *, int, u
     Report from: Loop nest & Vector optimizations [loop, vec]
 
 
-LOOP BEGIN at /home/training/dd-20-28-39/aom/av1/common/convolve.c(386,3)
+LOOP BEGIN at /home/training/dd-20-28-39/aom/av1/common/convolve.c(387,3)
    remark #15542: loop was not vectorized: inner loop was already vectorized
 
-   LOOP BEGIN at /home/training/dd-20-28-39/aom/av1/common/convolve.c(387,5)
+   LOOP BEGIN at /home/training/dd-20-28-39/aom/av1/common/convolve.c(388,5)
       remark #15542: loop was not vectorized: inner loop was already vectorized
 
-      LOOP BEGIN at /home/training/dd-20-28-39/aom/av1/common/convolve.c(389,7)
+      LOOP BEGIN at /home/training/dd-20-28-39/aom/av1/common/convolve.c(390,7)
       <Peeled loop for vectorization>
          remark #25015: Estimate of max trip count of loop=31
       LOOP END
 
-      LOOP BEGIN at /home/training/dd-20-28-39/aom/av1/common/convolve.c(389,7)
-         remark #15389: vectorization support: reference x_filter[k] has unaligned access   [ /home/training/dd-20-28-39/aom/av1/common/convolve.c(390,16) ]
-         remark #15389: vectorization support: reference src[y*src_stride+x-fo_horiz+k] has unaligned access   [ /home/training/dd-20-28-39/aom/av1/common/convolve.c(390,30) ]
+      LOOP BEGIN at /home/training/dd-20-28-39/aom/av1/common/convolve.c(390,7)
+         remark #15389: vectorization support: reference x_filter[k] has unaligned access   [ /home/training/dd-20-28-39/aom/av1/common/convolve.c(391,16) ]
+         remark #15389: vectorization support: reference src[y*src_stride+x-fo_horiz+k] has unaligned access   [ /home/training/dd-20-28-39/aom/av1/common/convolve.c(391,30) ]
          remark #15381: vectorization support: unaligned access used inside loop body
          remark #15305: vectorization support: vector length 32
          remark #15309: vectorization support: normalized vectorization overhead 2.412
-         remark #15355: vectorization support: res is int type reduction   [ /home/training/dd-20-28-39/aom/av1/common/convolve.c(390,9) ]
+         remark #15355: vectorization support: res is int type reduction   [ /home/training/dd-20-28-39/aom/av1/common/convolve.c(391,9) ]
          remark #15300: LOOP WAS VECTORIZED
          remark #15450: unmasked unaligned unit stride loads: 2 
          remark #15475: --- begin vector cost summary ---
@@ -622,7 +628,7 @@ LOOP BEGIN at /home/training/dd-20-28-39/aom/av1/common/convolve.c(386,3)
          remark #15488: --- end vector cost summary ---
       LOOP END
 
-      LOOP BEGIN at /home/training/dd-20-28-39/aom/av1/common/convolve.c(389,7)
+      LOOP BEGIN at /home/training/dd-20-28-39/aom/av1/common/convolve.c(390,7)
       <Remainder loop for vectorization>
       LOOP END
    LOOP END
@@ -634,16 +640,16 @@ Begin optimization report for: av1_dist_wtd_convolve_2d_copy_c(const uint8_t *, 
     Report from: Loop nest & Vector optimizations [loop, vec]
 
 
-LOOP BEGIN at /home/training/dd-20-28-39/aom/av1/common/convolve.c(434,3)
+LOOP BEGIN at /home/training/dd-20-28-39/aom/av1/common/convolve.c(435,3)
    remark #15541: outer loop was not auto-vectorized: consider using SIMD directive
 
-   LOOP BEGIN at /home/training/dd-20-28-39/aom/av1/common/convolve.c(435,5)
+   LOOP BEGIN at /home/training/dd-20-28-39/aom/av1/common/convolve.c(436,5)
       remark #15344: loop was not vectorized: vector dependence prevents vectorization. First dependence is shown below. Use level 5 report for details
-      remark #15346: vector dependence: assumed ANTI dependence between src[y*src_stride+x] (437:7) and dst16[y*dst16_stride+x] (451:9)
+      remark #15346: vector dependence: assumed ANTI dependence between src[y*src_stride+x] (438:7) and dst16[y*dst16_stride+x] (452:9)
       remark #25439: unrolled with remainder by 2  
    LOOP END
 
-   LOOP BEGIN at /home/training/dd-20-28-39/aom/av1/common/convolve.c(435,5)
+   LOOP BEGIN at /home/training/dd-20-28-39/aom/av1/common/convolve.c(436,5)
    <Remainder>
    LOOP END
 LOOP END
@@ -654,28 +660,28 @@ Begin optimization report for: av1_convolve_2d_scale_c(const uint8_t *, int, uin
     Report from: Loop nest & Vector optimizations [loop, vec]
 
 
-LOOP BEGIN at /home/training/dd-20-28-39/aom/av1/common/convolve.c(479,3)
+LOOP BEGIN at /home/training/dd-20-28-39/aom/av1/common/convolve.c(480,3)
    remark #25096: Loop Interchange not done due to: Imperfect Loop Nest (Either at Source or due to other Compiler Transformations)
    remark #25451: Advice: Loop Interchange, if possible, might help loopnest. Suggested Permutation : ( 1 2 3 ) --> ( 1 3 2 ) 
    remark #15542: loop was not vectorized: inner loop was already vectorized
 
-   LOOP BEGIN at /home/training/dd-20-28-39/aom/av1/common/convolve.c(481,5)
+   LOOP BEGIN at /home/training/dd-20-28-39/aom/av1/common/convolve.c(482,5)
       remark #25096: Loop Interchange not done due to: Imperfect Loop Nest (Either at Source or due to other Compiler Transformations)
       remark #25451: Advice: Loop Interchange, if possible, might help loopnest. Suggested Permutation : ( 1 2 ) --> ( 2 1 ) 
       remark #15542: loop was not vectorized: inner loop was already vectorized
 
-      LOOP BEGIN at /home/training/dd-20-28-39/aom/av1/common/convolve.c(488,7)
+      LOOP BEGIN at /home/training/dd-20-28-39/aom/av1/common/convolve.c(489,7)
       <Peeled loop for vectorization>
          remark #25015: Estimate of max trip count of loop=31
       LOOP END
 
-      LOOP BEGIN at /home/training/dd-20-28-39/aom/av1/common/convolve.c(488,7)
-         remark #15389: vectorization support: reference x_filter[k] has unaligned access   [ /home/training/dd-20-28-39/aom/av1/common/convolve.c(489,16) ]
-         remark #15389: vectorization support: reference src_x[k-fo_horiz] has unaligned access   [ /home/training/dd-20-28-39/aom/av1/common/convolve.c(489,30) ]
+      LOOP BEGIN at /home/training/dd-20-28-39/aom/av1/common/convolve.c(489,7)
+         remark #15389: vectorization support: reference x_filter[k] has unaligned access   [ /home/training/dd-20-28-39/aom/av1/common/convolve.c(490,16) ]
+         remark #15389: vectorization support: reference src_x[k-fo_horiz] has unaligned access   [ /home/training/dd-20-28-39/aom/av1/common/convolve.c(490,30) ]
          remark #15381: vectorization support: unaligned access used inside loop body
          remark #15305: vectorization support: vector length 32
          remark #15309: vectorization support: normalized vectorization overhead 2.412
-         remark #15355: vectorization support: sum is int type reduction   [ /home/training/dd-20-28-39/aom/av1/common/convolve.c(487,19) ]
+         remark #15355: vectorization support: sum is int type reduction   [ /home/training/dd-20-28-39/aom/av1/common/convolve.c(488,19) ]
          remark #15300: LOOP WAS VECTORIZED
          remark #15450: unmasked unaligned unit stride loads: 2 
          remark #15475: --- begin vector cost summary ---
@@ -685,68 +691,68 @@ LOOP BEGIN at /home/training/dd-20-28-39/aom/av1/common/convolve.c(479,3)
          remark #15488: --- end vector cost summary ---
       LOOP END
 
-      LOOP BEGIN at /home/training/dd-20-28-39/aom/av1/common/convolve.c(488,7)
+      LOOP BEGIN at /home/training/dd-20-28-39/aom/av1/common/convolve.c(489,7)
       <Remainder loop for vectorization>
       LOOP END
    LOOP END
 LOOP END
 
-LOOP BEGIN at /home/training/dd-20-28-39/aom/av1/common/convolve.c(501,3)
+LOOP BEGIN at /home/training/dd-20-28-39/aom/av1/common/convolve.c(502,3)
    remark #25445: Loop Interchange not done due to: Data Dependencies
    remark #25446: Dependencies found between following statements:  [From_Line# -> (Dependency Type) To_Line#]
-   remark #25447: Dependence found between following statements:  [514 -> (Anti) 536]
-   remark #25447: Dependence found between following statements:  [514 -> (Anti) 528]
-   remark #25447: Dependence found between following statements:  [515 -> (Anti) 536]
-   remark #25447: Dependence found between following statements:  [515 -> (Anti) 528]
-   remark #25447: Dependence found between following statements:  [516 -> (Anti) 536]
-   remark #25447: Dependence found between following statements:  [516 -> (Anti) 528]
-   remark #25447: Dependence found between following statements:  [517 -> (Anti) 536]
-   remark #25447: Dependence found between following statements:  [517 -> (Anti) 530]
-   remark #25447: Dependence found between following statements:  [517 -> (Anti) 528]
-   remark #25447: Dependence found between following statements:  [518 -> (Anti) 536]
-   remark #25447: Dependence found between following statements:  [518 -> (Anti) 528]
-   remark #25447: Dependence found between following statements:  [520 -> (Anti) 536]
-   remark #25447: Dependence found between following statements:  [520 -> (Anti) 528]
-   remark #25447: Dependence found between following statements:  [528 -> (Output) 536]
-   remark #25447: Dependence found between following statements:  [528 -> (Output) 530]
-   remark #25447: Dependence found between following statements:  [528 -> (Output) 528]
-   remark #25447: Dependence found between following statements:  [528 -> (Flow) 520]
-   remark #25447: Dependence found between following statements:  [528 -> (Flow) 518]
-   remark #25447: Dependence found between following statements:  [528 -> (Flow) 517]
-   remark #25447: Dependence found between following statements:  [528 -> (Flow) 516]
-   remark #25447: Dependence found between following statements:  [528 -> (Flow) 515]
-   remark #25447: Dependence found between following statements:  [528 -> (Flow) 514]
-   remark #25447: Dependence found between following statements:  [530 -> (Output) 536]
-   remark #25447: Dependence found between following statements:  [530 -> (Output) 530]
-   remark #25447: Dependence found between following statements:  [530 -> (Output) 528]
-   remark #25447: Dependence found between following statements:  [530 -> (Flow) 517]
-   remark #25447: Dependence found between following statements:  [536 -> (Output) 536]
-   remark #25447: Dependence found between following statements:  [536 -> (Output) 530]
-   remark #25447: Dependence found between following statements:  [536 -> (Output) 528]
-   remark #25447: Dependence found between following statements:  [536 -> (Flow) 520]
-   remark #25447: Dependence found between following statements:  [536 -> (Flow) 518]
-   remark #25447: Dependence found between following statements:  [536 -> (Flow) 517]
-   remark #25447: Dependence found between following statements:  [536 -> (Flow) 516]
-   remark #25447: Dependence found between following statements:  [536 -> (Flow) 515]
-   remark #25447: Dependence found between following statements:  [536 -> (Flow) 514]
+   remark #25447: Dependence found between following statements:  [515 -> (Anti) 537]
+   remark #25447: Dependence found between following statements:  [515 -> (Anti) 529]
+   remark #25447: Dependence found between following statements:  [516 -> (Anti) 537]
+   remark #25447: Dependence found between following statements:  [516 -> (Anti) 529]
+   remark #25447: Dependence found between following statements:  [517 -> (Anti) 537]
+   remark #25447: Dependence found between following statements:  [517 -> (Anti) 529]
+   remark #25447: Dependence found between following statements:  [518 -> (Anti) 537]
+   remark #25447: Dependence found between following statements:  [518 -> (Anti) 531]
+   remark #25447: Dependence found between following statements:  [518 -> (Anti) 529]
+   remark #25447: Dependence found between following statements:  [519 -> (Anti) 537]
+   remark #25447: Dependence found between following statements:  [519 -> (Anti) 529]
+   remark #25447: Dependence found between following statements:  [521 -> (Anti) 537]
+   remark #25447: Dependence found between following statements:  [521 -> (Anti) 529]
+   remark #25447: Dependence found between following statements:  [529 -> (Output) 537]
+   remark #25447: Dependence found between following statements:  [529 -> (Output) 531]
+   remark #25447: Dependence found between following statements:  [529 -> (Output) 529]
+   remark #25447: Dependence found between following statements:  [529 -> (Flow) 521]
+   remark #25447: Dependence found between following statements:  [529 -> (Flow) 519]
+   remark #25447: Dependence found between following statements:  [529 -> (Flow) 518]
+   remark #25447: Dependence found between following statements:  [529 -> (Flow) 517]
+   remark #25447: Dependence found between following statements:  [529 -> (Flow) 516]
+   remark #25447: Dependence found between following statements:  [529 -> (Flow) 515]
+   remark #25447: Dependence found between following statements:  [531 -> (Output) 537]
+   remark #25447: Dependence found between following statements:  [531 -> (Output) 531]
+   remark #25447: Dependence found between following statements:  [531 -> (Output) 529]
+   remark #25447: Dependence found between following statements:  [531 -> (Flow) 518]
+   remark #25447: Dependence found between following statements:  [537 -> (Output) 537]
+   remark #25447: Dependence found between following statements:  [537 -> (Output) 531]
+   remark #25447: Dependence found between following statements:  [537 -> (Output) 529]
+   remark #25447: Dependence found between following statements:  [537 -> (Flow) 521]
+   remark #25447: Dependence found between following statements:  [537 -> (Flow) 519]
+   remark #25447: Dependence found between following statements:  [537 -> (Flow) 518]
+   remark #25447: Dependence found between following statements:  [537 -> (Flow) 517]
+   remark #25447: Dependence found between following statements:  [537 -> (Flow) 516]
+   remark #25447: Dependence found between following statements:  [537 -> (Flow) 515]
    remark #25451: Advice: Loop Interchange, if possible, might help loopnest. Suggested Permutation : ( 1 2 ) --> ( 2 1 ) 
    remark #15542: loop was not vectorized: inner loop was already vectorized
 
-   LOOP BEGIN at /home/training/dd-20-28-39/aom/av1/common/convolve.c(503,5)
+   LOOP BEGIN at /home/training/dd-20-28-39/aom/av1/common/convolve.c(504,5)
       remark #15542: loop was not vectorized: inner loop was already vectorized
 
-      LOOP BEGIN at /home/training/dd-20-28-39/aom/av1/common/convolve.c(510,7)
+      LOOP BEGIN at /home/training/dd-20-28-39/aom/av1/common/convolve.c(511,7)
       <Peeled loop for vectorization>
          remark #25015: Estimate of max trip count of loop=15
       LOOP END
 
-      LOOP BEGIN at /home/training/dd-20-28-39/aom/av1/common/convolve.c(510,7)
-         remark #15389: vectorization support: reference y_filter[k] has unaligned access   [ /home/training/dd-20-28-39/aom/av1/common/convolve.c(511,16) ]
+      LOOP BEGIN at /home/training/dd-20-28-39/aom/av1/common/convolve.c(511,7)
+         remark #15389: vectorization support: reference y_filter[k] has unaligned access   [ /home/training/dd-20-28-39/aom/av1/common/convolve.c(512,16) ]
          remark #15381: vectorization support: unaligned access used inside loop body
-         remark #15328: vectorization support: non-unit strided load was emulated for the variable <src_y[(k-fo_vert)*w]>, stride is unknown to compiler   [ /home/training/dd-20-28-39/aom/av1/common/convolve.c(511,30) ]
+         remark #15328: vectorization support: non-unit strided load was emulated for the variable <src_y[(k-fo_vert)*w]>, stride is unknown to compiler   [ /home/training/dd-20-28-39/aom/av1/common/convolve.c(512,30) ]
          remark #15305: vectorization support: vector length 16
          remark #15309: vectorization support: normalized vectorization overhead 0.500
-         remark #15355: vectorization support: sum is int type reduction   [ /home/training/dd-20-28-39/aom/av1/common/convolve.c(509,19) ]
+         remark #15355: vectorization support: sum is int type reduction   [ /home/training/dd-20-28-39/aom/av1/common/convolve.c(510,19) ]
          remark #15300: LOOP WAS VECTORIZED
          remark #15442: entire loop may be executed in remainder
          remark #15450: unmasked unaligned unit stride loads: 1 
@@ -758,7 +764,7 @@ LOOP BEGIN at /home/training/dd-20-28-39/aom/av1/common/convolve.c(501,3)
          remark #15488: --- end vector cost summary ---
       LOOP END
 
-      LOOP BEGIN at /home/training/dd-20-28-39/aom/av1/common/convolve.c(510,7)
+      LOOP BEGIN at /home/training/dd-20-28-39/aom/av1/common/convolve.c(511,7)
       <Remainder loop for vectorization>
       LOOP END
    LOOP END
@@ -770,18 +776,18 @@ Begin optimization report for: av1_convolve_2d_facade(const uint8_t *, int, uint
     Report from: Loop nest & Vector optimizations [loop, vec]
 
 
-LOOP BEGIN at /home/training/dd-20-28-39/aom/av1/common/convolve.c(135,3) inlined into /home/training/dd-20-28-39/aom/av1/common/convolve.c(579,7)
+LOOP BEGIN at /home/training/dd-20-28-39/aom/av1/common/convolve.c(135,3) inlined into /home/training/dd-20-28-39/aom/av1/common/convolve.c(580,7)
    remark #15542: loop was not vectorized: inner loop was already vectorized
 
-   LOOP BEGIN at /home/training/dd-20-28-39/aom/av1/common/convolve.c(136,5) inlined into /home/training/dd-20-28-39/aom/av1/common/convolve.c(579,7)
+   LOOP BEGIN at /home/training/dd-20-28-39/aom/av1/common/convolve.c(136,5) inlined into /home/training/dd-20-28-39/aom/av1/common/convolve.c(580,7)
       remark #15542: loop was not vectorized: inner loop was already vectorized
 
-      LOOP BEGIN at /home/training/dd-20-28-39/aom/av1/common/convolve.c(138,7) inlined into /home/training/dd-20-28-39/aom/av1/common/convolve.c(579,7)
+      LOOP BEGIN at /home/training/dd-20-28-39/aom/av1/common/convolve.c(138,7) inlined into /home/training/dd-20-28-39/aom/av1/common/convolve.c(580,7)
       <Peeled loop for vectorization>
          remark #25015: Estimate of max trip count of loop=31
       LOOP END
 
-      LOOP BEGIN at /home/training/dd-20-28-39/aom/av1/common/convolve.c(138,7) inlined into /home/training/dd-20-28-39/aom/av1/common/convolve.c(579,7)
+      LOOP BEGIN at /home/training/dd-20-28-39/aom/av1/common/convolve.c(138,7) inlined into /home/training/dd-20-28-39/aom/av1/common/convolve.c(580,7)
          remark #15389: vectorization support: reference x_filter[k] has unaligned access   [ /home/training/dd-20-28-39/aom/av1/common/convolve.c(139,16) ]
          remark #15389: vectorization support: reference src_horiz[y*src_stride+x-fo_horiz+k] has unaligned access   [ /home/training/dd-20-28-39/aom/av1/common/convolve.c(139,30) ]
          remark #15381: vectorization support: unaligned access used inside loop body
@@ -797,26 +803,26 @@ LOOP BEGIN at /home/training/dd-20-28-39/aom/av1/common/convolve.c(135,3) inline
          remark #15488: --- end vector cost summary ---
       LOOP END
 
-      LOOP BEGIN at /home/training/dd-20-28-39/aom/av1/common/convolve.c(138,7) inlined into /home/training/dd-20-28-39/aom/av1/common/convolve.c(579,7)
+      LOOP BEGIN at /home/training/dd-20-28-39/aom/av1/common/convolve.c(138,7) inlined into /home/training/dd-20-28-39/aom/av1/common/convolve.c(580,7)
       <Remainder loop for vectorization>
       LOOP END
    LOOP END
 LOOP END
 
-LOOP BEGIN at /home/training/dd-20-28-39/aom/av1/common/convolve.c(152,3) inlined into /home/training/dd-20-28-39/aom/av1/common/convolve.c(579,7)
+LOOP BEGIN at /home/training/dd-20-28-39/aom/av1/common/convolve.c(152,3) inlined into /home/training/dd-20-28-39/aom/av1/common/convolve.c(580,7)
 <Multiversioned v1>
    remark #25228: Loop multiversioned for Data Dependence
    remark #15542: loop was not vectorized: inner loop was already vectorized
 
-   LOOP BEGIN at /home/training/dd-20-28-39/aom/av1/common/convolve.c(153,5) inlined into /home/training/dd-20-28-39/aom/av1/common/convolve.c(579,7)
+   LOOP BEGIN at /home/training/dd-20-28-39/aom/av1/common/convolve.c(153,5) inlined into /home/training/dd-20-28-39/aom/av1/common/convolve.c(580,7)
       remark #15542: loop was not vectorized: inner loop was already vectorized
 
-      LOOP BEGIN at /home/training/dd-20-28-39/aom/av1/common/convolve.c(155,7) inlined into /home/training/dd-20-28-39/aom/av1/common/convolve.c(579,7)
+      LOOP BEGIN at /home/training/dd-20-28-39/aom/av1/common/convolve.c(155,7) inlined into /home/training/dd-20-28-39/aom/av1/common/convolve.c(580,7)
       <Peeled loop for vectorization>
          remark #25015: Estimate of max trip count of loop=15
       LOOP END
 
-      LOOP BEGIN at /home/training/dd-20-28-39/aom/av1/common/convolve.c(155,7) inlined into /home/training/dd-20-28-39/aom/av1/common/convolve.c(579,7)
+      LOOP BEGIN at /home/training/dd-20-28-39/aom/av1/common/convolve.c(155,7) inlined into /home/training/dd-20-28-39/aom/av1/common/convolve.c(580,7)
          remark #15389: vectorization support: reference y_filter[k] has unaligned access   [ /home/training/dd-20-28-39/aom/av1/common/convolve.c(156,16) ]
          remark #15381: vectorization support: unaligned access used inside loop body
          remark #15328: vectorization support: non-unit strided load was emulated for the variable <&im_block[fo_vert*w][(y-fo_vert+k)*w+x]>, stride is unknown to compiler   [ /home/training/dd-20-28-39/aom/av1/common/convolve.c(156,30) ]
@@ -834,25 +840,25 @@ LOOP BEGIN at /home/training/dd-20-28-39/aom/av1/common/convolve.c(152,3) inline
          remark #15488: --- end vector cost summary ---
       LOOP END
 
-      LOOP BEGIN at /home/training/dd-20-28-39/aom/av1/common/convolve.c(155,7) inlined into /home/training/dd-20-28-39/aom/av1/common/convolve.c(579,7)
+      LOOP BEGIN at /home/training/dd-20-28-39/aom/av1/common/convolve.c(155,7) inlined into /home/training/dd-20-28-39/aom/av1/common/convolve.c(580,7)
       <Remainder loop for vectorization>
       LOOP END
    LOOP END
 LOOP END
 
-LOOP BEGIN at /home/training/dd-20-28-39/aom/av1/common/convolve.c(152,3) inlined into /home/training/dd-20-28-39/aom/av1/common/convolve.c(579,7)
+LOOP BEGIN at /home/training/dd-20-28-39/aom/av1/common/convolve.c(152,3) inlined into /home/training/dd-20-28-39/aom/av1/common/convolve.c(580,7)
 <Multiversioned v2>
    remark #15542: loop was not vectorized: inner loop was already vectorized
 
-   LOOP BEGIN at /home/training/dd-20-28-39/aom/av1/common/convolve.c(153,5) inlined into /home/training/dd-20-28-39/aom/av1/common/convolve.c(579,7)
+   LOOP BEGIN at /home/training/dd-20-28-39/aom/av1/common/convolve.c(153,5) inlined into /home/training/dd-20-28-39/aom/av1/common/convolve.c(580,7)
       remark #15542: loop was not vectorized: inner loop was already vectorized
 
-      LOOP BEGIN at /home/training/dd-20-28-39/aom/av1/common/convolve.c(155,7) inlined into /home/training/dd-20-28-39/aom/av1/common/convolve.c(579,7)
+      LOOP BEGIN at /home/training/dd-20-28-39/aom/av1/common/convolve.c(155,7) inlined into /home/training/dd-20-28-39/aom/av1/common/convolve.c(580,7)
       <Peeled loop for vectorization>
          remark #25015: Estimate of max trip count of loop=15
       LOOP END
 
-      LOOP BEGIN at /home/training/dd-20-28-39/aom/av1/common/convolve.c(155,7) inlined into /home/training/dd-20-28-39/aom/av1/common/convolve.c(579,7)
+      LOOP BEGIN at /home/training/dd-20-28-39/aom/av1/common/convolve.c(155,7) inlined into /home/training/dd-20-28-39/aom/av1/common/convolve.c(580,7)
          remark #15389: vectorization support: reference y_filter[k] has unaligned access   [ /home/training/dd-20-28-39/aom/av1/common/convolve.c(156,16) ]
          remark #15381: vectorization support: unaligned access used inside loop body
          remark #15328: vectorization support: non-unit strided load was emulated for the variable <&im_block[fo_vert*w][(y-fo_vert+k)*w+x]>, stride is unknown to compiler   [ /home/training/dd-20-28-39/aom/av1/common/convolve.c(156,30) ]
@@ -870,26 +876,26 @@ LOOP BEGIN at /home/training/dd-20-28-39/aom/av1/common/convolve.c(152,3) inline
          remark #15488: --- end vector cost summary ---
       LOOP END
 
-      LOOP BEGIN at /home/training/dd-20-28-39/aom/av1/common/convolve.c(155,7) inlined into /home/training/dd-20-28-39/aom/av1/common/convolve.c(579,7)
+      LOOP BEGIN at /home/training/dd-20-28-39/aom/av1/common/convolve.c(155,7) inlined into /home/training/dd-20-28-39/aom/av1/common/convolve.c(580,7)
       <Remainder loop for vectorization>
       LOOP END
    LOOP END
 LOOP END
 
-LOOP BEGIN at /home/training/dd-20-28-39/aom/av1/common/convolve.c(217,3) inlined into /home/training/dd-20-28-39/aom/av1/common/convolve.c(584,7)
+LOOP BEGIN at /home/training/dd-20-28-39/aom/av1/common/convolve.c(217,3) inlined into /home/training/dd-20-28-39/aom/av1/common/convolve.c(585,7)
 <Multiversioned v1>
    remark #25228: Loop multiversioned for Data Dependence
    remark #15542: loop was not vectorized: inner loop was already vectorized
 
-   LOOP BEGIN at /home/training/dd-20-28-39/aom/av1/common/convolve.c(218,5) inlined into /home/training/dd-20-28-39/aom/av1/common/convolve.c(584,7)
+   LOOP BEGIN at /home/training/dd-20-28-39/aom/av1/common/convolve.c(218,5) inlined into /home/training/dd-20-28-39/aom/av1/common/convolve.c(585,7)
       remark #15542: loop was not vectorized: inner loop was already vectorized
 
-      LOOP BEGIN at /home/training/dd-20-28-39/aom/av1/common/convolve.c(220,7) inlined into /home/training/dd-20-28-39/aom/av1/common/convolve.c(584,7)
+      LOOP BEGIN at /home/training/dd-20-28-39/aom/av1/common/convolve.c(220,7) inlined into /home/training/dd-20-28-39/aom/av1/common/convolve.c(585,7)
       <Peeled loop for vectorization>
          remark #25015: Estimate of max trip count of loop=31
       LOOP END
 
-      LOOP BEGIN at /home/training/dd-20-28-39/aom/av1/common/convolve.c(220,7) inlined into /home/training/dd-20-28-39/aom/av1/common/convolve.c(584,7)
+      LOOP BEGIN at /home/training/dd-20-28-39/aom/av1/common/convolve.c(220,7) inlined into /home/training/dd-20-28-39/aom/av1/common/convolve.c(585,7)
          remark #15389: vectorization support: reference x_filter[k] has unaligned access   [ /home/training/dd-20-28-39/aom/av1/common/convolve.c(221,16) ]
          remark #15389: vectorization support: reference src[y*src_stride+x-fo_horiz+k] has unaligned access   [ /home/training/dd-20-28-39/aom/av1/common/convolve.c(221,30) ]
          remark #15381: vectorization support: unaligned access used inside loop body
@@ -905,25 +911,25 @@ LOOP BEGIN at /home/training/dd-20-28-39/aom/av1/common/convolve.c(217,3) inline
          remark #15488: --- end vector cost summary ---
       LOOP END
 
-      LOOP BEGIN at /home/training/dd-20-28-39/aom/av1/common/convolve.c(220,7) inlined into /home/training/dd-20-28-39/aom/av1/common/convolve.c(584,7)
+      LOOP BEGIN at /home/training/dd-20-28-39/aom/av1/common/convolve.c(220,7) inlined into /home/training/dd-20-28-39/aom/av1/common/convolve.c(585,7)
       <Remainder loop for vectorization>
       LOOP END
    LOOP END
 LOOP END
 
-LOOP BEGIN at /home/training/dd-20-28-39/aom/av1/common/convolve.c(217,3) inlined into /home/training/dd-20-28-39/aom/av1/common/convolve.c(584,7)
+LOOP BEGIN at /home/training/dd-20-28-39/aom/av1/common/convolve.c(217,3) inlined into /home/training/dd-20-28-39/aom/av1/common/convolve.c(585,7)
 <Multiversioned v2>
    remark #15542: loop was not vectorized: inner loop was already vectorized
 
-   LOOP BEGIN at /home/training/dd-20-28-39/aom/av1/common/convolve.c(218,5) inlined into /home/training/dd-20-28-39/aom/av1/common/convolve.c(584,7)
+   LOOP BEGIN at /home/training/dd-20-28-39/aom/av1/common/convolve.c(218,5) inlined into /home/training/dd-20-28-39/aom/av1/common/convolve.c(585,7)
       remark #15542: loop was not vectorized: inner loop was already vectorized
 
-      LOOP BEGIN at /home/training/dd-20-28-39/aom/av1/common/convolve.c(220,7) inlined into /home/training/dd-20-28-39/aom/av1/common/convolve.c(584,7)
+      LOOP BEGIN at /home/training/dd-20-28-39/aom/av1/common/convolve.c(220,7) inlined into /home/training/dd-20-28-39/aom/av1/common/convolve.c(585,7)
       <Peeled loop for vectorization>
          remark #25015: Estimate of max trip count of loop=31
       LOOP END
 
-      LOOP BEGIN at /home/training/dd-20-28-39/aom/av1/common/convolve.c(220,7) inlined into /home/training/dd-20-28-39/aom/av1/common/convolve.c(584,7)
+      LOOP BEGIN at /home/training/dd-20-28-39/aom/av1/common/convolve.c(220,7) inlined into /home/training/dd-20-28-39/aom/av1/common/convolve.c(585,7)
          remark #15389: vectorization support: reference x_filter[k] has unaligned access   [ /home/training/dd-20-28-39/aom/av1/common/convolve.c(221,16) ]
          remark #15389: vectorization support: reference src[y*src_stride+x-fo_horiz+k] has unaligned access   [ /home/training/dd-20-28-39/aom/av1/common/convolve.c(221,30) ]
          remark #15381: vectorization support: unaligned access used inside loop body
@@ -939,26 +945,26 @@ LOOP BEGIN at /home/training/dd-20-28-39/aom/av1/common/convolve.c(217,3) inline
          remark #15488: --- end vector cost summary ---
       LOOP END
 
-      LOOP BEGIN at /home/training/dd-20-28-39/aom/av1/common/convolve.c(220,7) inlined into /home/training/dd-20-28-39/aom/av1/common/convolve.c(584,7)
+      LOOP BEGIN at /home/training/dd-20-28-39/aom/av1/common/convolve.c(220,7) inlined into /home/training/dd-20-28-39/aom/av1/common/convolve.c(585,7)
       <Remainder loop for vectorization>
       LOOP END
    LOOP END
 LOOP END
 
-LOOP BEGIN at /home/training/dd-20-28-39/aom/av1/common/convolve.c(185,3) inlined into /home/training/dd-20-28-39/aom/av1/common/convolve.c(589,7)
+LOOP BEGIN at /home/training/dd-20-28-39/aom/av1/common/convolve.c(185,3) inlined into /home/training/dd-20-28-39/aom/av1/common/convolve.c(590,7)
 <Multiversioned v1>
    remark #25228: Loop multiversioned for Data Dependence
    remark #15542: loop was not vectorized: inner loop was already vectorized
 
-   LOOP BEGIN at /home/training/dd-20-28-39/aom/av1/common/convolve.c(186,5) inlined into /home/training/dd-20-28-39/aom/av1/common/convolve.c(589,7)
+   LOOP BEGIN at /home/training/dd-20-28-39/aom/av1/common/convolve.c(186,5) inlined into /home/training/dd-20-28-39/aom/av1/common/convolve.c(590,7)
       remark #15542: loop was not vectorized: inner loop was already vectorized
 
-      LOOP BEGIN at /home/training/dd-20-28-39/aom/av1/common/convolve.c(188,7) inlined into /home/training/dd-20-28-39/aom/av1/common/convolve.c(589,7)
+      LOOP BEGIN at /home/training/dd-20-28-39/aom/av1/common/convolve.c(188,7) inlined into /home/training/dd-20-28-39/aom/av1/common/convolve.c(590,7)
       <Peeled loop for vectorization>
          remark #25015: Estimate of max trip count of loop=15
       LOOP END
 
-      LOOP BEGIN at /home/training/dd-20-28-39/aom/av1/common/convolve.c(188,7) inlined into /home/training/dd-20-28-39/aom/av1/common/convolve.c(589,7)
+      LOOP BEGIN at /home/training/dd-20-28-39/aom/av1/common/convolve.c(188,7) inlined into /home/training/dd-20-28-39/aom/av1/common/convolve.c(590,7)
          remark #15389: vectorization support: reference y_filter[k] has unaligned access   [ /home/training/dd-20-28-39/aom/av1/common/convolve.c(189,16) ]
          remark #15381: vectorization support: unaligned access used inside loop body
          remark #15328: vectorization support: non-unit strided load was emulated for the variable <src[(y-fo_vert+k)*src_stride+x]>, stride is unknown to compiler   [ /home/training/dd-20-28-39/aom/av1/common/convolve.c(189,30) ]
@@ -976,25 +982,25 @@ LOOP BEGIN at /home/training/dd-20-28-39/aom/av1/common/convolve.c(185,3) inline
          remark #15488: --- end vector cost summary ---
       LOOP END
 
-      LOOP BEGIN at /home/training/dd-20-28-39/aom/av1/common/convolve.c(188,7) inlined into /home/training/dd-20-28-39/aom/av1/common/convolve.c(589,7)
+      LOOP BEGIN at /home/training/dd-20-28-39/aom/av1/common/convolve.c(188,7) inlined into /home/training/dd-20-28-39/aom/av1/common/convolve.c(590,7)
       <Remainder loop for vectorization>
       LOOP END
    LOOP END
 LOOP END
 
-LOOP BEGIN at /home/training/dd-20-28-39/aom/av1/common/convolve.c(185,3) inlined into /home/training/dd-20-28-39/aom/av1/common/convolve.c(589,7)
+LOOP BEGIN at /home/training/dd-20-28-39/aom/av1/common/convolve.c(185,3) inlined into /home/training/dd-20-28-39/aom/av1/common/convolve.c(590,7)
 <Multiversioned v2>
    remark #15542: loop was not vectorized: inner loop was already vectorized
 
-   LOOP BEGIN at /home/training/dd-20-28-39/aom/av1/common/convolve.c(186,5) inlined into /home/training/dd-20-28-39/aom/av1/common/convolve.c(589,7)
+   LOOP BEGIN at /home/training/dd-20-28-39/aom/av1/common/convolve.c(186,5) inlined into /home/training/dd-20-28-39/aom/av1/common/convolve.c(590,7)
       remark #15542: loop was not vectorized: inner loop was already vectorized
 
-      LOOP BEGIN at /home/training/dd-20-28-39/aom/av1/common/convolve.c(188,7) inlined into /home/training/dd-20-28-39/aom/av1/common/convolve.c(589,7)
+      LOOP BEGIN at /home/training/dd-20-28-39/aom/av1/common/convolve.c(188,7) inlined into /home/training/dd-20-28-39/aom/av1/common/convolve.c(590,7)
       <Peeled loop for vectorization>
          remark #25015: Estimate of max trip count of loop=15
       LOOP END
 
-      LOOP BEGIN at /home/training/dd-20-28-39/aom/av1/common/convolve.c(188,7) inlined into /home/training/dd-20-28-39/aom/av1/common/convolve.c(589,7)
+      LOOP BEGIN at /home/training/dd-20-28-39/aom/av1/common/convolve.c(188,7) inlined into /home/training/dd-20-28-39/aom/av1/common/convolve.c(590,7)
          remark #15389: vectorization support: reference y_filter[k] has unaligned access   [ /home/training/dd-20-28-39/aom/av1/common/convolve.c(189,16) ]
          remark #15381: vectorization support: unaligned access used inside loop body
          remark #15328: vectorization support: non-unit strided load was emulated for the variable <src[(y-fo_vert+k)*src_stride+x]>, stride is unknown to compiler   [ /home/training/dd-20-28-39/aom/av1/common/convolve.c(189,30) ]
@@ -1012,34 +1018,34 @@ LOOP BEGIN at /home/training/dd-20-28-39/aom/av1/common/convolve.c(185,3) inline
          remark #15488: --- end vector cost summary ---
       LOOP END
 
-      LOOP BEGIN at /home/training/dd-20-28-39/aom/av1/common/convolve.c(188,7) inlined into /home/training/dd-20-28-39/aom/av1/common/convolve.c(589,7)
+      LOOP BEGIN at /home/training/dd-20-28-39/aom/av1/common/convolve.c(188,7) inlined into /home/training/dd-20-28-39/aom/av1/common/convolve.c(590,7)
       <Remainder loop for vectorization>
       LOOP END
    LOOP END
 LOOP END
 
-LOOP BEGIN at /home/training/dd-20-28-39/aom/av1/common/convolve.c(479,3) inlined into /home/training/dd-20-28-39/aom/av1/common/convolve.c(597,5)
+LOOP BEGIN at /home/training/dd-20-28-39/aom/av1/common/convolve.c(480,3) inlined into /home/training/dd-20-28-39/aom/av1/common/convolve.c(598,5)
    remark #25096: Loop Interchange not done due to: Imperfect Loop Nest (Either at Source or due to other Compiler Transformations)
    remark #25451: Advice: Loop Interchange, if possible, might help loopnest. Suggested Permutation : ( 1 2 3 ) --> ( 1 3 2 ) 
    remark #15542: loop was not vectorized: inner loop was already vectorized
 
-   LOOP BEGIN at /home/training/dd-20-28-39/aom/av1/common/convolve.c(481,5) inlined into /home/training/dd-20-28-39/aom/av1/common/convolve.c(597,5)
+   LOOP BEGIN at /home/training/dd-20-28-39/aom/av1/common/convolve.c(482,5) inlined into /home/training/dd-20-28-39/aom/av1/common/convolve.c(598,5)
       remark #25096: Loop Interchange not done due to: Imperfect Loop Nest (Either at Source or due to other Compiler Transformations)
       remark #25451: Advice: Loop Interchange, if possible, might help loopnest. Suggested Permutation : ( 1 2 ) --> ( 2 1 ) 
       remark #15542: loop was not vectorized: inner loop was already vectorized
 
-      LOOP BEGIN at /home/training/dd-20-28-39/aom/av1/common/convolve.c(488,7) inlined into /home/training/dd-20-28-39/aom/av1/common/convolve.c(597,5)
+      LOOP BEGIN at /home/training/dd-20-28-39/aom/av1/common/convolve.c(489,7) inlined into /home/training/dd-20-28-39/aom/av1/common/convolve.c(598,5)
       <Peeled loop for vectorization>
          remark #25015: Estimate of max trip count of loop=31
       LOOP END
 
-      LOOP BEGIN at /home/training/dd-20-28-39/aom/av1/common/convolve.c(488,7) inlined into /home/training/dd-20-28-39/aom/av1/common/convolve.c(597,5)
-         remark #15389: vectorization support: reference x_filter[k] has unaligned access   [ /home/training/dd-20-28-39/aom/av1/common/convolve.c(489,16) ]
-         remark #15389: vectorization support: reference src_x[k-fo_horiz] has unaligned access   [ /home/training/dd-20-28-39/aom/av1/common/convolve.c(489,30) ]
+      LOOP BEGIN at /home/training/dd-20-28-39/aom/av1/common/convolve.c(489,7) inlined into /home/training/dd-20-28-39/aom/av1/common/convolve.c(598,5)
+         remark #15389: vectorization support: reference x_filter[k] has unaligned access   [ /home/training/dd-20-28-39/aom/av1/common/convolve.c(490,16) ]
+         remark #15389: vectorization support: reference src_x[k-fo_horiz] has unaligned access   [ /home/training/dd-20-28-39/aom/av1/common/convolve.c(490,30) ]
          remark #15381: vectorization support: unaligned access used inside loop body
          remark #15305: vectorization support: vector length 32
          remark #15309: vectorization support: normalized vectorization overhead 2.412
-         remark #15355: vectorization support: sum is int type reduction   [ /home/training/dd-20-28-39/aom/av1/common/convolve.c(487,19) ]
+         remark #15355: vectorization support: sum is int type reduction   [ /home/training/dd-20-28-39/aom/av1/common/convolve.c(488,19) ]
          remark #15300: LOOP WAS VECTORIZED
          remark #15450: unmasked unaligned unit stride loads: 2 
          remark #15475: --- begin vector cost summary ---
@@ -1049,68 +1055,68 @@ LOOP BEGIN at /home/training/dd-20-28-39/aom/av1/common/convolve.c(479,3) inline
          remark #15488: --- end vector cost summary ---
       LOOP END
 
-      LOOP BEGIN at /home/training/dd-20-28-39/aom/av1/common/convolve.c(488,7) inlined into /home/training/dd-20-28-39/aom/av1/common/convolve.c(597,5)
+      LOOP BEGIN at /home/training/dd-20-28-39/aom/av1/common/convolve.c(489,7) inlined into /home/training/dd-20-28-39/aom/av1/common/convolve.c(598,5)
       <Remainder loop for vectorization>
       LOOP END
    LOOP END
 LOOP END
 
-LOOP BEGIN at /home/training/dd-20-28-39/aom/av1/common/convolve.c(501,3) inlined into /home/training/dd-20-28-39/aom/av1/common/convolve.c(597,5)
+LOOP BEGIN at /home/training/dd-20-28-39/aom/av1/common/convolve.c(502,3) inlined into /home/training/dd-20-28-39/aom/av1/common/convolve.c(598,5)
    remark #25445: Loop Interchange not done due to: Data Dependencies
    remark #25446: Dependencies found between following statements:  [From_Line# -> (Dependency Type) To_Line#]
-   remark #25447: Dependence found between following statements:  [514 -> (Anti) 536]
-   remark #25447: Dependence found between following statements:  [514 -> (Anti) 528]
-   remark #25447: Dependence found between following statements:  [515 -> (Anti) 536]
-   remark #25447: Dependence found between following statements:  [515 -> (Anti) 528]
-   remark #25447: Dependence found between following statements:  [516 -> (Anti) 536]
-   remark #25447: Dependence found between following statements:  [516 -> (Anti) 528]
-   remark #25447: Dependence found between following statements:  [517 -> (Anti) 536]
-   remark #25447: Dependence found between following statements:  [517 -> (Anti) 530]
-   remark #25447: Dependence found between following statements:  [517 -> (Anti) 528]
-   remark #25447: Dependence found between following statements:  [518 -> (Anti) 536]
-   remark #25447: Dependence found between following statements:  [518 -> (Anti) 528]
-   remark #25447: Dependence found between following statements:  [520 -> (Anti) 536]
-   remark #25447: Dependence found between following statements:  [520 -> (Anti) 528]
-   remark #25447: Dependence found between following statements:  [528 -> (Output) 536]
-   remark #25447: Dependence found between following statements:  [528 -> (Output) 530]
-   remark #25447: Dependence found between following statements:  [528 -> (Output) 528]
-   remark #25447: Dependence found between following statements:  [528 -> (Flow) 520]
-   remark #25447: Dependence found between following statements:  [528 -> (Flow) 518]
-   remark #25447: Dependence found between following statements:  [528 -> (Flow) 517]
-   remark #25447: Dependence found between following statements:  [528 -> (Flow) 516]
-   remark #25447: Dependence found between following statements:  [528 -> (Flow) 515]
-   remark #25447: Dependence found between following statements:  [528 -> (Flow) 514]
-   remark #25447: Dependence found between following statements:  [530 -> (Output) 536]
-   remark #25447: Dependence found between following statements:  [530 -> (Output) 530]
-   remark #25447: Dependence found between following statements:  [530 -> (Output) 528]
-   remark #25447: Dependence found between following statements:  [530 -> (Flow) 517]
-   remark #25447: Dependence found between following statements:  [536 -> (Output) 536]
-   remark #25447: Dependence found between following statements:  [536 -> (Output) 530]
-   remark #25447: Dependence found between following statements:  [536 -> (Output) 528]
-   remark #25447: Dependence found between following statements:  [536 -> (Flow) 520]
-   remark #25447: Dependence found between following statements:  [536 -> (Flow) 518]
-   remark #25447: Dependence found between following statements:  [536 -> (Flow) 517]
-   remark #25447: Dependence found between following statements:  [536 -> (Flow) 516]
-   remark #25447: Dependence found between following statements:  [536 -> (Flow) 515]
-   remark #25447: Dependence found between following statements:  [536 -> (Flow) 514]
+   remark #25447: Dependence found between following statements:  [515 -> (Anti) 537]
+   remark #25447: Dependence found between following statements:  [515 -> (Anti) 529]
+   remark #25447: Dependence found between following statements:  [516 -> (Anti) 537]
+   remark #25447: Dependence found between following statements:  [516 -> (Anti) 529]
+   remark #25447: Dependence found between following statements:  [517 -> (Anti) 537]
+   remark #25447: Dependence found between following statements:  [517 -> (Anti) 529]
+   remark #25447: Dependence found between following statements:  [518 -> (Anti) 537]
+   remark #25447: Dependence found between following statements:  [518 -> (Anti) 531]
+   remark #25447: Dependence found between following statements:  [518 -> (Anti) 529]
+   remark #25447: Dependence found between following statements:  [519 -> (Anti) 537]
+   remark #25447: Dependence found between following statements:  [519 -> (Anti) 529]
+   remark #25447: Dependence found between following statements:  [521 -> (Anti) 537]
+   remark #25447: Dependence found between following statements:  [521 -> (Anti) 529]
+   remark #25447: Dependence found between following statements:  [529 -> (Output) 537]
+   remark #25447: Dependence found between following statements:  [529 -> (Output) 531]
+   remark #25447: Dependence found between following statements:  [529 -> (Output) 529]
+   remark #25447: Dependence found between following statements:  [529 -> (Flow) 521]
+   remark #25447: Dependence found between following statements:  [529 -> (Flow) 519]
+   remark #25447: Dependence found between following statements:  [529 -> (Flow) 518]
+   remark #25447: Dependence found between following statements:  [529 -> (Flow) 517]
+   remark #25447: Dependence found between following statements:  [529 -> (Flow) 516]
+   remark #25447: Dependence found between following statements:  [529 -> (Flow) 515]
+   remark #25447: Dependence found between following statements:  [531 -> (Output) 537]
+   remark #25447: Dependence found between following statements:  [531 -> (Output) 531]
+   remark #25447: Dependence found between following statements:  [531 -> (Output) 529]
+   remark #25447: Dependence found between following statements:  [531 -> (Flow) 518]
+   remark #25447: Dependence found between following statements:  [537 -> (Output) 537]
+   remark #25447: Dependence found between following statements:  [537 -> (Output) 531]
+   remark #25447: Dependence found between following statements:  [537 -> (Output) 529]
+   remark #25447: Dependence found between following statements:  [537 -> (Flow) 521]
+   remark #25447: Dependence found between following statements:  [537 -> (Flow) 519]
+   remark #25447: Dependence found between following statements:  [537 -> (Flow) 518]
+   remark #25447: Dependence found between following statements:  [537 -> (Flow) 517]
+   remark #25447: Dependence found between following statements:  [537 -> (Flow) 516]
+   remark #25447: Dependence found between following statements:  [537 -> (Flow) 515]
    remark #25451: Advice: Loop Interchange, if possible, might help loopnest. Suggested Permutation : ( 1 2 ) --> ( 2 1 ) 
    remark #15542: loop was not vectorized: inner loop was already vectorized
 
-   LOOP BEGIN at /home/training/dd-20-28-39/aom/av1/common/convolve.c(503,5) inlined into /home/training/dd-20-28-39/aom/av1/common/convolve.c(597,5)
+   LOOP BEGIN at /home/training/dd-20-28-39/aom/av1/common/convolve.c(504,5) inlined into /home/training/dd-20-28-39/aom/av1/common/convolve.c(598,5)
       remark #15542: loop was not vectorized: inner loop was already vectorized
 
-      LOOP BEGIN at /home/training/dd-20-28-39/aom/av1/common/convolve.c(510,7) inlined into /home/training/dd-20-28-39/aom/av1/common/convolve.c(597,5)
+      LOOP BEGIN at /home/training/dd-20-28-39/aom/av1/common/convolve.c(511,7) inlined into /home/training/dd-20-28-39/aom/av1/common/convolve.c(598,5)
       <Peeled loop for vectorization>
          remark #25015: Estimate of max trip count of loop=15
       LOOP END
 
-      LOOP BEGIN at /home/training/dd-20-28-39/aom/av1/common/convolve.c(510,7) inlined into /home/training/dd-20-28-39/aom/av1/common/convolve.c(597,5)
-         remark #15389: vectorization support: reference y_filter[k] has unaligned access   [ /home/training/dd-20-28-39/aom/av1/common/convolve.c(511,16) ]
+      LOOP BEGIN at /home/training/dd-20-28-39/aom/av1/common/convolve.c(511,7) inlined into /home/training/dd-20-28-39/aom/av1/common/convolve.c(598,5)
+         remark #15389: vectorization support: reference y_filter[k] has unaligned access   [ /home/training/dd-20-28-39/aom/av1/common/convolve.c(512,16) ]
          remark #15381: vectorization support: unaligned access used inside loop body
-         remark #15328: vectorization support: non-unit strided load was emulated for the variable <src_y[(k-fo_vert)*w]>, stride is unknown to compiler   [ /home/training/dd-20-28-39/aom/av1/common/convolve.c(511,30) ]
+         remark #15328: vectorization support: non-unit strided load was emulated for the variable <src_y[(k-fo_vert)*w]>, stride is unknown to compiler   [ /home/training/dd-20-28-39/aom/av1/common/convolve.c(512,30) ]
          remark #15305: vectorization support: vector length 16
          remark #15309: vectorization support: normalized vectorization overhead 0.500
-         remark #15355: vectorization support: sum is int type reduction   [ /home/training/dd-20-28-39/aom/av1/common/convolve.c(509,19) ]
+         remark #15355: vectorization support: sum is int type reduction   [ /home/training/dd-20-28-39/aom/av1/common/convolve.c(510,19) ]
          remark #15300: LOOP WAS VECTORIZED
          remark #15442: entire loop may be executed in remainder
          remark #15450: unmasked unaligned unit stride loads: 1 
@@ -1122,7 +1128,7 @@ LOOP BEGIN at /home/training/dd-20-28-39/aom/av1/common/convolve.c(501,3) inline
          remark #15488: --- end vector cost summary ---
       LOOP END
 
-      LOOP BEGIN at /home/training/dd-20-28-39/aom/av1/common/convolve.c(510,7) inlined into /home/training/dd-20-28-39/aom/av1/common/convolve.c(597,5)
+      LOOP BEGIN at /home/training/dd-20-28-39/aom/av1/common/convolve.c(511,7) inlined into /home/training/dd-20-28-39/aom/av1/common/convolve.c(598,5)
       <Remainder loop for vectorization>
       LOOP END
    LOOP END
@@ -1134,8 +1140,8 @@ Begin optimization report for: av1_highbd_convolve_2d_copy_sr_c(const uint16_t *
     Report from: Loop nest & Vector optimizations [loop, vec]
 
 
-LOOP BEGIN at /home/training/dd-20-28-39/aom/av1/common/convolve.c(620,3)
-   remark #15527: loop was not vectorized: function call to memmove(void *, const void *, size_t) cannot be vectorized   [ /home/training/dd-20-28-39/aom/av1/common/convolve.c(621,5) ]
+LOOP BEGIN at /home/training/dd-20-28-39/aom/av1/common/convolve.c(621,3)
+   remark #15527: loop was not vectorized: function call to memmove(void *, const void *, size_t) cannot be vectorized   [ /home/training/dd-20-28-39/aom/av1/common/convolve.c(622,5) ]
 LOOP END
 ===========================================================================
 
@@ -1144,24 +1150,24 @@ Begin optimization report for: av1_highbd_convolve_x_sr_c(const uint16_t *, int,
     Report from: Loop nest & Vector optimizations [loop, vec]
 
 
-LOOP BEGIN at /home/training/dd-20-28-39/aom/av1/common/convolve.c(643,3)
+LOOP BEGIN at /home/training/dd-20-28-39/aom/av1/common/convolve.c(644,3)
    remark #15542: loop was not vectorized: inner loop was already vectorized
 
-   LOOP BEGIN at /home/training/dd-20-28-39/aom/av1/common/convolve.c(644,5)
+   LOOP BEGIN at /home/training/dd-20-28-39/aom/av1/common/convolve.c(645,5)
       remark #15542: loop was not vectorized: inner loop was already vectorized
 
-      LOOP BEGIN at /home/training/dd-20-28-39/aom/av1/common/convolve.c(646,7)
+      LOOP BEGIN at /home/training/dd-20-28-39/aom/av1/common/convolve.c(647,7)
       <Peeled loop for vectorization>
          remark #25015: Estimate of max trip count of loop=15
       LOOP END
 
-      LOOP BEGIN at /home/training/dd-20-28-39/aom/av1/common/convolve.c(646,7)
-         remark #15389: vectorization support: reference x_filter[k] has unaligned access   [ /home/training/dd-20-28-39/aom/av1/common/convolve.c(647,16) ]
-         remark #15389: vectorization support: reference src[y*src_stride+x-fo_horiz+k] has unaligned access   [ /home/training/dd-20-28-39/aom/av1/common/convolve.c(647,30) ]
+      LOOP BEGIN at /home/training/dd-20-28-39/aom/av1/common/convolve.c(647,7)
+         remark #15389: vectorization support: reference x_filter[k] has unaligned access   [ /home/training/dd-20-28-39/aom/av1/common/convolve.c(648,16) ]
+         remark #15389: vectorization support: reference src[y*src_stride+x-fo_horiz+k] has unaligned access   [ /home/training/dd-20-28-39/aom/av1/common/convolve.c(648,30) ]
          remark #15381: vectorization support: unaligned access used inside loop body
          remark #15305: vectorization support: vector length 16
          remark #15309: vectorization support: normalized vectorization overhead 2.733
-         remark #15355: vectorization support: res is int type reduction   [ /home/training/dd-20-28-39/aom/av1/common/convolve.c(647,9) ]
+         remark #15355: vectorization support: res is int type reduction   [ /home/training/dd-20-28-39/aom/av1/common/convolve.c(648,9) ]
          remark #15300: LOOP WAS VECTORIZED
          remark #15442: entire loop may be executed in remainder
          remark #15450: unmasked unaligned unit stride loads: 2 
@@ -1172,7 +1178,7 @@ LOOP BEGIN at /home/training/dd-20-28-39/aom/av1/common/convolve.c(643,3)
          remark #15488: --- end vector cost summary ---
       LOOP END
 
-      LOOP BEGIN at /home/training/dd-20-28-39/aom/av1/common/convolve.c(646,7)
+      LOOP BEGIN at /home/training/dd-20-28-39/aom/av1/common/convolve.c(647,7)
       <Remainder loop for vectorization>
       LOOP END
    LOOP END
@@ -1184,24 +1190,24 @@ Begin optimization report for: av1_highbd_convolve_y_sr_c(const uint16_t *, int,
     Report from: Loop nest & Vector optimizations [loop, vec]
 
 
-LOOP BEGIN at /home/training/dd-20-28-39/aom/av1/common/convolve.c(673,3)
+LOOP BEGIN at /home/training/dd-20-28-39/aom/av1/common/convolve.c(674,3)
    remark #15542: loop was not vectorized: inner loop was already vectorized
 
-   LOOP BEGIN at /home/training/dd-20-28-39/aom/av1/common/convolve.c(674,5)
+   LOOP BEGIN at /home/training/dd-20-28-39/aom/av1/common/convolve.c(675,5)
       remark #15542: loop was not vectorized: inner loop was already vectorized
 
-      LOOP BEGIN at /home/training/dd-20-28-39/aom/av1/common/convolve.c(676,7)
+      LOOP BEGIN at /home/training/dd-20-28-39/aom/av1/common/convolve.c(677,7)
       <Peeled loop for vectorization>
          remark #25015: Estimate of max trip count of loop=15
       LOOP END
 
-      LOOP BEGIN at /home/training/dd-20-28-39/aom/av1/common/convolve.c(676,7)
-         remark #15389: vectorization support: reference y_filter[k] has unaligned access   [ /home/training/dd-20-28-39/aom/av1/common/convolve.c(677,16) ]
+      LOOP BEGIN at /home/training/dd-20-28-39/aom/av1/common/convolve.c(677,7)
+         remark #15389: vectorization support: reference y_filter[k] has unaligned access   [ /home/training/dd-20-28-39/aom/av1/common/convolve.c(678,16) ]
          remark #15381: vectorization support: unaligned access used inside loop body
-         remark #15328: vectorization support: non-unit strided load was emulated for the variable <src[(y-fo_vert+k)*src_stride+x]>, stride is unknown to compiler   [ /home/training/dd-20-28-39/aom/av1/common/convolve.c(677,30) ]
+         remark #15328: vectorization support: non-unit strided load was emulated for the variable <src[(y-fo_vert+k)*src_stride+x]>, stride is unknown to compiler   [ /home/training/dd-20-28-39/aom/av1/common/convolve.c(678,30) ]
          remark #15305: vectorization support: vector length 16
          remark #15309: vectorization support: normalized vectorization overhead 0.494
-         remark #15355: vectorization support: res is int type reduction   [ /home/training/dd-20-28-39/aom/av1/common/convolve.c(675,19) ]
+         remark #15355: vectorization support: res is int type reduction   [ /home/training/dd-20-28-39/aom/av1/common/convolve.c(676,19) ]
          remark #15300: LOOP WAS VECTORIZED
          remark #15442: entire loop may be executed in remainder
          remark #15450: unmasked unaligned unit stride loads: 1 
@@ -1213,7 +1219,7 @@ LOOP BEGIN at /home/training/dd-20-28-39/aom/av1/common/convolve.c(673,3)
          remark #15488: --- end vector cost summary ---
       LOOP END
 
-      LOOP BEGIN at /home/training/dd-20-28-39/aom/av1/common/convolve.c(676,7)
+      LOOP BEGIN at /home/training/dd-20-28-39/aom/av1/common/convolve.c(677,7)
       <Remainder loop for vectorization>
       LOOP END
    LOOP END
@@ -1225,24 +1231,24 @@ Begin optimization report for: av1_highbd_convolve_2d_sr_c(const uint16_t *, int
     Report from: Loop nest & Vector optimizations [loop, vec]
 
 
-LOOP BEGIN at /home/training/dd-20-28-39/aom/av1/common/convolve.c(705,3)
+LOOP BEGIN at /home/training/dd-20-28-39/aom/av1/common/convolve.c(706,3)
    remark #15542: loop was not vectorized: inner loop was already vectorized
 
-   LOOP BEGIN at /home/training/dd-20-28-39/aom/av1/common/convolve.c(706,5)
+   LOOP BEGIN at /home/training/dd-20-28-39/aom/av1/common/convolve.c(707,5)
       remark #15542: loop was not vectorized: inner loop was already vectorized
 
-      LOOP BEGIN at /home/training/dd-20-28-39/aom/av1/common/convolve.c(708,7)
+      LOOP BEGIN at /home/training/dd-20-28-39/aom/av1/common/convolve.c(709,7)
       <Peeled loop for vectorization>
          remark #25015: Estimate of max trip count of loop=15
       LOOP END
 
-      LOOP BEGIN at /home/training/dd-20-28-39/aom/av1/common/convolve.c(708,7)
-         remark #15389: vectorization support: reference x_filter[k] has unaligned access   [ /home/training/dd-20-28-39/aom/av1/common/convolve.c(709,16) ]
-         remark #15389: vectorization support: reference src_horiz[y*src_stride+x-fo_horiz+k] has unaligned access   [ /home/training/dd-20-28-39/aom/av1/common/convolve.c(709,30) ]
+      LOOP BEGIN at /home/training/dd-20-28-39/aom/av1/common/convolve.c(709,7)
+         remark #15389: vectorization support: reference x_filter[k] has unaligned access   [ /home/training/dd-20-28-39/aom/av1/common/convolve.c(710,16) ]
+         remark #15389: vectorization support: reference src_horiz[y*src_stride+x-fo_horiz+k] has unaligned access   [ /home/training/dd-20-28-39/aom/av1/common/convolve.c(710,30) ]
          remark #15381: vectorization support: unaligned access used inside loop body
          remark #15305: vectorization support: vector length 16
          remark #15309: vectorization support: normalized vectorization overhead 2.733
-         remark #15355: vectorization support: sum is int type reduction   [ /home/training/dd-20-28-39/aom/av1/common/convolve.c(707,19) ]
+         remark #15355: vectorization support: sum is int type reduction   [ /home/training/dd-20-28-39/aom/av1/common/convolve.c(708,19) ]
          remark #15300: LOOP WAS VECTORIZED
          remark #15442: entire loop may be executed in remainder
          remark #15450: unmasked unaligned unit stride loads: 2 
@@ -1253,30 +1259,30 @@ LOOP BEGIN at /home/training/dd-20-28-39/aom/av1/common/convolve.c(705,3)
          remark #15488: --- end vector cost summary ---
       LOOP END
 
-      LOOP BEGIN at /home/training/dd-20-28-39/aom/av1/common/convolve.c(708,7)
+      LOOP BEGIN at /home/training/dd-20-28-39/aom/av1/common/convolve.c(709,7)
       <Remainder loop for vectorization>
       LOOP END
    LOOP END
 LOOP END
 
-LOOP BEGIN at /home/training/dd-20-28-39/aom/av1/common/convolve.c(722,3)
+LOOP BEGIN at /home/training/dd-20-28-39/aom/av1/common/convolve.c(723,3)
    remark #15542: loop was not vectorized: inner loop was already vectorized
 
-   LOOP BEGIN at /home/training/dd-20-28-39/aom/av1/common/convolve.c(723,5)
+   LOOP BEGIN at /home/training/dd-20-28-39/aom/av1/common/convolve.c(724,5)
       remark #15542: loop was not vectorized: inner loop was already vectorized
 
-      LOOP BEGIN at /home/training/dd-20-28-39/aom/av1/common/convolve.c(725,7)
+      LOOP BEGIN at /home/training/dd-20-28-39/aom/av1/common/convolve.c(726,7)
       <Peeled loop for vectorization>
          remark #25015: Estimate of max trip count of loop=15
       LOOP END
 
-      LOOP BEGIN at /home/training/dd-20-28-39/aom/av1/common/convolve.c(725,7)
-         remark #15389: vectorization support: reference y_filter[k] has unaligned access   [ /home/training/dd-20-28-39/aom/av1/common/convolve.c(726,16) ]
+      LOOP BEGIN at /home/training/dd-20-28-39/aom/av1/common/convolve.c(726,7)
+         remark #15389: vectorization support: reference y_filter[k] has unaligned access   [ /home/training/dd-20-28-39/aom/av1/common/convolve.c(727,16) ]
          remark #15381: vectorization support: unaligned access used inside loop body
-         remark #15328: vectorization support: non-unit strided load was emulated for the variable <&im_block[fo_vert*w][(y-fo_vert+k)*w+x]>, stride is unknown to compiler   [ /home/training/dd-20-28-39/aom/av1/common/convolve.c(726,30) ]
+         remark #15328: vectorization support: non-unit strided load was emulated for the variable <&im_block[fo_vert*w][(y-fo_vert+k)*w+x]>, stride is unknown to compiler   [ /home/training/dd-20-28-39/aom/av1/common/convolve.c(727,30) ]
          remark #15305: vectorization support: vector length 16
          remark #15309: vectorization support: normalized vectorization overhead 0.500
-         remark #15355: vectorization support: sum is int type reduction   [ /home/training/dd-20-28-39/aom/av1/common/convolve.c(724,19) ]
+         remark #15355: vectorization support: sum is int type reduction   [ /home/training/dd-20-28-39/aom/av1/common/convolve.c(725,19) ]
          remark #15300: LOOP WAS VECTORIZED
          remark #15442: entire loop may be executed in remainder
          remark #15450: unmasked unaligned unit stride loads: 1 
@@ -1288,7 +1294,7 @@ LOOP BEGIN at /home/training/dd-20-28-39/aom/av1/common/convolve.c(722,3)
          remark #15488: --- end vector cost summary ---
       LOOP END
 
-      LOOP BEGIN at /home/training/dd-20-28-39/aom/av1/common/convolve.c(725,7)
+      LOOP BEGIN at /home/training/dd-20-28-39/aom/av1/common/convolve.c(726,7)
       <Remainder loop for vectorization>
       LOOP END
    LOOP END
@@ -1300,24 +1306,24 @@ Begin optimization report for: av1_highbd_dist_wtd_convolve_2d_c(const uint16_t 
     Report from: Loop nest & Vector optimizations [loop, vec]
 
 
-LOOP BEGIN at /home/training/dd-20-28-39/aom/av1/common/convolve.c(759,3)
+LOOP BEGIN at /home/training/dd-20-28-39/aom/av1/common/convolve.c(760,3)
    remark #15542: loop was not vectorized: inner loop was already vectorized
 
-   LOOP BEGIN at /home/training/dd-20-28-39/aom/av1/common/convolve.c(760,5)
+   LOOP BEGIN at /home/training/dd-20-28-39/aom/av1/common/convolve.c(761,5)
       remark #15542: loop was not vectorized: inner loop was already vectorized
 
-      LOOP BEGIN at /home/training/dd-20-28-39/aom/av1/common/convolve.c(762,7)
+      LOOP BEGIN at /home/training/dd-20-28-39/aom/av1/common/convolve.c(763,7)
       <Peeled loop for vectorization>
          remark #25015: Estimate of max trip count of loop=15
       LOOP END
 
-      LOOP BEGIN at /home/training/dd-20-28-39/aom/av1/common/convolve.c(762,7)
-         remark #15389: vectorization support: reference x_filter[k] has unaligned access   [ /home/training/dd-20-28-39/aom/av1/common/convolve.c(763,16) ]
-         remark #15389: vectorization support: reference src_horiz[y*src_stride+x-fo_horiz+k] has unaligned access   [ /home/training/dd-20-28-39/aom/av1/common/convolve.c(763,30) ]
+      LOOP BEGIN at /home/training/dd-20-28-39/aom/av1/common/convolve.c(763,7)
+         remark #15389: vectorization support: reference x_filter[k] has unaligned access   [ /home/training/dd-20-28-39/aom/av1/common/convolve.c(764,16) ]
+         remark #15389: vectorization support: reference src_horiz[y*src_stride+x-fo_horiz+k] has unaligned access   [ /home/training/dd-20-28-39/aom/av1/common/convolve.c(764,30) ]
          remark #15381: vectorization support: unaligned access used inside loop body
          remark #15305: vectorization support: vector length 16
          remark #15309: vectorization support: normalized vectorization overhead 2.733
-         remark #15355: vectorization support: sum is int type reduction   [ /home/training/dd-20-28-39/aom/av1/common/convolve.c(761,19) ]
+         remark #15355: vectorization support: sum is int type reduction   [ /home/training/dd-20-28-39/aom/av1/common/convolve.c(762,19) ]
          remark #15300: LOOP WAS VECTORIZED
          remark #15442: entire loop may be executed in remainder
          remark #15450: unmasked unaligned unit stride loads: 2 
@@ -1328,30 +1334,30 @@ LOOP BEGIN at /home/training/dd-20-28-39/aom/av1/common/convolve.c(759,3)
          remark #15488: --- end vector cost summary ---
       LOOP END
 
-      LOOP BEGIN at /home/training/dd-20-28-39/aom/av1/common/convolve.c(762,7)
+      LOOP BEGIN at /home/training/dd-20-28-39/aom/av1/common/convolve.c(763,7)
       <Remainder loop for vectorization>
       LOOP END
    LOOP END
 LOOP END
 
-LOOP BEGIN at /home/training/dd-20-28-39/aom/av1/common/convolve.c(777,3)
+LOOP BEGIN at /home/training/dd-20-28-39/aom/av1/common/convolve.c(778,3)
    remark #15542: loop was not vectorized: inner loop was already vectorized
 
-   LOOP BEGIN at /home/training/dd-20-28-39/aom/av1/common/convolve.c(778,5)
+   LOOP BEGIN at /home/training/dd-20-28-39/aom/av1/common/convolve.c(779,5)
       remark #15542: loop was not vectorized: inner loop was already vectorized
 
-      LOOP BEGIN at /home/training/dd-20-28-39/aom/av1/common/convolve.c(780,7)
+      LOOP BEGIN at /home/training/dd-20-28-39/aom/av1/common/convolve.c(781,7)
       <Peeled loop for vectorization>
          remark #25015: Estimate of max trip count of loop=15
       LOOP END
 
-      LOOP BEGIN at /home/training/dd-20-28-39/aom/av1/common/convolve.c(780,7)
-         remark #15389: vectorization support: reference y_filter[k] has unaligned access   [ /home/training/dd-20-28-39/aom/av1/common/convolve.c(781,16) ]
+      LOOP BEGIN at /home/training/dd-20-28-39/aom/av1/common/convolve.c(781,7)
+         remark #15389: vectorization support: reference y_filter[k] has unaligned access   [ /home/training/dd-20-28-39/aom/av1/common/convolve.c(782,16) ]
          remark #15381: vectorization support: unaligned access used inside loop body
-         remark #15328: vectorization support: non-unit strided load was emulated for the variable <&im_block[fo_vert*w][(y-fo_vert+k)*w+x]>, stride is unknown to compiler   [ /home/training/dd-20-28-39/aom/av1/common/convolve.c(781,30) ]
+         remark #15328: vectorization support: non-unit strided load was emulated for the variable <&im_block[fo_vert*w][(y-fo_vert+k)*w+x]>, stride is unknown to compiler   [ /home/training/dd-20-28-39/aom/av1/common/convolve.c(782,30) ]
          remark #15305: vectorization support: vector length 16
          remark #15309: vectorization support: normalized vectorization overhead 0.500
-         remark #15355: vectorization support: sum is int type reduction   [ /home/training/dd-20-28-39/aom/av1/common/convolve.c(779,19) ]
+         remark #15355: vectorization support: sum is int type reduction   [ /home/training/dd-20-28-39/aom/av1/common/convolve.c(780,19) ]
          remark #15300: LOOP WAS VECTORIZED
          remark #15442: entire loop may be executed in remainder
          remark #15450: unmasked unaligned unit stride loads: 1 
@@ -1363,7 +1369,7 @@ LOOP BEGIN at /home/training/dd-20-28-39/aom/av1/common/convolve.c(777,3)
          remark #15488: --- end vector cost summary ---
       LOOP END
 
-      LOOP BEGIN at /home/training/dd-20-28-39/aom/av1/common/convolve.c(780,7)
+      LOOP BEGIN at /home/training/dd-20-28-39/aom/av1/common/convolve.c(781,7)
       <Remainder loop for vectorization>
       LOOP END
    LOOP END
@@ -1375,24 +1381,24 @@ Begin optimization report for: av1_highbd_dist_wtd_convolve_x_c(const uint16_t *
     Report from: Loop nest & Vector optimizations [loop, vec]
 
 
-LOOP BEGIN at /home/training/dd-20-28-39/aom/av1/common/convolve.c(826,3)
+LOOP BEGIN at /home/training/dd-20-28-39/aom/av1/common/convolve.c(827,3)
    remark #15542: loop was not vectorized: inner loop was already vectorized
 
-   LOOP BEGIN at /home/training/dd-20-28-39/aom/av1/common/convolve.c(827,5)
+   LOOP BEGIN at /home/training/dd-20-28-39/aom/av1/common/convolve.c(828,5)
       remark #15542: loop was not vectorized: inner loop was already vectorized
 
-      LOOP BEGIN at /home/training/dd-20-28-39/aom/av1/common/convolve.c(829,7)
+      LOOP BEGIN at /home/training/dd-20-28-39/aom/av1/common/convolve.c(830,7)
       <Peeled loop for vectorization>
          remark #25015: Estimate of max trip count of loop=15
       LOOP END
 
-      LOOP BEGIN at /home/training/dd-20-28-39/aom/av1/common/convolve.c(829,7)
-         remark #15389: vectorization support: reference x_filter[k] has unaligned access   [ /home/training/dd-20-28-39/aom/av1/common/convolve.c(830,16) ]
-         remark #15389: vectorization support: reference src[y*src_stride+x-fo_horiz+k] has unaligned access   [ /home/training/dd-20-28-39/aom/av1/common/convolve.c(830,30) ]
+      LOOP BEGIN at /home/training/dd-20-28-39/aom/av1/common/convolve.c(830,7)
+         remark #15389: vectorization support: reference x_filter[k] has unaligned access   [ /home/training/dd-20-28-39/aom/av1/common/convolve.c(831,16) ]
+         remark #15389: vectorization support: reference src[y*src_stride+x-fo_horiz+k] has unaligned access   [ /home/training/dd-20-28-39/aom/av1/common/convolve.c(831,30) ]
          remark #15381: vectorization support: unaligned access used inside loop body
          remark #15305: vectorization support: vector length 16
          remark #15309: vectorization support: normalized vectorization overhead 2.733
-         remark #15355: vectorization support: res is int type reduction   [ /home/training/dd-20-28-39/aom/av1/common/convolve.c(830,9) ]
+         remark #15355: vectorization support: res is int type reduction   [ /home/training/dd-20-28-39/aom/av1/common/convolve.c(831,9) ]
          remark #15300: LOOP WAS VECTORIZED
          remark #15442: entire loop may be executed in remainder
          remark #15450: unmasked unaligned unit stride loads: 2 
@@ -1403,7 +1409,7 @@ LOOP BEGIN at /home/training/dd-20-28-39/aom/av1/common/convolve.c(826,3)
          remark #15488: --- end vector cost summary ---
       LOOP END
 
-      LOOP BEGIN at /home/training/dd-20-28-39/aom/av1/common/convolve.c(829,7)
+      LOOP BEGIN at /home/training/dd-20-28-39/aom/av1/common/convolve.c(830,7)
       <Remainder loop for vectorization>
       LOOP END
    LOOP END
@@ -1415,24 +1421,24 @@ Begin optimization report for: av1_highbd_dist_wtd_convolve_y_c(const uint16_t *
     Report from: Loop nest & Vector optimizations [loop, vec]
 
 
-LOOP BEGIN at /home/training/dd-20-28-39/aom/av1/common/convolve.c(875,3)
+LOOP BEGIN at /home/training/dd-20-28-39/aom/av1/common/convolve.c(876,3)
    remark #15542: loop was not vectorized: inner loop was already vectorized
 
-   LOOP BEGIN at /home/training/dd-20-28-39/aom/av1/common/convolve.c(876,5)
+   LOOP BEGIN at /home/training/dd-20-28-39/aom/av1/common/convolve.c(877,5)
       remark #15542: loop was not vectorized: inner loop was already vectorized
 
-      LOOP BEGIN at /home/training/dd-20-28-39/aom/av1/common/convolve.c(878,7)
+      LOOP BEGIN at /home/training/dd-20-28-39/aom/av1/common/convolve.c(879,7)
       <Peeled loop for vectorization>
          remark #25015: Estimate of max trip count of loop=15
       LOOP END
 
-      LOOP BEGIN at /home/training/dd-20-28-39/aom/av1/common/convolve.c(878,7)
-         remark #15389: vectorization support: reference y_filter[k] has unaligned access   [ /home/training/dd-20-28-39/aom/av1/common/convolve.c(879,16) ]
+      LOOP BEGIN at /home/training/dd-20-28-39/aom/av1/common/convolve.c(879,7)
+         remark #15389: vectorization support: reference y_filter[k] has unaligned access   [ /home/training/dd-20-28-39/aom/av1/common/convolve.c(880,16) ]
          remark #15381: vectorization support: unaligned access used inside loop body
-         remark #15328: vectorization support: non-unit strided load was emulated for the variable <src[(y-fo_vert+k)*src_stride+x]>, stride is unknown to compiler   [ /home/training/dd-20-28-39/aom/av1/common/convolve.c(879,30) ]
+         remark #15328: vectorization support: non-unit strided load was emulated for the variable <src[(y-fo_vert+k)*src_stride+x]>, stride is unknown to compiler   [ /home/training/dd-20-28-39/aom/av1/common/convolve.c(880,30) ]
          remark #15305: vectorization support: vector length 16
          remark #15309: vectorization support: normalized vectorization overhead 0.494
-         remark #15355: vectorization support: res is int type reduction   [ /home/training/dd-20-28-39/aom/av1/common/convolve.c(879,9) ]
+         remark #15355: vectorization support: res is int type reduction   [ /home/training/dd-20-28-39/aom/av1/common/convolve.c(880,9) ]
          remark #15300: LOOP WAS VECTORIZED
          remark #15442: entire loop may be executed in remainder
          remark #15450: unmasked unaligned unit stride loads: 1 
@@ -1444,7 +1450,7 @@ LOOP BEGIN at /home/training/dd-20-28-39/aom/av1/common/convolve.c(875,3)
          remark #15488: --- end vector cost summary ---
       LOOP END
 
-      LOOP BEGIN at /home/training/dd-20-28-39/aom/av1/common/convolve.c(878,7)
+      LOOP BEGIN at /home/training/dd-20-28-39/aom/av1/common/convolve.c(879,7)
       <Remainder loop for vectorization>
       LOOP END
    LOOP END
@@ -1456,90 +1462,90 @@ Begin optimization report for: av1_highbd_dist_wtd_convolve_2d_copy_c(const uint
     Report from: Loop nest & Vector optimizations [loop, vec]
 
 
-LOOP BEGIN at /home/training/dd-20-28-39/aom/av1/common/convolve.c(921,3)
+LOOP BEGIN at /home/training/dd-20-28-39/aom/av1/common/convolve.c(922,3)
    remark #15542: loop was not vectorized: inner loop was already vectorized
 
-   LOOP BEGIN at /home/training/dd-20-28-39/aom/av1/common/convolve.c(922,5)
+   LOOP BEGIN at /home/training/dd-20-28-39/aom/av1/common/convolve.c(923,5)
    <Predicate Optimized v3>
-      remark #25422: Invariant Condition at line 925 hoisted out of this loop
-      remark #25422: Invariant Condition at line 927 hoisted out of this loop
+      remark #25422: Invariant Condition at line 926 hoisted out of this loop
+      remark #25422: Invariant Condition at line 928 hoisted out of this loop
       remark #25422: Invariant Condition at line 81 hoisted out of this loop
       remark #15344: loop was not vectorized: vector dependence prevents vectorization. First dependence is shown below. Use level 5 report for details
-      remark #15346: vector dependence: assumed ANTI dependence between src[y*src_stride+x] (924:7) and dst[y*dst_stride+x] (935:9)
+      remark #15346: vector dependence: assumed ANTI dependence between src[y*src_stride+x] (925:7) and dst[y*dst_stride+x] (936:9)
       remark #25439: unrolled with remainder by 2  
    LOOP END
 
-   LOOP BEGIN at /home/training/dd-20-28-39/aom/av1/common/convolve.c(922,5)
+   LOOP BEGIN at /home/training/dd-20-28-39/aom/av1/common/convolve.c(923,5)
    <Remainder, Predicate Optimized v3>
    LOOP END
 
-   LOOP BEGIN at /home/training/dd-20-28-39/aom/av1/common/convolve.c(922,5)
+   LOOP BEGIN at /home/training/dd-20-28-39/aom/av1/common/convolve.c(923,5)
    <Predicate Optimized v5>
       remark #25422: Invariant Condition at line 81 hoisted out of this loop
       remark #15344: loop was not vectorized: vector dependence prevents vectorization. First dependence is shown below. Use level 5 report for details
-      remark #15346: vector dependence: assumed ANTI dependence between src[y*src_stride+x] (924:7) and dst[y*dst_stride+x] (935:9)
+      remark #15346: vector dependence: assumed ANTI dependence between src[y*src_stride+x] (925:7) and dst[y*dst_stride+x] (936:9)
       remark #25439: unrolled with remainder by 2  
    LOOP END
 
-   LOOP BEGIN at /home/training/dd-20-28-39/aom/av1/common/convolve.c(922,5)
+   LOOP BEGIN at /home/training/dd-20-28-39/aom/av1/common/convolve.c(923,5)
    <Remainder, Predicate Optimized v5>
    LOOP END
 
-   LOOP BEGIN at /home/training/dd-20-28-39/aom/av1/common/convolve.c(922,5)
+   LOOP BEGIN at /home/training/dd-20-28-39/aom/av1/common/convolve.c(923,5)
    <Predicate Optimized v6>
       remark #15344: loop was not vectorized: vector dependence prevents vectorization. First dependence is shown below. Use level 5 report for details
-      remark #15346: vector dependence: assumed ANTI dependence between src[y*src_stride+x] (924:7) and dst[y*dst_stride+x] (935:9)
+      remark #15346: vector dependence: assumed ANTI dependence between src[y*src_stride+x] (925:7) and dst[y*dst_stride+x] (936:9)
       remark #25439: unrolled with remainder by 2  
    LOOP END
 
-   LOOP BEGIN at /home/training/dd-20-28-39/aom/av1/common/convolve.c(922,5)
+   LOOP BEGIN at /home/training/dd-20-28-39/aom/av1/common/convolve.c(923,5)
    <Remainder, Predicate Optimized v6>
    LOOP END
 
-   LOOP BEGIN at /home/training/dd-20-28-39/aom/av1/common/convolve.c(922,5)
+   LOOP BEGIN at /home/training/dd-20-28-39/aom/av1/common/convolve.c(923,5)
    <Predicate Optimized v4>
       remark #25422: Invariant Condition at line 81 hoisted out of this loop
       remark #15344: loop was not vectorized: vector dependence prevents vectorization. First dependence is shown below. Use level 5 report for details
-      remark #15346: vector dependence: assumed ANTI dependence between src[y*src_stride+x] (924:7) and dst[y*dst_stride+x] (935:9)
+      remark #15346: vector dependence: assumed ANTI dependence between src[y*src_stride+x] (925:7) and dst[y*dst_stride+x] (936:9)
       remark #25439: unrolled with remainder by 2  
    LOOP END
 
-   LOOP BEGIN at /home/training/dd-20-28-39/aom/av1/common/convolve.c(922,5)
+   LOOP BEGIN at /home/training/dd-20-28-39/aom/av1/common/convolve.c(923,5)
    <Remainder, Predicate Optimized v4>
    LOOP END
 
-   LOOP BEGIN at /home/training/dd-20-28-39/aom/av1/common/convolve.c(922,5)
+   LOOP BEGIN at /home/training/dd-20-28-39/aom/av1/common/convolve.c(923,5)
    <Predicate Optimized v6>
       remark #25422: Invariant Condition at line 81 hoisted out of this loop
       remark #15344: loop was not vectorized: vector dependence prevents vectorization. First dependence is shown below. Use level 5 report for details
-      remark #15346: vector dependence: assumed ANTI dependence between src[y*src_stride+x] (924:7) and dst[y*dst_stride+x] (935:9)
+      remark #15346: vector dependence: assumed ANTI dependence between src[y*src_stride+x] (925:7) and dst[y*dst_stride+x] (936:9)
       remark #25439: unrolled with remainder by 2  
    LOOP END
 
-   LOOP BEGIN at /home/training/dd-20-28-39/aom/av1/common/convolve.c(922,5)
+   LOOP BEGIN at /home/training/dd-20-28-39/aom/av1/common/convolve.c(923,5)
    <Remainder, Predicate Optimized v6>
    LOOP END
 
-   LOOP BEGIN at /home/training/dd-20-28-39/aom/av1/common/convolve.c(922,5)
+   LOOP BEGIN at /home/training/dd-20-28-39/aom/av1/common/convolve.c(923,5)
    <Predicate Optimized v7>
       remark #15344: loop was not vectorized: vector dependence prevents vectorization. First dependence is shown below. Use level 5 report for details
-      remark #15346: vector dependence: assumed ANTI dependence between src[y*src_stride+x] (924:7) and dst[y*dst_stride+x] (935:9)
+      remark #15346: vector dependence: assumed ANTI dependence between src[y*src_stride+x] (925:7) and dst[y*dst_stride+x] (936:9)
       remark #25439: unrolled with remainder by 2  
    LOOP END
 
-   LOOP BEGIN at /home/training/dd-20-28-39/aom/av1/common/convolve.c(922,5)
+   LOOP BEGIN at /home/training/dd-20-28-39/aom/av1/common/convolve.c(923,5)
    <Remainder, Predicate Optimized v7>
    LOOP END
 
-   LOOP BEGIN at /home/training/dd-20-28-39/aom/av1/common/convolve.c(922,5)
+   LOOP BEGIN at /home/training/dd-20-28-39/aom/av1/common/convolve.c(923,5)
    <Peeled loop for vectorization, Predicate Optimized v2>
       remark #25015: Estimate of max trip count of loop=15
    LOOP END
 
-   LOOP BEGIN at /home/training/dd-20-28-39/aom/av1/common/convolve.c(922,5)
+   LOOP BEGIN at /home/training/dd-20-28-39/aom/av1/common/convolve.c(923,5)
    <Predicate Optimized v2>
-      remark #15389: vectorization support: reference src[y*src_stride+x] has unaligned access   [ /home/training/dd-20-28-39/aom/av1/common/convolve.c(923,27) ]
-      remark #15389: vectorization support: reference dst16[y*dst16_stride+x] has unaligned access   [ /home/training/dd-20-28-39/aom/av1/common/convolve.c(938,9) ]
+      remark #15389: vectorization support: reference src[y*src_stride+x] has unaligned access   [ /home/training/dd-20-28-39/aom/av1/common/convolve.c(924,27) ]
+      remark #15389: vectorization support: reference dst16[y*dst16_stride+x] has unaligned access   [ /home/training/dd-20-28-39/aom/av1/common/convolve.c(939,9) ]
       remark #15381: vectorization support: unaligned access used inside loop body
       remark #15305: vectorization support: vector length 16
       remark #15309: vectorization support: normalized vectorization overhead 1.000
@@ -1554,10 +1560,10 @@ LOOP BEGIN at /home/training/dd-20-28-39/aom/av1/common/convolve.c(921,3)
       remark #15488: --- end vector cost summary ---
    LOOP END
 
-   LOOP BEGIN at /home/training/dd-20-28-39/aom/av1/common/convolve.c(922,5)
+   LOOP BEGIN at /home/training/dd-20-28-39/aom/av1/common/convolve.c(923,5)
    <Remainder loop for vectorization, Predicate Optimized v2>
-      remark #15389: vectorization support: reference src[y*src_stride+x] has unaligned access   [ /home/training/dd-20-28-39/aom/av1/common/convolve.c(923,27) ]
-      remark #15389: vectorization support: reference dst16[y*dst16_stride+x] has unaligned access   [ /home/training/dd-20-28-39/aom/av1/common/convolve.c(938,9) ]
+      remark #15389: vectorization support: reference src[y*src_stride+x] has unaligned access   [ /home/training/dd-20-28-39/aom/av1/common/convolve.c(924,27) ]
+      remark #15389: vectorization support: reference dst16[y*dst16_stride+x] has unaligned access   [ /home/training/dd-20-28-39/aom/av1/common/convolve.c(939,9) ]
       remark #15381: vectorization support: unaligned access used inside loop body
       remark #15305: vectorization support: vector length 4
       remark #15309: vectorization support: normalized vectorization overhead 1.133
@@ -1572,7 +1578,7 @@ LOOP BEGIN at /home/training/dd-20-28-39/aom/av1/common/convolve.c(921,3)
       remark #15488: --- end vector cost summary ---
    LOOP END
 
-   LOOP BEGIN at /home/training/dd-20-28-39/aom/av1/common/convolve.c(922,5)
+   LOOP BEGIN at /home/training/dd-20-28-39/aom/av1/common/convolve.c(923,5)
    <Remainder loop for vectorization, Predicate Optimized v2>
    LOOP END
 LOOP END
@@ -1583,28 +1589,28 @@ Begin optimization report for: av1_highbd_convolve_2d_scale_c(const uint16_t *, 
     Report from: Loop nest & Vector optimizations [loop, vec]
 
 
-LOOP BEGIN at /home/training/dd-20-28-39/aom/av1/common/convolve.c(964,3)
+LOOP BEGIN at /home/training/dd-20-28-39/aom/av1/common/convolve.c(965,3)
    remark #25096: Loop Interchange not done due to: Imperfect Loop Nest (Either at Source or due to other Compiler Transformations)
    remark #25451: Advice: Loop Interchange, if possible, might help loopnest. Suggested Permutation : ( 1 2 3 ) --> ( 1 3 2 ) 
    remark #15542: loop was not vectorized: inner loop was already vectorized
 
-   LOOP BEGIN at /home/training/dd-20-28-39/aom/av1/common/convolve.c(966,5)
+   LOOP BEGIN at /home/training/dd-20-28-39/aom/av1/common/convolve.c(967,5)
       remark #25096: Loop Interchange not done due to: Imperfect Loop Nest (Either at Source or due to other Compiler Transformations)
       remark #25451: Advice: Loop Interchange, if possible, might help loopnest. Suggested Permutation : ( 1 2 ) --> ( 2 1 ) 
       remark #15542: loop was not vectorized: inner loop was already vectorized
 
-      LOOP BEGIN at /home/training/dd-20-28-39/aom/av1/common/convolve.c(973,7)
+      LOOP BEGIN at /home/training/dd-20-28-39/aom/av1/common/convolve.c(974,7)
       <Peeled loop for vectorization>
          remark #25015: Estimate of max trip count of loop=15
       LOOP END
 
-      LOOP BEGIN at /home/training/dd-20-28-39/aom/av1/common/convolve.c(973,7)
-         remark #15389: vectorization support: reference x_filter[k] has unaligned access   [ /home/training/dd-20-28-39/aom/av1/common/convolve.c(974,16) ]
-         remark #15389: vectorization support: reference src_x[k-fo_horiz] has unaligned access   [ /home/training/dd-20-28-39/aom/av1/common/convolve.c(974,30) ]
+      LOOP BEGIN at /home/training/dd-20-28-39/aom/av1/common/convolve.c(974,7)
+         remark #15389: vectorization support: reference x_filter[k] has unaligned access   [ /home/training/dd-20-28-39/aom/av1/common/convolve.c(975,16) ]
+         remark #15389: vectorization support: reference src_x[k-fo_horiz] has unaligned access   [ /home/training/dd-20-28-39/aom/av1/common/convolve.c(975,30) ]
          remark #15381: vectorization support: unaligned access used inside loop body
          remark #15305: vectorization support: vector length 16
          remark #15309: vectorization support: normalized vectorization overhead 2.733
-         remark #15355: vectorization support: sum is int type reduction   [ /home/training/dd-20-28-39/aom/av1/common/convolve.c(972,19) ]
+         remark #15355: vectorization support: sum is int type reduction   [ /home/training/dd-20-28-39/aom/av1/common/convolve.c(973,19) ]
          remark #15300: LOOP WAS VECTORIZED
          remark #15442: entire loop may be executed in remainder
          remark #15450: unmasked unaligned unit stride loads: 2 
@@ -1615,32 +1621,32 @@ LOOP BEGIN at /home/training/dd-20-28-39/aom/av1/common/convolve.c(964,3)
          remark #15488: --- end vector cost summary ---
       LOOP END
 
-      LOOP BEGIN at /home/training/dd-20-28-39/aom/av1/common/convolve.c(973,7)
+      LOOP BEGIN at /home/training/dd-20-28-39/aom/av1/common/convolve.c(974,7)
       <Remainder loop for vectorization>
       LOOP END
    LOOP END
 LOOP END
 
-LOOP BEGIN at /home/training/dd-20-28-39/aom/av1/common/convolve.c(986,3)
+LOOP BEGIN at /home/training/dd-20-28-39/aom/av1/common/convolve.c(987,3)
    remark #25096: Loop Interchange not done due to: Imperfect Loop Nest (Either at Source or due to other Compiler Transformations)
    remark #25451: Advice: Loop Interchange, if possible, might help loopnest. Suggested Permutation : ( 1 2 3 ) --> ( 2 3 1 ) 
    remark #15542: loop was not vectorized: inner loop was already vectorized
 
-   LOOP BEGIN at /home/training/dd-20-28-39/aom/av1/common/convolve.c(988,5)
+   LOOP BEGIN at /home/training/dd-20-28-39/aom/av1/common/convolve.c(989,5)
       remark #15542: loop was not vectorized: inner loop was already vectorized
 
-      LOOP BEGIN at /home/training/dd-20-28-39/aom/av1/common/convolve.c(995,7)
+      LOOP BEGIN at /home/training/dd-20-28-39/aom/av1/common/convolve.c(996,7)
       <Peeled loop for vectorization>
          remark #25015: Estimate of max trip count of loop=15
       LOOP END
 
-      LOOP BEGIN at /home/training/dd-20-28-39/aom/av1/common/convolve.c(995,7)
-         remark #15389: vectorization support: reference y_filter[k] has unaligned access   [ /home/training/dd-20-28-39/aom/av1/common/convolve.c(996,16) ]
+      LOOP BEGIN at /home/training/dd-20-28-39/aom/av1/common/convolve.c(996,7)
+         remark #15389: vectorization support: reference y_filter[k] has unaligned access   [ /home/training/dd-20-28-39/aom/av1/common/convolve.c(997,16) ]
          remark #15381: vectorization support: unaligned access used inside loop body
-         remark #15328: vectorization support: non-unit strided load was emulated for the variable <src_y[(k-fo_vert)*w]>, stride is unknown to compiler   [ /home/training/dd-20-28-39/aom/av1/common/convolve.c(996,30) ]
+         remark #15328: vectorization support: non-unit strided load was emulated for the variable <src_y[(k-fo_vert)*w]>, stride is unknown to compiler   [ /home/training/dd-20-28-39/aom/av1/common/convolve.c(997,30) ]
          remark #15305: vectorization support: vector length 16
          remark #15309: vectorization support: normalized vectorization overhead 0.500
-         remark #15355: vectorization support: sum is int type reduction   [ /home/training/dd-20-28-39/aom/av1/common/convolve.c(994,19) ]
+         remark #15355: vectorization support: sum is int type reduction   [ /home/training/dd-20-28-39/aom/av1/common/convolve.c(995,19) ]
          remark #15300: LOOP WAS VECTORIZED
          remark #15442: entire loop may be executed in remainder
          remark #15450: unmasked unaligned unit stride loads: 1 
@@ -1652,7 +1658,7 @@ LOOP BEGIN at /home/training/dd-20-28-39/aom/av1/common/convolve.c(986,3)
          remark #15488: --- end vector cost summary ---
       LOOP END
 
-      LOOP BEGIN at /home/training/dd-20-28-39/aom/av1/common/convolve.c(995,7)
+      LOOP BEGIN at /home/training/dd-20-28-39/aom/av1/common/convolve.c(996,7)
       <Remainder loop for vectorization>
       LOOP END
    LOOP END
@@ -1664,28 +1670,28 @@ Begin optimization report for: av1_highbd_convolve_2d_facade(const uint8_t *, in
     Report from: Loop nest & Vector optimizations [loop, vec]
 
 
-LOOP BEGIN at /home/training/dd-20-28-39/aom/av1/common/convolve.c(964,3) inlined into /home/training/dd-20-28-39/aom/av1/common/convolve.c(1054,5)
+LOOP BEGIN at /home/training/dd-20-28-39/aom/av1/common/convolve.c(965,3) inlined into /home/training/dd-20-28-39/aom/av1/common/convolve.c(1055,5)
    remark #25096: Loop Interchange not done due to: Imperfect Loop Nest (Either at Source or due to other Compiler Transformations)
    remark #25451: Advice: Loop Interchange, if possible, might help loopnest. Suggested Permutation : ( 1 2 3 ) --> ( 1 3 2 ) 
    remark #15542: loop was not vectorized: inner loop was already vectorized
 
-   LOOP BEGIN at /home/training/dd-20-28-39/aom/av1/common/convolve.c(966,5) inlined into /home/training/dd-20-28-39/aom/av1/common/convolve.c(1054,5)
+   LOOP BEGIN at /home/training/dd-20-28-39/aom/av1/common/convolve.c(967,5) inlined into /home/training/dd-20-28-39/aom/av1/common/convolve.c(1055,5)
       remark #25096: Loop Interchange not done due to: Imperfect Loop Nest (Either at Source or due to other Compiler Transformations)
       remark #25451: Advice: Loop Interchange, if possible, might help loopnest. Suggested Permutation : ( 1 2 ) --> ( 2 1 ) 
       remark #15542: loop was not vectorized: inner loop was already vectorized
 
-      LOOP BEGIN at /home/training/dd-20-28-39/aom/av1/common/convolve.c(973,7) inlined into /home/training/dd-20-28-39/aom/av1/common/convolve.c(1054,5)
+      LOOP BEGIN at /home/training/dd-20-28-39/aom/av1/common/convolve.c(974,7) inlined into /home/training/dd-20-28-39/aom/av1/common/convolve.c(1055,5)
       <Peeled loop for vectorization>
          remark #25015: Estimate of max trip count of loop=15
       LOOP END
 
-      LOOP BEGIN at /home/training/dd-20-28-39/aom/av1/common/convolve.c(973,7) inlined into /home/training/dd-20-28-39/aom/av1/common/convolve.c(1054,5)
-         remark #15389: vectorization support: reference x_filter[k] has unaligned access   [ /home/training/dd-20-28-39/aom/av1/common/convolve.c(974,16) ]
-         remark #15389: vectorization support: reference src_x[k-fo_horiz] has unaligned access   [ /home/training/dd-20-28-39/aom/av1/common/convolve.c(974,30) ]
+      LOOP BEGIN at /home/training/dd-20-28-39/aom/av1/common/convolve.c(974,7) inlined into /home/training/dd-20-28-39/aom/av1/common/convolve.c(1055,5)
+         remark #15389: vectorization support: reference x_filter[k] has unaligned access   [ /home/training/dd-20-28-39/aom/av1/common/convolve.c(975,16) ]
+         remark #15389: vectorization support: reference src_x[k-fo_horiz] has unaligned access   [ /home/training/dd-20-28-39/aom/av1/common/convolve.c(975,30) ]
          remark #15381: vectorization support: unaligned access used inside loop body
          remark #15305: vectorization support: vector length 16
          remark #15309: vectorization support: normalized vectorization overhead 2.733
-         remark #15355: vectorization support: sum is int type reduction   [ /home/training/dd-20-28-39/aom/av1/common/convolve.c(972,19) ]
+         remark #15355: vectorization support: sum is int type reduction   [ /home/training/dd-20-28-39/aom/av1/common/convolve.c(973,19) ]
          remark #15300: LOOP WAS VECTORIZED
          remark #15450: unmasked unaligned unit stride loads: 2 
          remark #15475: --- begin vector cost summary ---
@@ -1695,32 +1701,32 @@ LOOP BEGIN at /home/training/dd-20-28-39/aom/av1/common/convolve.c(964,3) inline
          remark #15488: --- end vector cost summary ---
       LOOP END
 
-      LOOP BEGIN at /home/training/dd-20-28-39/aom/av1/common/convolve.c(973,7) inlined into /home/training/dd-20-28-39/aom/av1/common/convolve.c(1054,5)
+      LOOP BEGIN at /home/training/dd-20-28-39/aom/av1/common/convolve.c(974,7) inlined into /home/training/dd-20-28-39/aom/av1/common/convolve.c(1055,5)
       <Remainder loop for vectorization>
       LOOP END
    LOOP END
 LOOP END
 
-LOOP BEGIN at /home/training/dd-20-28-39/aom/av1/common/convolve.c(986,3) inlined into /home/training/dd-20-28-39/aom/av1/common/convolve.c(1054,5)
+LOOP BEGIN at /home/training/dd-20-28-39/aom/av1/common/convolve.c(987,3) inlined into /home/training/dd-20-28-39/aom/av1/common/convolve.c(1055,5)
    remark #25096: Loop Interchange not done due to: Imperfect Loop Nest (Either at Source or due to other Compiler Transformations)
    remark #25451: Advice: Loop Interchange, if possible, might help loopnest. Suggested Permutation : ( 1 2 3 ) --> ( 2 3 1 ) 
    remark #15542: loop was not vectorized: inner loop was already vectorized
 
-   LOOP BEGIN at /home/training/dd-20-28-39/aom/av1/common/convolve.c(988,5) inlined into /home/training/dd-20-28-39/aom/av1/common/convolve.c(1054,5)
+   LOOP BEGIN at /home/training/dd-20-28-39/aom/av1/common/convolve.c(989,5) inlined into /home/training/dd-20-28-39/aom/av1/common/convolve.c(1055,5)
       remark #15542: loop was not vectorized: inner loop was already vectorized
 
-      LOOP BEGIN at /home/training/dd-20-28-39/aom/av1/common/convolve.c(995,7) inlined into /home/training/dd-20-28-39/aom/av1/common/convolve.c(1054,5)
+      LOOP BEGIN at /home/training/dd-20-28-39/aom/av1/common/convolve.c(996,7) inlined into /home/training/dd-20-28-39/aom/av1/common/convolve.c(1055,5)
       <Peeled loop for vectorization>
          remark #25015: Estimate of max trip count of loop=15
       LOOP END
 
-      LOOP BEGIN at /home/training/dd-20-28-39/aom/av1/common/convolve.c(995,7) inlined into /home/training/dd-20-28-39/aom/av1/common/convolve.c(1054,5)
-         remark #15389: vectorization support: reference y_filter[k] has unaligned access   [ /home/training/dd-20-28-39/aom/av1/common/convolve.c(996,16) ]
+      LOOP BEGIN at /home/training/dd-20-28-39/aom/av1/common/convolve.c(996,7) inlined into /home/training/dd-20-28-39/aom/av1/common/convolve.c(1055,5)
+         remark #15389: vectorization support: reference y_filter[k] has unaligned access   [ /home/training/dd-20-28-39/aom/av1/common/convolve.c(997,16) ]
          remark #15381: vectorization support: unaligned access used inside loop body
-         remark #15328: vectorization support: non-unit strided load was emulated for the variable <src_y[(k-fo_vert)*w]>, stride is unknown to compiler   [ /home/training/dd-20-28-39/aom/av1/common/convolve.c(996,30) ]
+         remark #15328: vectorization support: non-unit strided load was emulated for the variable <src_y[(k-fo_vert)*w]>, stride is unknown to compiler   [ /home/training/dd-20-28-39/aom/av1/common/convolve.c(997,30) ]
          remark #15305: vectorization support: vector length 16
          remark #15309: vectorization support: normalized vectorization overhead 0.500
-         remark #15355: vectorization support: sum is int type reduction   [ /home/training/dd-20-28-39/aom/av1/common/convolve.c(994,19) ]
+         remark #15355: vectorization support: sum is int type reduction   [ /home/training/dd-20-28-39/aom/av1/common/convolve.c(995,19) ]
          remark #15300: LOOP WAS VECTORIZED
          remark #15442: entire loop may be executed in remainder
          remark #15450: unmasked unaligned unit stride loads: 1 
@@ -1732,7 +1738,7 @@ LOOP BEGIN at /home/training/dd-20-28-39/aom/av1/common/convolve.c(986,3) inline
          remark #15488: --- end vector cost summary ---
       LOOP END
 
-      LOOP BEGIN at /home/training/dd-20-28-39/aom/av1/common/convolve.c(995,7) inlined into /home/training/dd-20-28-39/aom/av1/common/convolve.c(1054,5)
+      LOOP BEGIN at /home/training/dd-20-28-39/aom/av1/common/convolve.c(996,7) inlined into /home/training/dd-20-28-39/aom/av1/common/convolve.c(1055,5)
       <Remainder loop for vectorization>
       LOOP END
    LOOP END
@@ -1744,30 +1750,30 @@ Begin optimization report for: av1_wiener_convolve_add_src_c(const uint8_t *, pt
     Report from: Loop nest & Vector optimizations [loop, vec]
 
 
-LOOP BEGIN at /home/training/dd-20-28-39/aom/av1/common/convolve.c(1123,3) inlined into /home/training/dd-20-28-39/aom/av1/common/convolve.c(1188,3)
+LOOP BEGIN at /home/training/dd-20-28-39/aom/av1/common/convolve.c(1124,3) inlined into /home/training/dd-20-28-39/aom/av1/common/convolve.c(1189,3)
    remark #15541: outer loop was not auto-vectorized: consider using SIMD directive
 
-   LOOP BEGIN at /home/training/dd-20-28-39/aom/av1/common/convolve.c(1125,5) inlined into /home/training/dd-20-28-39/aom/av1/common/convolve.c(1188,3)
-      remark #15389: vectorization support: reference dst[x] has unaligned access   [ /home/training/dd-20-28-39/aom/av1/common/convolve.c(1131,7) ]
+   LOOP BEGIN at /home/training/dd-20-28-39/aom/av1/common/convolve.c(1126,5) inlined into /home/training/dd-20-28-39/aom/av1/common/convolve.c(1189,3)
+      remark #15389: vectorization support: reference dst[x] has unaligned access   [ /home/training/dd-20-28-39/aom/av1/common/convolve.c(1132,7) ]
       remark #15381: vectorization support: unaligned access used inside loop body
       remark #15335: loop was not vectorized: vectorization possible but seems inefficient. Use vector always directive or -vec-threshold0 to override 
-      remark #15328: vectorization support: indirect load was emulated for the variable <*(src_x+3)>, 64-bit indexed, part of address is nonlinearly computed   [ /home/training/dd-20-28-39/aom/av1/common/convolve.c(1128,34) ]
-      remark #15328: vectorization support: indirect load was emulated for the variable <src_x[k]>, 64-bit indexed, part of address is nonlinearly computed   [ /home/training/dd-20-28-39/aom/av1/common/convolve.c(1085,48) ]
-      remark #15328: vectorization support: indirect load was emulated for the variable <x_filter[k]>, 64-bit indexed, part of address is nonlinearly computed   [ /home/training/dd-20-28-39/aom/av1/common/convolve.c(1085,55) ]
-      remark #15328: vectorization support: indirect load was emulated for the variable <src_x[k]>, 64-bit indexed, part of address is nonlinearly computed   [ /home/training/dd-20-28-39/aom/av1/common/convolve.c(1085,48) ]
-      remark #15328: vectorization support: indirect load was emulated for the variable <x_filter[k]>, 64-bit indexed, part of address is nonlinearly computed   [ /home/training/dd-20-28-39/aom/av1/common/convolve.c(1085,55) ]
-      remark #15328: vectorization support: indirect load was emulated for the variable <src_x[k]>, 64-bit indexed, part of address is nonlinearly computed   [ /home/training/dd-20-28-39/aom/av1/common/convolve.c(1085,48) ]
-      remark #15328: vectorization support: indirect load was emulated for the variable <x_filter[k]>, 64-bit indexed, part of address is nonlinearly computed   [ /home/training/dd-20-28-39/aom/av1/common/convolve.c(1085,55) ]
-      remark #15328: vectorization support: indirect load was emulated for the variable <src_x[k]>, 64-bit indexed, part of address is nonlinearly computed   [ /home/training/dd-20-28-39/aom/av1/common/convolve.c(1085,48) ]
-      remark #15328: vectorization support: indirect load was emulated for the variable <x_filter[k]>, 64-bit indexed, part of address is nonlinearly computed   [ /home/training/dd-20-28-39/aom/av1/common/convolve.c(1085,55) ]
-      remark #15328: vectorization support: indirect load was emulated for the variable <src_x[k]>, 64-bit indexed, part of address is nonlinearly computed   [ /home/training/dd-20-28-39/aom/av1/common/convolve.c(1085,48) ]
-      remark #15328: vectorization support: indirect load was emulated for the variable <x_filter[k]>, 64-bit indexed, part of address is nonlinearly computed   [ /home/training/dd-20-28-39/aom/av1/common/convolve.c(1085,55) ]
-      remark #15328: vectorization support: indirect load was emulated for the variable <src_x[k]>, 64-bit indexed, part of address is nonlinearly computed   [ /home/training/dd-20-28-39/aom/av1/common/convolve.c(1085,48) ]
-      remark #15328: vectorization support: indirect load was emulated for the variable <x_filter[k]>, 64-bit indexed, part of address is nonlinearly computed   [ /home/training/dd-20-28-39/aom/av1/common/convolve.c(1085,55) ]
-      remark #15328: vectorization support: indirect load was emulated for the variable <src_x[k]>, 64-bit indexed, part of address is nonlinearly computed   [ /home/training/dd-20-28-39/aom/av1/common/convolve.c(1085,48) ]
-      remark #15328: vectorization support: indirect load was emulated for the variable <x_filter[k]>, 64-bit indexed, part of address is nonlinearly computed   [ /home/training/dd-20-28-39/aom/av1/common/convolve.c(1085,55) ]
-      remark #15328: vectorization support: indirect load was emulated for the variable <src_x[k]>, 64-bit indexed, part of address is nonlinearly computed   [ /home/training/dd-20-28-39/aom/av1/common/convolve.c(1085,48) ]
-      remark #15328: vectorization support: indirect load was emulated for the variable <x_filter[k]>, 64-bit indexed, part of address is nonlinearly computed   [ /home/training/dd-20-28-39/aom/av1/common/convolve.c(1085,55) ]
+      remark #15328: vectorization support: indirect load was emulated for the variable <*(src_x+3)>, 64-bit indexed, part of address is nonlinearly computed   [ /home/training/dd-20-28-39/aom/av1/common/convolve.c(1129,34) ]
+      remark #15328: vectorization support: indirect load was emulated for the variable <src_x[k]>, 64-bit indexed, part of address is nonlinearly computed   [ /home/training/dd-20-28-39/aom/av1/common/convolve.c(1086,48) ]
+      remark #15328: vectorization support: indirect load was emulated for the variable <x_filter[k]>, 64-bit indexed, part of address is nonlinearly computed   [ /home/training/dd-20-28-39/aom/av1/common/convolve.c(1086,55) ]
+      remark #15328: vectorization support: indirect load was emulated for the variable <src_x[k]>, 64-bit indexed, part of address is nonlinearly computed   [ /home/training/dd-20-28-39/aom/av1/common/convolve.c(1086,48) ]
+      remark #15328: vectorization support: indirect load was emulated for the variable <x_filter[k]>, 64-bit indexed, part of address is nonlinearly computed   [ /home/training/dd-20-28-39/aom/av1/common/convolve.c(1086,55) ]
+      remark #15328: vectorization support: indirect load was emulated for the variable <src_x[k]>, 64-bit indexed, part of address is nonlinearly computed   [ /home/training/dd-20-28-39/aom/av1/common/convolve.c(1086,48) ]
+      remark #15328: vectorization support: indirect load was emulated for the variable <x_filter[k]>, 64-bit indexed, part of address is nonlinearly computed   [ /home/training/dd-20-28-39/aom/av1/common/convolve.c(1086,55) ]
+      remark #15328: vectorization support: indirect load was emulated for the variable <src_x[k]>, 64-bit indexed, part of address is nonlinearly computed   [ /home/training/dd-20-28-39/aom/av1/common/convolve.c(1086,48) ]
+      remark #15328: vectorization support: indirect load was emulated for the variable <x_filter[k]>, 64-bit indexed, part of address is nonlinearly computed   [ /home/training/dd-20-28-39/aom/av1/common/convolve.c(1086,55) ]
+      remark #15328: vectorization support: indirect load was emulated for the variable <src_x[k]>, 64-bit indexed, part of address is nonlinearly computed   [ /home/training/dd-20-28-39/aom/av1/common/convolve.c(1086,48) ]
+      remark #15328: vectorization support: indirect load was emulated for the variable <x_filter[k]>, 64-bit indexed, part of address is nonlinearly computed   [ /home/training/dd-20-28-39/aom/av1/common/convolve.c(1086,55) ]
+      remark #15328: vectorization support: indirect load was emulated for the variable <src_x[k]>, 64-bit indexed, part of address is nonlinearly computed   [ /home/training/dd-20-28-39/aom/av1/common/convolve.c(1086,48) ]
+      remark #15328: vectorization support: indirect load was emulated for the variable <x_filter[k]>, 64-bit indexed, part of address is nonlinearly computed   [ /home/training/dd-20-28-39/aom/av1/common/convolve.c(1086,55) ]
+      remark #15328: vectorization support: indirect load was emulated for the variable <src_x[k]>, 64-bit indexed, part of address is nonlinearly computed   [ /home/training/dd-20-28-39/aom/av1/common/convolve.c(1086,48) ]
+      remark #15328: vectorization support: indirect load was emulated for the variable <x_filter[k]>, 64-bit indexed, part of address is nonlinearly computed   [ /home/training/dd-20-28-39/aom/av1/common/convolve.c(1086,55) ]
+      remark #15328: vectorization support: indirect load was emulated for the variable <src_x[k]>, 64-bit indexed, part of address is nonlinearly computed   [ /home/training/dd-20-28-39/aom/av1/common/convolve.c(1086,48) ]
+      remark #15328: vectorization support: indirect load was emulated for the variable <x_filter[k]>, 64-bit indexed, part of address is nonlinearly computed   [ /home/training/dd-20-28-39/aom/av1/common/convolve.c(1086,55) ]
       remark #15305: vectorization support: vector length 4
       remark #15309: vectorization support: normalized vectorization overhead 0.015
       remark #15451: unmasked unaligned unit stride stores: 1 
@@ -1779,35 +1785,35 @@ LOOP BEGIN at /home/training/dd-20-28-39/aom/av1/common/convolve.c(1123,3) inlin
       remark #15487: type converts: 9 
       remark #15488: --- end vector cost summary ---
 
-      LOOP BEGIN at /home/training/dd-20-28-39/aom/av1/common/convolve.c(1085,3) inlined into /home/training/dd-20-28-39/aom/av1/common/convolve.c(1188,3)
+      LOOP BEGIN at /home/training/dd-20-28-39/aom/av1/common/convolve.c(1086,3) inlined into /home/training/dd-20-28-39/aom/av1/common/convolve.c(1189,3)
          remark #25436: completely unrolled by 8   (pre-vector) 
       LOOP END
    LOOP END
 LOOP END
 
-LOOP BEGIN at /home/training/dd-20-28-39/aom/av1/common/convolve.c(1148,3) inlined into /home/training/dd-20-28-39/aom/av1/common/convolve.c(1192,3)
+LOOP BEGIN at /home/training/dd-20-28-39/aom/av1/common/convolve.c(1149,3) inlined into /home/training/dd-20-28-39/aom/av1/common/convolve.c(1193,3)
    remark #15541: outer loop was not auto-vectorized: consider using SIMD directive
 
-   LOOP BEGIN at /home/training/dd-20-28-39/aom/av1/common/convolve.c(1150,5) inlined into /home/training/dd-20-28-39/aom/av1/common/convolve.c(1192,3)
+   LOOP BEGIN at /home/training/dd-20-28-39/aom/av1/common/convolve.c(1151,5) inlined into /home/training/dd-20-28-39/aom/av1/common/convolve.c(1193,3)
       remark #15335: loop was not vectorized: vectorization possible but seems inefficient. Use vector always directive or -vec-threshold0 to override 
-      remark #15328: vectorization support: indirect load was emulated for the variable <*(src_y+768)>, 64-bit indexed, part of address is nonlinearly computed   [ /home/training/dd-20-28-39/aom/av1/common/convolve.c(1154,17) ]
-      remark #15328: vectorization support: indirect load was emulated for the variable <src_y[k*128]>, 64-bit indexed, part of address is nonlinearly computed   [ /home/training/dd-20-28-39/aom/av1/common/convolve.c(1102,48) ]
-      remark #15328: vectorization support: indirect load was emulated for the variable <y_filter[k]>, 64-bit indexed, part of address is nonlinearly computed   [ /home/training/dd-20-28-39/aom/av1/common/convolve.c(1102,66) ]
-      remark #15328: vectorization support: indirect load was emulated for the variable <src_y[k*128]>, 64-bit indexed, part of address is nonlinearly computed   [ /home/training/dd-20-28-39/aom/av1/common/convolve.c(1102,48) ]
-      remark #15328: vectorization support: indirect load was emulated for the variable <y_filter[k]>, 64-bit indexed, part of address is nonlinearly computed   [ /home/training/dd-20-28-39/aom/av1/common/convolve.c(1102,66) ]
-      remark #15328: vectorization support: indirect load was emulated for the variable <src_y[k*128]>, 64-bit indexed, part of address is nonlinearly computed   [ /home/training/dd-20-28-39/aom/av1/common/convolve.c(1102,48) ]
-      remark #15328: vectorization support: indirect load was emulated for the variable <y_filter[k]>, 64-bit indexed, part of address is nonlinearly computed   [ /home/training/dd-20-28-39/aom/av1/common/convolve.c(1102,66) ]
-      remark #15328: vectorization support: indirect load was emulated for the variable <src_y[k*128]>, 64-bit indexed, part of address is nonlinearly computed   [ /home/training/dd-20-28-39/aom/av1/common/convolve.c(1102,48) ]
-      remark #15328: vectorization support: indirect load was emulated for the variable <y_filter[k]>, 64-bit indexed, part of address is nonlinearly computed   [ /home/training/dd-20-28-39/aom/av1/common/convolve.c(1102,66) ]
-      remark #15328: vectorization support: indirect load was emulated for the variable <src_y[k*128]>, 64-bit indexed, part of address is nonlinearly computed   [ /home/training/dd-20-28-39/aom/av1/common/convolve.c(1102,48) ]
-      remark #15328: vectorization support: indirect load was emulated for the variable <y_filter[k]>, 64-bit indexed, part of address is nonlinearly computed   [ /home/training/dd-20-28-39/aom/av1/common/convolve.c(1102,66) ]
-      remark #15328: vectorization support: indirect load was emulated for the variable <src_y[k*128]>, 64-bit indexed, part of address is nonlinearly computed   [ /home/training/dd-20-28-39/aom/av1/common/convolve.c(1102,48) ]
-      remark #15328: vectorization support: indirect load was emulated for the variable <y_filter[k]>, 64-bit indexed, part of address is nonlinearly computed   [ /home/training/dd-20-28-39/aom/av1/common/convolve.c(1102,66) ]
-      remark #15328: vectorization support: indirect load was emulated for the variable <src_y[k*128]>, 64-bit indexed, part of address is nonlinearly computed   [ /home/training/dd-20-28-39/aom/av1/common/convolve.c(1102,48) ]
-      remark #15328: vectorization support: indirect load was emulated for the variable <y_filter[k]>, 64-bit indexed, part of address is nonlinearly computed   [ /home/training/dd-20-28-39/aom/av1/common/convolve.c(1102,66) ]
-      remark #15328: vectorization support: indirect load was emulated for the variable <src_y[k*128]>, 64-bit indexed, part of address is nonlinearly computed   [ /home/training/dd-20-28-39/aom/av1/common/convolve.c(1102,48) ]
-      remark #15328: vectorization support: indirect load was emulated for the variable <y_filter[k]>, 64-bit indexed, part of address is nonlinearly computed   [ /home/training/dd-20-28-39/aom/av1/common/convolve.c(1102,66) ]
-      remark #15329: vectorization support: non-unit strided store was emulated for the variable <dst[y]>, stride is unknown to compiler   [ /home/training/dd-20-28-39/aom/av1/common/convolve.c(1158,7) ]
+      remark #15328: vectorization support: indirect load was emulated for the variable <*(src_y+768)>, 64-bit indexed, part of address is nonlinearly computed   [ /home/training/dd-20-28-39/aom/av1/common/convolve.c(1155,17) ]
+      remark #15328: vectorization support: indirect load was emulated for the variable <src_y[k*128]>, 64-bit indexed, part of address is nonlinearly computed   [ /home/training/dd-20-28-39/aom/av1/common/convolve.c(1103,48) ]
+      remark #15328: vectorization support: indirect load was emulated for the variable <y_filter[k]>, 64-bit indexed, part of address is nonlinearly computed   [ /home/training/dd-20-28-39/aom/av1/common/convolve.c(1103,66) ]
+      remark #15328: vectorization support: indirect load was emulated for the variable <src_y[k*128]>, 64-bit indexed, part of address is nonlinearly computed   [ /home/training/dd-20-28-39/aom/av1/common/convolve.c(1103,48) ]
+      remark #15328: vectorization support: indirect load was emulated for the variable <y_filter[k]>, 64-bit indexed, part of address is nonlinearly computed   [ /home/training/dd-20-28-39/aom/av1/common/convolve.c(1103,66) ]
+      remark #15328: vectorization support: indirect load was emulated for the variable <src_y[k*128]>, 64-bit indexed, part of address is nonlinearly computed   [ /home/training/dd-20-28-39/aom/av1/common/convolve.c(1103,48) ]
+      remark #15328: vectorization support: indirect load was emulated for the variable <y_filter[k]>, 64-bit indexed, part of address is nonlinearly computed   [ /home/training/dd-20-28-39/aom/av1/common/convolve.c(1103,66) ]
+      remark #15328: vectorization support: indirect load was emulated for the variable <src_y[k*128]>, 64-bit indexed, part of address is nonlinearly computed   [ /home/training/dd-20-28-39/aom/av1/common/convolve.c(1103,48) ]
+      remark #15328: vectorization support: indirect load was emulated for the variable <y_filter[k]>, 64-bit indexed, part of address is nonlinearly computed   [ /home/training/dd-20-28-39/aom/av1/common/convolve.c(1103,66) ]
+      remark #15328: vectorization support: indirect load was emulated for the variable <src_y[k*128]>, 64-bit indexed, part of address is nonlinearly computed   [ /home/training/dd-20-28-39/aom/av1/common/convolve.c(1103,48) ]
+      remark #15328: vectorization support: indirect load was emulated for the variable <y_filter[k]>, 64-bit indexed, part of address is nonlinearly computed   [ /home/training/dd-20-28-39/aom/av1/common/convolve.c(1103,66) ]
+      remark #15328: vectorization support: indirect load was emulated for the variable <src_y[k*128]>, 64-bit indexed, part of address is nonlinearly computed   [ /home/training/dd-20-28-39/aom/av1/common/convolve.c(1103,48) ]
+      remark #15328: vectorization support: indirect load was emulated for the variable <y_filter[k]>, 64-bit indexed, part of address is nonlinearly computed   [ /home/training/dd-20-28-39/aom/av1/common/convolve.c(1103,66) ]
+      remark #15328: vectorization support: indirect load was emulated for the variable <src_y[k*128]>, 64-bit indexed, part of address is nonlinearly computed   [ /home/training/dd-20-28-39/aom/av1/common/convolve.c(1103,48) ]
+      remark #15328: vectorization support: indirect load was emulated for the variable <y_filter[k]>, 64-bit indexed, part of address is nonlinearly computed   [ /home/training/dd-20-28-39/aom/av1/common/convolve.c(1103,66) ]
+      remark #15328: vectorization support: indirect load was emulated for the variable <src_y[k*128]>, 64-bit indexed, part of address is nonlinearly computed   [ /home/training/dd-20-28-39/aom/av1/common/convolve.c(1103,48) ]
+      remark #15328: vectorization support: indirect load was emulated for the variable <y_filter[k]>, 64-bit indexed, part of address is nonlinearly computed   [ /home/training/dd-20-28-39/aom/av1/common/convolve.c(1103,66) ]
+      remark #15329: vectorization support: non-unit strided store was emulated for the variable <dst[y]>, stride is unknown to compiler   [ /home/training/dd-20-28-39/aom/av1/common/convolve.c(1159,7) ]
       remark #15305: vectorization support: vector length 4
       remark #15309: vectorization support: normalized vectorization overhead 0.008
       remark #15453: unmasked strided stores: 1 
@@ -1819,7 +1825,7 @@ LOOP BEGIN at /home/training/dd-20-28-39/aom/av1/common/convolve.c(1148,3) inlin
       remark #15487: type converts: 1 
       remark #15488: --- end vector cost summary ---
 
-      LOOP BEGIN at /home/training/dd-20-28-39/aom/av1/common/convolve.c(1102,3) inlined into /home/training/dd-20-28-39/aom/av1/common/convolve.c(1192,3)
+      LOOP BEGIN at /home/training/dd-20-28-39/aom/av1/common/convolve.c(1103,3) inlined into /home/training/dd-20-28-39/aom/av1/common/convolve.c(1193,3)
          remark #25436: completely unrolled by 8   (pre-vector) 
       LOOP END
    LOOP END
@@ -1831,46 +1837,46 @@ Begin optimization report for: av1_highbd_wiener_convolve_add_src_c(const uint8_
     Report from: Loop nest & Vector optimizations [loop, vec]
 
 
-LOOP BEGIN at /home/training/dd-20-28-39/aom/av1/common/convolve.c(1205,3) inlined into /home/training/dd-20-28-39/aom/av1/common/convolve.c(1268,3)
+LOOP BEGIN at /home/training/dd-20-28-39/aom/av1/common/convolve.c(1206,3) inlined into /home/training/dd-20-28-39/aom/av1/common/convolve.c(1269,3)
    remark #15541: outer loop was not auto-vectorized: consider using SIMD directive
 
-   LOOP BEGIN at /home/training/dd-20-28-39/aom/av1/common/convolve.c(1207,5) inlined into /home/training/dd-20-28-39/aom/av1/common/convolve.c(1268,3)
+   LOOP BEGIN at /home/training/dd-20-28-39/aom/av1/common/convolve.c(1208,5) inlined into /home/training/dd-20-28-39/aom/av1/common/convolve.c(1269,3)
       remark #15344: loop was not vectorized: vector dependence prevents vectorization. First dependence is shown below. Use level 5 report for details
-      remark #15346: vector dependence: assumed ANTI dependence between *(src_x+6) (1211:54) and dst[x] (1213:7)
+      remark #15346: vector dependence: assumed ANTI dependence between *(src_x+6) (1212:54) and dst[x] (1214:7)
 
-      LOOP BEGIN at /home/training/dd-20-28-39/aom/av1/common/convolve.c(1093,3) inlined into /home/training/dd-20-28-39/aom/av1/common/convolve.c(1268,3)
+      LOOP BEGIN at /home/training/dd-20-28-39/aom/av1/common/convolve.c(1094,3) inlined into /home/training/dd-20-28-39/aom/av1/common/convolve.c(1269,3)
          remark #25436: completely unrolled by 8   (pre-vector) 
       LOOP END
    LOOP END
 LOOP END
 
-LOOP BEGIN at /home/training/dd-20-28-39/aom/av1/common/convolve.c(1228,3) inlined into /home/training/dd-20-28-39/aom/av1/common/convolve.c(1272,3)
+LOOP BEGIN at /home/training/dd-20-28-39/aom/av1/common/convolve.c(1229,3) inlined into /home/training/dd-20-28-39/aom/av1/common/convolve.c(1273,3)
    remark #25101: Loop Interchange not done due to: Original Order seems proper
    remark #25452: Original Order found to be proper, but by a close margin
    remark #15541: outer loop was not auto-vectorized: consider using SIMD directive
 
-   LOOP BEGIN at /home/training/dd-20-28-39/aom/av1/common/convolve.c(1230,5) inlined into /home/training/dd-20-28-39/aom/av1/common/convolve.c(1272,3)
+   LOOP BEGIN at /home/training/dd-20-28-39/aom/av1/common/convolve.c(1231,5) inlined into /home/training/dd-20-28-39/aom/av1/common/convolve.c(1273,3)
    <Predicate Optimized v1>
       remark #25422: Invariant Condition at line 81 hoisted out of this loop
       remark #15344: loop was not vectorized: vector dependence prevents vectorization. First dependence is shown below. Use level 5 report for details
-      remark #15346: vector dependence: assumed ANTI dependence between *(src_y+768) (1235:37) and dst[y*dst_stride] (1238:7)
+      remark #15346: vector dependence: assumed ANTI dependence between *(src_y+768) (1236:37) and dst[y*dst_stride] (1239:7)
 
-      LOOP BEGIN at /home/training/dd-20-28-39/aom/av1/common/convolve.c(1102,3) inlined into /home/training/dd-20-28-39/aom/av1/common/convolve.c(1272,3)
+      LOOP BEGIN at /home/training/dd-20-28-39/aom/av1/common/convolve.c(1103,3) inlined into /home/training/dd-20-28-39/aom/av1/common/convolve.c(1273,3)
          remark #25436: completely unrolled by 8   (pre-vector) 
       LOOP END
    LOOP END
 
-   LOOP BEGIN at /home/training/dd-20-28-39/aom/av1/common/convolve.c(1230,5) inlined into /home/training/dd-20-28-39/aom/av1/common/convolve.c(1272,3)
+   LOOP BEGIN at /home/training/dd-20-28-39/aom/av1/common/convolve.c(1231,5) inlined into /home/training/dd-20-28-39/aom/av1/common/convolve.c(1273,3)
    <Predicate Optimized v3>
       remark #25422: Invariant Condition at line 81 hoisted out of this loop
       remark #15344: loop was not vectorized: vector dependence prevents vectorization. First dependence is shown below. Use level 5 report for details
-      remark #15346: vector dependence: assumed ANTI dependence between *(src_y+768) (1235:37) and dst[y*dst_stride] (1238:7)
+      remark #15346: vector dependence: assumed ANTI dependence between *(src_y+768) (1236:37) and dst[y*dst_stride] (1239:7)
    LOOP END
 
-   LOOP BEGIN at /home/training/dd-20-28-39/aom/av1/common/convolve.c(1230,5) inlined into /home/training/dd-20-28-39/aom/av1/common/convolve.c(1272,3)
+   LOOP BEGIN at /home/training/dd-20-28-39/aom/av1/common/convolve.c(1231,5) inlined into /home/training/dd-20-28-39/aom/av1/common/convolve.c(1273,3)
    <Predicate Optimized v4>
       remark #15344: loop was not vectorized: vector dependence prevents vectorization. First dependence is shown below. Use level 5 report for details
-      remark #15346: vector dependence: assumed ANTI dependence between *(src_y+768) (1235:37) and dst[y*dst_stride] (1238:7)
+      remark #15346: vector dependence: assumed ANTI dependence between *(src_y+768) (1236:37) and dst[y*dst_stride] (1239:7)
    LOOP END
 LOOP END
 ===========================================================================

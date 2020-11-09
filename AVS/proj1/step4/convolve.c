@@ -264,9 +264,9 @@ void av1_dist_wtd_convolve_2d_c(const uint8_t *src, int src_stride,
   const uint8_t *src_horiz = src - fo_vert * src_stride;
   const int16_t *x_filter = av1_get_interp_filter_subpel_kernel(
       filter_params_x, subpel_x_qn & SUBPEL_MASK);
-  for (int y = 0; y < im_h; ++y) {
+  for (int x = 0; x < w; ++x) {
     #pragma omp simd
-    for (int x = 0; x < w; ++x) {
+    for (int y = 0; y < im_h; ++y) {
       int32_t sum = (1 << (bd + FILTER_BITS - 1));
 
       for (int k = 0; k < filter_params_x->taps; ++k) {
@@ -283,8 +283,9 @@ void av1_dist_wtd_convolve_2d_c(const uint8_t *src, int src_stride,
   const int16_t *y_filter = av1_get_interp_filter_subpel_kernel(
       filter_params_y, subpel_y_qn & SUBPEL_MASK);
   const int offset_bits = bd + 2 * FILTER_BITS - conv_params->round_0;
-  for (int y = 0; y < h; ++y) {
-    for (int x = 0; x < w; ++x) {
+  for (int x = 0; x < w; ++x) {
+    #pragma omp simd
+    for (int y = 0; y < h; ++y) {
       int32_t sum = 1 << offset_bits;
       for (int k = 0; k < filter_params_y->taps; ++k) {
         sum += y_filter[k] * src_vert[(y - fo_vert + k) * im_stride + x];
