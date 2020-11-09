@@ -1,11 +1,15 @@
 1. 
 a) maximalni dosazene zrychleni
+S = doba výpočtu bez použití zlepšení / doba výpočtu při použití zlepšení
 funkce automaticky vektorizovane z convolve.c s vyuzitim souboru optrpt:
+7 nejvíce pomalých funkcí dle Bottom-Up a jejich možná zrychlení získaná ze souborů .optrpt:
 funkce                     estimated potential speedup
 av1_dist_wtd_convolve_2d_c 	4.530
 av1_convolve_2d_sr_c 		4.530
 av1_dist_wtd_convolve_x_c 	4.530
 celkem zrychleni: 		13.59
+
+b) Reálné zrychlení bude dle mého názoru nižší, protože ze souboru .optrpt se jedná pouze o přibližný odhad.
 
 
 c) LOOP BEGIN at /home/training/dd-20-28-39/aom/aom_dsp/aom_convolve.c(43,5) inlined into /home/training/dd-20-28-39/aom/aom_dsp/aom_convolve.c(95,3)
