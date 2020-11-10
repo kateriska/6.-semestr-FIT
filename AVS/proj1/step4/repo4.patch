@@ -14,14 +14,14 @@ index 2ef0863..b04413d 100644
  # Generate aom.pc and setup install rule.
  setup_aom_install_targets()
 diff --git a/aom_dsp/aom_convolve.c b/aom_dsp/aom_convolve.c
-index 7879b88..e74c697 100644
+index 7879b88..37c6df9 100644
 --- a/aom_dsp/aom_convolve.c
 +++ b/aom_dsp/aom_convolve.c
 @@ -40,6 +40,7 @@ static void convolve_horiz(const uint8_t *src, ptrdiff_t src_stride,
    src -= SUBPEL_TAPS / 2 - 1;
    for (int y = 0; y < h; ++y) {
      int x_q4 = x0_q4;
-+    #pragma omp simd 
++    #pragma omp simd
      for (int x = 0; x < w; ++x) {
        const uint8_t *const src_x = &src[x_q4 >> SUBPEL_BITS];
        const int16_t *const x_filter = x_filters[x_q4 & SUBPEL_MASK];
@@ -37,7 +37,7 @@ index 7879b88..e74c697 100644
    uint16_t *src = CONVERT_TO_SHORTPTR(src8);
    uint16_t *dst = CONVERT_TO_SHORTPTR(dst8);
    src -= SUBPEL_TAPS / 2 - 1;
-+  
++
    for (int y = 0; y < h; ++y) {
      int x_q4 = x0_q4;
 +    #pragma omp simd

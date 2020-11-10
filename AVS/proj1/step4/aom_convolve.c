@@ -40,7 +40,7 @@ static void convolve_horiz(const uint8_t *src, ptrdiff_t src_stride,
   src -= SUBPEL_TAPS / 2 - 1;
   for (int y = 0; y < h; ++y) {
     int x_q4 = x0_q4;
-    #pragma omp simd 
+    #pragma omp simd
     for (int x = 0; x < w; ++x) {
       const uint8_t *const src_x = &src[x_q4 >> SUBPEL_BITS];
       const int16_t *const x_filter = x_filters[x_q4 & SUBPEL_MASK];
