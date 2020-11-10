@@ -154,7 +154,7 @@ static void highbd_convolve_horiz(const uint8_t *src8, ptrdiff_t src_stride,
   uint16_t *src = CONVERT_TO_SHORTPTR(src8);
   uint16_t *dst = CONVERT_TO_SHORTPTR(dst8);
   src -= SUBPEL_TAPS / 2 - 1;
-  
+
   for (int y = 0; y < h; ++y) {
     int x_q4 = x0_q4;
     #pragma omp simd
