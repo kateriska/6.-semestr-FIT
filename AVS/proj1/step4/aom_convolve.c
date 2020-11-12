@@ -38,9 +38,10 @@ static void convolve_horiz(const uint8_t *src, ptrdiff_t src_stride,
                            const InterpKernel *x_filters, int x0_q4,
                            int x_step_q4, int w, int h) {
   src -= SUBPEL_TAPS / 2 - 1;
+
+  #pragma omp simd
   for (int y = 0; y < h; ++y) {
     int x_q4 = x0_q4;
-    #pragma omp simd
     for (int x = 0; x < w; ++x) {
       const uint8_t *const src_x = &src[x_q4 >> SUBPEL_BITS];
       const int16_t *const x_filter = x_filters[x_q4 & SUBPEL_MASK];
@@ -59,9 +60,9 @@ static void convolve_vert(const uint8_t *src, ptrdiff_t src_stride,
                           int y_step_q4, int w, int h) {
   src -= src_stride * (SUBPEL_TAPS / 2 - 1);
 
+  #pragma omp simd
   for (int x = 0; x < w; ++x) {
     int y_q4 = y0_q4;
-    #pragma omp simd
     for (int y = 0; y < h; ++y) {
       const unsigned char *src_y = &src[(y_q4 >> SUBPEL_BITS) * src_stride];
       const int16_t *const y_filter = y_filters[y_q4 & SUBPEL_MASK];
@@ -155,9 +156,9 @@ static void highbd_convolve_horiz(const uint8_t *src8, ptrdiff_t src_stride,
   uint16_t *dst = CONVERT_TO_SHORTPTR(dst8);
   src -= SUBPEL_TAPS / 2 - 1;
 
+  #pragma omp simd
   for (int y = 0; y < h; ++y) {
     int x_q4 = x0_q4;
-    #pragma omp simd
     for (int x = 0; x < w; ++x) {
       const uint16_t *const src_x = &src[x_q4 >> SUBPEL_BITS];
       const int16_t *const x_filter = x_filters[x_q4 & SUBPEL_MASK];
