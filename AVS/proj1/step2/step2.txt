@@ -1,0 +1,17 @@
+2. 
+a) Proč kompilátoru (ve všeobecnosti) vadí překrytí filtru a cílového pole?
+Překryv mu vadí, protože nedokáže určit, zda se pole nepřekrývají (pointer aliasing).
+
+b) Co komplikuje vektorizaci horizontální konvoluce na úrovni smyčky ve směru x? Co
+zhoršuje vektorizaci na úrovni smyčky ve směru y?
+Horizontalni konvoluce na urovni x -  dst[x] má nezarovnaný přístup, nezarovnaný přístup uvnitř těla smyčky 
+     		       na urovni y - stride je neznámý kompilátoru
+
+c) Který směr konvoluce (horizontální nebo vertikální) se vám povedlo urychlit (více)? V
+čem je zásadní rozdíl mezi těmito kernely?
+Video park joy: 
+Urychlení horizontální konvoluce - z 2.24 s na 1.295 s - zrychlení o 0.945 s
+Urychlení vertikální konvoluce - z 2.905 s na 0.23 s - zrychlení o 2.675 s
+
+Vertikální konvoluci se mi podařila urychlit více. Zásadní rozdíl je v postupu procházení 2D pole. U vertikální procházíme po řádcích, u horizontální po sloupcích. A obecně je procházení po sloupcích nevýhodné při přístupu do paměti (výpadky).
+
