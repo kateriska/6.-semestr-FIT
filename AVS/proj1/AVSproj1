@@ -69,31 +69,32 @@ LOOP END
 b)
 Otestujte dosažené zrychlení na videu rush hour, aby jste ověřili „přenositelnost” optimalizací na jiné video. Dosáhli jste stejných výsledků jako v případě videa park joy?
 
-Výsledky po provedení step1, step2 a step4:
-Krátké video Park Joy (výpočet zlepšení po provedení step1, step2, step4) upravovaných zásadních funkcí (convolve_vert, convolve_horiz, av1_dist_wtd_convolve_2d_c):
+Krátké video Park Joy, tabulka upravovaných zásadních funkcí (convolve_vert, convolve_horiz, av1_dist_wtd_convolve_2d_c):
 +----------------------------+----------------------+----------------------+------------+--------------+
 |                            | Původní CPU Time [s] | Finální CPU Time [s] | Rozdíl [s] | Úbytek o [%] |
 +----------------------------+----------------------+----------------------+------------+--------------+
-| convolve_vert              | 2.905                | 0.23                 | 2.675      | 92.083       |
+| convolve_vert              | 2.905                | 0.795                | 2.11       | 72.633       |
 +----------------------------+----------------------+----------------------+------------+--------------+
-| convolve_horiz             | 2.24                 | 1.295                | 0.945      | 42.188       |
+| convolve_horiz             | 2.24                 | 0.44                 | 1.8        | 80.357       |
 +----------------------------+----------------------+----------------------+------------+--------------+
-| av1_dist_wtd_convolve_2d_c | 6.86                 | 4.29                 | 2.57       | 37.464       |
+| av1_dist_wtd_convolve_2d_c | 6.86                 | 4.43                 | 2.43       | 35.423       |
 +----------------------------+----------------------+----------------------+------------+--------------+
 
-Dlouhé video Rush Hour (výpočet zlepšení po provedení step1, step2, step4) upravovaných zásadních funkcí (convolve_vert, convolve_horiz, av1_dist_wtd_convolve_2d_c):
+Můžeme vidět, že aplikování step3 na vertikální konvoluci nám CPU Time nesnížilo, byť zvýšilo (před step3 byl výpočet této funkce u park joy 0.23 s). Avšak aplikování step3 na horizontální konvoluci nám podstatně snížilo CPU Time.
+
+Dlouhé video Rush Hour, tabulka upravovaných zásadních funkcí (convolve_vert, convolve_horiz, av1_dist_wtd_convolve_2d_c):
 +----------------------------+----------------------+----------------------+------------+--------------+
 |                            | Původní CPU Time [s] | Finální CPU Time [s] | Rozdíl [s] | Úbytek o [%] |
 +----------------------------+----------------------+----------------------+------------+--------------+
-| convolve_vert              | 96.865               | 7.195                | 89.67      | 92.572       |
+| convolve_vert              | 96.865               | 23.57                | 73.295     | 75.667       |
 +----------------------------+----------------------+----------------------+------------+--------------+
-| convolve_horiz             | 63.86                | 38.045               | 25.815     | 40.424       |
+| convolve_horiz             | 63.86                | 11.91                | 51.95      | 81.350       |
 +----------------------------+----------------------+----------------------+------------+--------------+
-| av1_dist_wtd_convolve_2d_c | 212.83               | 129.580              | 83.25      | 39.116       |
+| av1_dist_wtd_convolve_2d_c | 212.83               | 146.59               | 66.24      | 31.123       |
 +----------------------------+----------------------+----------------------+------------+--------------+
+
 
 Jak můžeme v tabulkách výše vidět, úbytek CPU Time pro obě videa je docela srovnatelný. 
-
 
 
 c) Jaké jsou výhody psaní „vektorizovatelného” a jinak paralelizovatelného kódu a využívaní kompilátoru oproti psaní v jazyce symbolických instrukcí nebo využívání intrinsic funkcí? (Pro inspiraci se podívejte např. do aom/av1/common/x86/).
