@@ -11,41 +11,110 @@ Begin optimization report for: aom_convolve8_horiz_c(const uint8_t *, ptrdiff_t,
     Report from: Loop nest & Vector optimizations [loop, vec]
 
 
-LOOP BEGIN at /home/training/dd-20-28-39/aom/aom_dsp/aom_convolve.c(43,3) inlined into /home/training/dd-20-28-39/aom/aom_dsp/aom_convolve.c(98,3)
-   remark #15328: vectorization support: non-unit strided load was emulated for the variable <src_x[k]>, stride is unknown to compiler   [ /home/training/dd-20-28-39/aom/aom_dsp/aom_convolve.c(25,48) ]
-   remark #15328: vectorization support: non-unit strided load was emulated for the variable <src_x[k]>, stride is unknown to compiler   [ /home/training/dd-20-28-39/aom/aom_dsp/aom_convolve.c(25,48) ]
-   remark #15328: vectorization support: non-unit strided load was emulated for the variable <src_x[k]>, stride is unknown to compiler   [ /home/training/dd-20-28-39/aom/aom_dsp/aom_convolve.c(25,48) ]
-   remark #15328: vectorization support: non-unit strided load was emulated for the variable <src_x[k]>, stride is unknown to compiler   [ /home/training/dd-20-28-39/aom/aom_dsp/aom_convolve.c(25,48) ]
-   remark #15328: vectorization support: non-unit strided load was emulated for the variable <src_x[k]>, stride is unknown to compiler   [ /home/training/dd-20-28-39/aom/aom_dsp/aom_convolve.c(25,48) ]
-   remark #15328: vectorization support: non-unit strided load was emulated for the variable <src_x[k]>, stride is unknown to compiler   [ /home/training/dd-20-28-39/aom/aom_dsp/aom_convolve.c(25,48) ]
-   remark #15328: vectorization support: non-unit strided load was emulated for the variable <src_x[k]>, stride is unknown to compiler   [ /home/training/dd-20-28-39/aom/aom_dsp/aom_convolve.c(25,48) ]
-   remark #15328: vectorization support: non-unit strided load was emulated for the variable <src_x[k]>, stride is unknown to compiler   [ /home/training/dd-20-28-39/aom/aom_dsp/aom_convolve.c(25,48) ]
-   remark #15329: vectorization support: non-unit strided store was emulated for the variable <dst[x]>, stride is unknown to compiler   [ /home/training/dd-20-28-39/aom/aom_dsp/aom_convolve.c(49,7) ]
-   remark #15305: vectorization support: vector length 8
-   remark #15309: vectorization support: normalized vectorization overhead 0.226
-   remark #15301: SIMD LOOP WAS VECTORIZED
-   remark #15452: unmasked strided loads: 8 
-   remark #15453: unmasked strided stores: 1 
-   remark #15475: --- begin vector cost summary ---
-   remark #15476: scalar cost: 85 
-   remark #15477: vector cost: 50.370 
-   remark #15478: estimated potential speedup: 1.660 
-   remark #15488: --- end vector cost summary ---
+LOOP BEGIN at /home/training/dd-20-28-39/aom/aom_dsp/aom_convolve.c(42,3) inlined into /home/training/dd-20-28-39/aom/aom_dsp/aom_convolve.c(134,3)
+   remark #15542: loop was not vectorized: inner loop was already vectorized
 
-   LOOP BEGIN at /home/training/dd-20-28-39/aom/aom_dsp/aom_convolve.c(45,5) inlined into /home/training/dd-20-28-39/aom/aom_dsp/aom_convolve.c(98,3)
-      remark #15548: loop was vectorized along with the outer loop
+   LOOP BEGIN at /home/training/dd-20-28-39/aom/aom_dsp/aom_convolve.c(50,7) inlined into /home/training/dd-20-28-39/aom/aom_dsp/aom_convolve.c(134,3)
+      remark #25096: Loop Interchange not done due to: Imperfect Loop Nest (Either at Source or due to other Compiler Transformations)
+      remark #25452: Original Order found to be proper, but by a close margin
+      remark #15389: vectorization support: reference a[k] has unaligned access   [ /home/training/dd-20-28-39/aom/aom_dsp/aom_convolve.c(25,48) ]
+      remark #15389: vectorization support: reference a[k] has unaligned access   [ /home/training/dd-20-28-39/aom/aom_dsp/aom_convolve.c(25,48) ]
+      remark #15389: vectorization support: reference a[k] has unaligned access   [ /home/training/dd-20-28-39/aom/aom_dsp/aom_convolve.c(25,48) ]
+      remark #15389: vectorization support: reference a[k] has unaligned access   [ /home/training/dd-20-28-39/aom/aom_dsp/aom_convolve.c(25,48) ]
+      remark #15389: vectorization support: reference a[k] has unaligned access   [ /home/training/dd-20-28-39/aom/aom_dsp/aom_convolve.c(25,48) ]
+      remark #15389: vectorization support: reference a[k] has unaligned access   [ /home/training/dd-20-28-39/aom/aom_dsp/aom_convolve.c(25,48) ]
+      remark #15389: vectorization support: reference a[k] has unaligned access   [ /home/training/dd-20-28-39/aom/aom_dsp/aom_convolve.c(25,48) ]
+      remark #15389: vectorization support: reference a[k] has unaligned access   [ /home/training/dd-20-28-39/aom/aom_dsp/aom_convolve.c(25,48) ]
+      remark #15389: vectorization support: reference dst[x] has unaligned access   [ /home/training/dd-20-28-39/aom/aom_dsp/aom_convolve.c(53,9) ]
+      remark #15381: vectorization support: unaligned access used inside loop body
+      remark #15305: vectorization support: vector length 8
+      remark #15309: vectorization support: normalized vectorization overhead 1.028
+      remark #15301: SIMD LOOP WAS VECTORIZED
+      remark #15450: unmasked unaligned unit stride loads: 8 
+      remark #15451: unmasked unaligned unit stride stores: 1 
+      remark #15475: --- begin vector cost summary ---
+      remark #15476: scalar cost: 79 
+      remark #15477: vector cost: 13.370 
+      remark #15478: estimated potential speedup: 5.400 
+      remark #15488: --- end vector cost summary ---
 
-      LOOP BEGIN at /home/training/dd-20-28-39/aom/aom_dsp/aom_convolve.c(25,3) inlined into /home/training/dd-20-28-39/aom/aom_dsp/aom_convolve.c(98,3)
+      LOOP BEGIN at /home/training/dd-20-28-39/aom/aom_dsp/aom_convolve.c(25,3) inlined into /home/training/dd-20-28-39/aom/aom_dsp/aom_convolve.c(134,3)
          remark #25436: completely unrolled by 8   (pre-vector) 
       LOOP END
    LOOP END
-LOOP END
 
-LOOP BEGIN at /home/training/dd-20-28-39/aom/aom_dsp/aom_convolve.c(43,3) inlined into /home/training/dd-20-28-39/aom/aom_dsp/aom_convolve.c(98,3)
-<Remainder loop for vectorization>
+   LOOP BEGIN at /home/training/dd-20-28-39/aom/aom_dsp/aom_convolve.c(50,7) inlined into /home/training/dd-20-28-39/aom/aom_dsp/aom_convolve.c(134,3)
+   <Remainder loop for vectorization>
+      remark #15389: vectorization support: reference a[k] has unaligned access   [ /home/training/dd-20-28-39/aom/aom_dsp/aom_convolve.c(25,48) ]
+      remark #15389: vectorization support: reference a[k] has unaligned access   [ /home/training/dd-20-28-39/aom/aom_dsp/aom_convolve.c(25,48) ]
+      remark #15389: vectorization support: reference a[k] has unaligned access   [ /home/training/dd-20-28-39/aom/aom_dsp/aom_convolve.c(25,48) ]
+      remark #15389: vectorization support: reference a[k] has unaligned access   [ /home/training/dd-20-28-39/aom/aom_dsp/aom_convolve.c(25,48) ]
+      remark #15389: vectorization support: reference a[k] has unaligned access   [ /home/training/dd-20-28-39/aom/aom_dsp/aom_convolve.c(25,48) ]
+      remark #15389: vectorization support: reference a[k] has unaligned access   [ /home/training/dd-20-28-39/aom/aom_dsp/aom_convolve.c(25,48) ]
+      remark #15389: vectorization support: reference a[k] has unaligned access   [ /home/training/dd-20-28-39/aom/aom_dsp/aom_convolve.c(25,48) ]
+      remark #15389: vectorization support: reference a[k] has unaligned access   [ /home/training/dd-20-28-39/aom/aom_dsp/aom_convolve.c(25,48) ]
+      remark #15389: vectorization support: reference dst[x] has unaligned access   [ /home/training/dd-20-28-39/aom/aom_dsp/aom_convolve.c(53,9) ]
+      remark #15381: vectorization support: unaligned access used inside loop body
+      remark #15305: vectorization support: vector length 2
+      remark #15309: vectorization support: normalized vectorization overhead 0.597
+      remark #15301: REMAINDER LOOP WAS VECTORIZED
+      remark #15451: unmasked unaligned unit stride stores: 1 
+      remark #15462: unmasked indexed (or gather) loads: 16 
+      remark #15475: --- begin vector cost summary ---
+      remark #15476: scalar cost: 83 
+      remark #15477: vector cost: 118.180 
+      remark #15478: estimated potential speedup: 0.730 
+      remark #15488: --- end vector cost summary ---
+   LOOP END
 
-   LOOP BEGIN at /home/training/dd-20-28-39/aom/aom_dsp/aom_convolve.c(45,5) inlined into /home/training/dd-20-28-39/aom/aom_dsp/aom_convolve.c(98,3)
-      remark #25460: No loop optimizations reported
+   LOOP BEGIN at /home/training/dd-20-28-39/aom/aom_dsp/aom_convolve.c(50,7) inlined into /home/training/dd-20-28-39/aom/aom_dsp/aom_convolve.c(134,3)
+   <Remainder loop for vectorization>
+   LOOP END
+
+   LOOP BEGIN at /home/training/dd-20-28-39/aom/aom_dsp/aom_convolve.c(60,7) inlined into /home/training/dd-20-28-39/aom/aom_dsp/aom_convolve.c(134,3)
+   <Peeled loop for vectorization>
+      remark #25015: Estimate of max trip count of loop=15
+   LOOP END
+
+   LOOP BEGIN at /home/training/dd-20-28-39/aom/aom_dsp/aom_convolve.c(60,7) inlined into /home/training/dd-20-28-39/aom/aom_dsp/aom_convolve.c(134,3)
+      remark #25096: Loop Interchange not done due to: Imperfect Loop Nest (Either at Source or due to other Compiler Transformations)
+      remark #25452: Original Order found to be proper, but by a close margin
+      remark #15389: vectorization support: reference dst[x] has unaligned access   [ /home/training/dd-20-28-39/aom/aom_dsp/aom_convolve.c(64,7) ]
+      remark #15381: vectorization support: unaligned access used inside loop body
+      remark #15328: vectorization support: indirect load was emulated for the variable <src_x[k]>, 64-bit indexed, part of address is nonlinearly computed   [ /home/training/dd-20-28-39/aom/aom_dsp/aom_convolve.c(25,48) ]
+      remark #15328: vectorization support: indirect load was emulated for the variable <x_filter[k]>, 64-bit indexed, part of address is nonlinearly computed   [ /home/training/dd-20-28-39/aom/aom_dsp/aom_convolve.c(25,55) ]
+      remark #15328: vectorization support: indirect load was emulated for the variable <src_x[k]>, 64-bit indexed, part of address is nonlinearly computed   [ /home/training/dd-20-28-39/aom/aom_dsp/aom_convolve.c(25,48) ]
+      remark #15328: vectorization support: indirect load was emulated for the variable <x_filter[k]>, 64-bit indexed, part of address is nonlinearly computed   [ /home/training/dd-20-28-39/aom/aom_dsp/aom_convolve.c(25,55) ]
+      remark #15328: vectorization support: indirect load was emulated for the variable <src_x[k]>, 64-bit indexed, part of address is nonlinearly computed   [ /home/training/dd-20-28-39/aom/aom_dsp/aom_convolve.c(25,48) ]
+      remark #15328: vectorization support: indirect load was emulated for the variable <x_filter[k]>, 64-bit indexed, part of address is nonlinearly computed   [ /home/training/dd-20-28-39/aom/aom_dsp/aom_convolve.c(25,55) ]
+      remark #15328: vectorization support: indirect load was emulated for the variable <src_x[k]>, 64-bit indexed, part of address is nonlinearly computed   [ /home/training/dd-20-28-39/aom/aom_dsp/aom_convolve.c(25,48) ]
+      remark #15328: vectorization support: indirect load was emulated for the variable <x_filter[k]>, 64-bit indexed, part of address is nonlinearly computed   [ /home/training/dd-20-28-39/aom/aom_dsp/aom_convolve.c(25,55) ]
+      remark #15328: vectorization support: indirect load was emulated for the variable <src_x[k]>, 64-bit indexed, part of address is nonlinearly computed   [ /home/training/dd-20-28-39/aom/aom_dsp/aom_convolve.c(25,48) ]
+      remark #15328: vectorization support: indirect load was emulated for the variable <x_filter[k]>, 64-bit indexed, part of address is nonlinearly computed   [ /home/training/dd-20-28-39/aom/aom_dsp/aom_convolve.c(25,55) ]
+      remark #15328: vectorization support: indirect load was emulated for the variable <src_x[k]>, 64-bit indexed, part of address is nonlinearly computed   [ /home/training/dd-20-28-39/aom/aom_dsp/aom_convolve.c(25,48) ]
+      remark #15328: vectorization support: indirect load was emulated for the variable <x_filter[k]>, 64-bit indexed, part of address is nonlinearly computed   [ /home/training/dd-20-28-39/aom/aom_dsp/aom_convolve.c(25,55) ]
+      remark #15328: vectorization support: indirect load was emulated for the variable <src_x[k]>, 64-bit indexed, part of address is nonlinearly computed   [ /home/training/dd-20-28-39/aom/aom_dsp/aom_convolve.c(25,48) ]
+      remark #15328: vectorization support: indirect load was emulated for the variable <x_filter[k]>, 64-bit indexed, part of address is nonlinearly computed   [ /home/training/dd-20-28-39/aom/aom_dsp/aom_convolve.c(25,55) ]
+      remark #15328: vectorization support: indirect load was emulated for the variable <src_x[k]>, 64-bit indexed, part of address is nonlinearly computed   [ /home/training/dd-20-28-39/aom/aom_dsp/aom_convolve.c(25,48) ]
+      remark #15328: vectorization support: indirect load was emulated for the variable <x_filter[k]>, 64-bit indexed, part of address is nonlinearly computed   [ /home/training/dd-20-28-39/aom/aom_dsp/aom_convolve.c(25,55) ]
+      remark #15305: vectorization support: vector length 16
+      remark #15309: vectorization support: normalized vectorization overhead 0.012
+      remark #15301: SIMD LOOP WAS VECTORIZED
+      remark #15451: unmasked unaligned unit stride stores: 1 
+      remark #15462: unmasked indexed (or gather) loads: 16 
+      remark #15475: --- begin vector cost summary ---
+      remark #15476: scalar cost: 83 
+      remark #15477: vector cost: 118.180 
+      remark #15478: estimated potential speedup: 0.730 
+      remark #15488: --- end vector cost summary ---
+
+      LOOP BEGIN at /home/training/dd-20-28-39/aom/aom_dsp/aom_convolve.c(25,3) inlined into /home/training/dd-20-28-39/aom/aom_dsp/aom_convolve.c(134,3)
+         remark #25436: completely unrolled by 8   (pre-vector) 
+      LOOP END
+   LOOP END
+
+   LOOP BEGIN at /home/training/dd-20-28-39/aom/aom_dsp/aom_convolve.c(60,7) inlined into /home/training/dd-20-28-39/aom/aom_dsp/aom_convolve.c(134,3)
+   <Remainder loop for vectorization>
    LOOP END
 LOOP END
 ===========================================================================
@@ -55,50 +124,93 @@ Begin optimization report for: aom_convolve8_vert_c(const uint8_t *, ptrdiff_t, 
     Report from: Loop nest & Vector optimizations [loop, vec]
 
 
-LOOP BEGIN at /home/training/dd-20-28-39/aom/aom_dsp/aom_convolve.c(64,3) inlined into /home/training/dd-20-28-39/aom/aom_dsp/aom_convolve.c(113,3)
-   remark #15389: vectorization support: reference src_y[k] has unaligned access   [ /home/training/dd-20-28-39/aom/aom_dsp/aom_convolve.c(32,48) ]
-   remark #15389: vectorization support: reference src_y[k] has unaligned access   [ /home/training/dd-20-28-39/aom/aom_dsp/aom_convolve.c(32,48) ]
-   remark #15389: vectorization support: reference src_y[k] has unaligned access   [ /home/training/dd-20-28-39/aom/aom_dsp/aom_convolve.c(32,48) ]
-   remark #15389: vectorization support: reference src_y[k] has unaligned access   [ /home/training/dd-20-28-39/aom/aom_dsp/aom_convolve.c(32,48) ]
-   remark #15389: vectorization support: reference src_y[k] has unaligned access   [ /home/training/dd-20-28-39/aom/aom_dsp/aom_convolve.c(32,48) ]
-   remark #15389: vectorization support: reference src_y[k] has unaligned access   [ /home/training/dd-20-28-39/aom/aom_dsp/aom_convolve.c(32,48) ]
-   remark #15389: vectorization support: reference src_y[k] has unaligned access   [ /home/training/dd-20-28-39/aom/aom_dsp/aom_convolve.c(32,48) ]
-   remark #15389: vectorization support: reference src_y[k] has unaligned access   [ /home/training/dd-20-28-39/aom/aom_dsp/aom_convolve.c(32,48) ]
-   remark #15389: vectorization support: reference dst[y] has unaligned access   [ /home/training/dd-20-28-39/aom/aom_dsp/aom_convolve.c(70,7) ]
-   remark #15381: vectorization support: unaligned access used inside loop body
-   remark #15305: vectorization support: vector length 8
-   remark #15309: vectorization support: normalized vectorization overhead 1.009
-   remark #15301: SIMD LOOP WAS VECTORIZED
-   remark #15450: unmasked unaligned unit stride loads: 8 
-   remark #15451: unmasked unaligned unit stride stores: 1 
-   remark #15475: --- begin vector cost summary ---
-   remark #15476: scalar cost: 84 
-   remark #15477: vector cost: 14.620 
-   remark #15478: estimated potential speedup: 5.260 
-   remark #15488: --- end vector cost summary ---
+LOOP BEGIN at /home/training/dd-20-28-39/aom/aom_dsp/aom_convolve.c(79,3) inlined into /home/training/dd-20-28-39/aom/aom_dsp/aom_convolve.c(149,3)
+   remark #15542: loop was not vectorized: inner loop was already vectorized
 
-   LOOP BEGIN at /home/training/dd-20-28-39/aom/aom_dsp/aom_convolve.c(66,5) inlined into /home/training/dd-20-28-39/aom/aom_dsp/aom_convolve.c(113,3)
-      remark #15548: loop was vectorized along with the outer loop
+   LOOP BEGIN at /home/training/dd-20-28-39/aom/aom_dsp/aom_convolve.c(87,7) inlined into /home/training/dd-20-28-39/aom/aom_dsp/aom_convolve.c(149,3)
+      remark #25096: Loop Interchange not done due to: Imperfect Loop Nest (Either at Source or due to other Compiler Transformations)
+      remark #25452: Original Order found to be proper, but by a close margin
+      remark #15328: vectorization support: non-unit strided load was emulated for the variable <a[k]>, stride is unknown to compiler   [ /home/training/dd-20-28-39/aom/aom_dsp/aom_convolve.c(32,48) ]
+      remark #15328: vectorization support: non-unit strided load was emulated for the variable <a[k]>, stride is unknown to compiler   [ /home/training/dd-20-28-39/aom/aom_dsp/aom_convolve.c(32,48) ]
+      remark #15328: vectorization support: non-unit strided load was emulated for the variable <a[k]>, stride is unknown to compiler   [ /home/training/dd-20-28-39/aom/aom_dsp/aom_convolve.c(32,48) ]
+      remark #15328: vectorization support: non-unit strided load was emulated for the variable <a[k]>, stride is unknown to compiler   [ /home/training/dd-20-28-39/aom/aom_dsp/aom_convolve.c(32,48) ]
+      remark #15328: vectorization support: non-unit strided load was emulated for the variable <a[k]>, stride is unknown to compiler   [ /home/training/dd-20-28-39/aom/aom_dsp/aom_convolve.c(32,48) ]
+      remark #15328: vectorization support: non-unit strided load was emulated for the variable <a[k]>, stride is unknown to compiler   [ /home/training/dd-20-28-39/aom/aom_dsp/aom_convolve.c(32,48) ]
+      remark #15328: vectorization support: non-unit strided load was emulated for the variable <a[k]>, stride is unknown to compiler   [ /home/training/dd-20-28-39/aom/aom_dsp/aom_convolve.c(32,48) ]
+      remark #15328: vectorization support: non-unit strided load was emulated for the variable <a[k]>, stride is unknown to compiler   [ /home/training/dd-20-28-39/aom/aom_dsp/aom_convolve.c(32,48) ]
+      remark #15329: vectorization support: non-unit strided store was emulated for the variable <dst[y]>, stride is unknown to compiler   [ /home/training/dd-20-28-39/aom/aom_dsp/aom_convolve.c(90,9) ]
+      remark #15305: vectorization support: vector length 16
+      remark #15309: vectorization support: normalized vectorization overhead 0.186
+      remark #15301: SIMD LOOP WAS VECTORIZED
+      remark #15452: unmasked strided loads: 8 
+      remark #15453: unmasked strided stores: 1 
+      remark #15475: --- begin vector cost summary ---
+      remark #15476: scalar cost: 81 
+      remark #15477: vector cost: 51.310 
+      remark #15478: estimated potential speedup: 1.520 
+      remark #15488: --- end vector cost summary ---
 
-      LOOP BEGIN at /home/training/dd-20-28-39/aom/aom_dsp/aom_convolve.c(32,3) inlined into /home/training/dd-20-28-39/aom/aom_dsp/aom_convolve.c(113,3)
+      LOOP BEGIN at /home/training/dd-20-28-39/aom/aom_dsp/aom_convolve.c(32,3) inlined into /home/training/dd-20-28-39/aom/aom_dsp/aom_convolve.c(149,3)
          remark #25436: completely unrolled by 8   (pre-vector) 
       LOOP END
    LOOP END
-LOOP END
 
-LOOP BEGIN at /home/training/dd-20-28-39/aom/aom_dsp/aom_convolve.c(64,3) inlined into /home/training/dd-20-28-39/aom/aom_dsp/aom_convolve.c(113,3)
-<Remainder loop for vectorization>
-   remark #15335: remainder loop was not vectorized: vectorization possible but seems inefficient. Use vector always directive or -vec-threshold0 to override 
-   remark #15450: unmasked unaligned unit stride loads: 8 
-   remark #15451: unmasked unaligned unit stride stores: 1 
-   remark #15475: --- begin vector cost summary ---
-   remark #15476: scalar cost: 84 
-   remark #15477: vector cost: 14.620 
-   remark #15478: estimated potential speedup: 5.260 
-   remark #15488: --- end vector cost summary ---
+   LOOP BEGIN at /home/training/dd-20-28-39/aom/aom_dsp/aom_convolve.c(87,7) inlined into /home/training/dd-20-28-39/aom/aom_dsp/aom_convolve.c(149,3)
+   <Remainder loop for vectorization>
+      remark #15305: vectorization support: vector length 4
+      remark #15309: vectorization support: normalized vectorization overhead 0.238
+      remark #15301: REMAINDER LOOP WAS VECTORIZED
+      remark #15453: unmasked strided stores: 1 
+      remark #15462: unmasked indexed (or gather) loads: 16 
+      remark #15475: --- begin vector cost summary ---
+      remark #15476: scalar cost: 84 
+      remark #15477: vector cost: 126.250 
+      remark #15478: estimated potential speedup: 0.670 
+      remark #15488: --- end vector cost summary ---
+   LOOP END
 
-   LOOP BEGIN at /home/training/dd-20-28-39/aom/aom_dsp/aom_convolve.c(66,5) inlined into /home/training/dd-20-28-39/aom/aom_dsp/aom_convolve.c(113,3)
-      remark #25460: No loop optimizations reported
+   LOOP BEGIN at /home/training/dd-20-28-39/aom/aom_dsp/aom_convolve.c(87,7) inlined into /home/training/dd-20-28-39/aom/aom_dsp/aom_convolve.c(149,3)
+   <Remainder loop for vectorization>
+   LOOP END
+
+   LOOP BEGIN at /home/training/dd-20-28-39/aom/aom_dsp/aom_convolve.c(97,7) inlined into /home/training/dd-20-28-39/aom/aom_dsp/aom_convolve.c(149,3)
+      remark #25096: Loop Interchange not done due to: Imperfect Loop Nest (Either at Source or due to other Compiler Transformations)
+      remark #25452: Original Order found to be proper, but by a close margin
+      remark #15328: vectorization support: indirect load was emulated for the variable <src_y[k]>, 64-bit indexed, part of address is nonlinearly computed   [ /home/training/dd-20-28-39/aom/aom_dsp/aom_convolve.c(32,48) ]
+      remark #15328: vectorization support: indirect load was emulated for the variable <y_filter[k]>, 64-bit indexed, part of address is nonlinearly computed   [ /home/training/dd-20-28-39/aom/aom_dsp/aom_convolve.c(32,66) ]
+      remark #15328: vectorization support: indirect load was emulated for the variable <src_y[k]>, 64-bit indexed, part of address is nonlinearly computed   [ /home/training/dd-20-28-39/aom/aom_dsp/aom_convolve.c(32,48) ]
+      remark #15328: vectorization support: indirect load was emulated for the variable <y_filter[k]>, 64-bit indexed, part of address is nonlinearly computed   [ /home/training/dd-20-28-39/aom/aom_dsp/aom_convolve.c(32,66) ]
+      remark #15328: vectorization support: indirect load was emulated for the variable <src_y[k]>, 64-bit indexed, part of address is nonlinearly computed   [ /home/training/dd-20-28-39/aom/aom_dsp/aom_convolve.c(32,48) ]
+      remark #15328: vectorization support: indirect load was emulated for the variable <y_filter[k]>, 64-bit indexed, part of address is nonlinearly computed   [ /home/training/dd-20-28-39/aom/aom_dsp/aom_convolve.c(32,66) ]
+      remark #15328: vectorization support: indirect load was emulated for the variable <src_y[k]>, 64-bit indexed, part of address is nonlinearly computed   [ /home/training/dd-20-28-39/aom/aom_dsp/aom_convolve.c(32,48) ]
+      remark #15328: vectorization support: indirect load was emulated for the variable <y_filter[k]>, 64-bit indexed, part of address is nonlinearly computed   [ /home/training/dd-20-28-39/aom/aom_dsp/aom_convolve.c(32,66) ]
+      remark #15328: vectorization support: indirect load was emulated for the variable <src_y[k]>, 64-bit indexed, part of address is nonlinearly computed   [ /home/training/dd-20-28-39/aom/aom_dsp/aom_convolve.c(32,48) ]
+      remark #15328: vectorization support: indirect load was emulated for the variable <y_filter[k]>, 64-bit indexed, part of address is nonlinearly computed   [ /home/training/dd-20-28-39/aom/aom_dsp/aom_convolve.c(32,66) ]
+      remark #15328: vectorization support: indirect load was emulated for the variable <src_y[k]>, 64-bit indexed, part of address is nonlinearly computed   [ /home/training/dd-20-28-39/aom/aom_dsp/aom_convolve.c(32,48) ]
+      remark #15328: vectorization support: indirect load was emulated for the variable <y_filter[k]>, 64-bit indexed, part of address is nonlinearly computed   [ /home/training/dd-20-28-39/aom/aom_dsp/aom_convolve.c(32,66) ]
+      remark #15328: vectorization support: indirect load was emulated for the variable <src_y[k]>, 64-bit indexed, part of address is nonlinearly computed   [ /home/training/dd-20-28-39/aom/aom_dsp/aom_convolve.c(32,48) ]
+      remark #15328: vectorization support: indirect load was emulated for the variable <y_filter[k]>, 64-bit indexed, part of address is nonlinearly computed   [ /home/training/dd-20-28-39/aom/aom_dsp/aom_convolve.c(32,66) ]
+      remark #15328: vectorization support: indirect load was emulated for the variable <src_y[k]>, 64-bit indexed, part of address is nonlinearly computed   [ /home/training/dd-20-28-39/aom/aom_dsp/aom_convolve.c(32,48) ]
+      remark #15328: vectorization support: indirect load was emulated for the variable <y_filter[k]>, 64-bit indexed, part of address is nonlinearly computed   [ /home/training/dd-20-28-39/aom/aom_dsp/aom_convolve.c(32,66) ]
+      remark #15329: vectorization support: non-unit strided store was emulated for the variable <dst[y]>, stride is unknown to compiler   [ /home/training/dd-20-28-39/aom/aom_dsp/aom_convolve.c(101,9) ]
+      remark #15305: vectorization support: vector length 16
+      remark #15309: vectorization support: normalized vectorization overhead 0.022
+      remark #15301: SIMD LOOP WAS VECTORIZED
+      remark #15453: unmasked strided stores: 1 
+      remark #15462: unmasked indexed (or gather) loads: 16 
+      remark #15475: --- begin vector cost summary ---
+      remark #15476: scalar cost: 84 
+      remark #15477: vector cost: 126.250 
+      remark #15478: estimated potential speedup: 0.670 
+      remark #15488: --- end vector cost summary ---
+
+      LOOP BEGIN at /home/training/dd-20-28-39/aom/aom_dsp/aom_convolve.c(32,3) inlined into /home/training/dd-20-28-39/aom/aom_dsp/aom_convolve.c(149,3)
+         remark #25436: completely unrolled by 8   (pre-vector) 
+      LOOP END
+   LOOP END
+
+   LOOP BEGIN at /home/training/dd-20-28-39/aom/aom_dsp/aom_convolve.c(97,7) inlined into /home/training/dd-20-28-39/aom/aom_dsp/aom_convolve.c(149,3)
+   <Remainder loop for vectorization>
    LOOP END
 LOOP END
 ===========================================================================
@@ -108,8 +220,8 @@ Begin optimization report for: aom_convolve_copy_c(const uint8_t *, ptrdiff_t, u
     Report from: Loop nest & Vector optimizations [loop, vec]
 
 
-LOOP BEGIN at /home/training/dd-20-28-39/aom/aom_dsp/aom_convolve.c(128,3)
-   remark #15527: loop was not vectorized: function call to memcpy(void *__restrict__, const void *__restrict__, size_t) cannot be vectorized   [ /home/training/dd-20-28-39/aom/aom_dsp/aom_convolve.c(129,5) ]
+LOOP BEGIN at /home/training/dd-20-28-39/aom/aom_dsp/aom_convolve.c(164,3)
+   remark #15527: loop was not vectorized: function call to memcpy(void *__restrict__, const void *__restrict__, size_t) cannot be vectorized   [ /home/training/dd-20-28-39/aom/aom_dsp/aom_convolve.c(165,5) ]
    remark #25456: Number of Array Refs Scalar Replaced In Loop: 2
 LOOP END
 ===========================================================================
@@ -119,34 +231,34 @@ Begin optimization report for: aom_highbd_convolve8_horiz_c(const uint8_t *, ptr
     Report from: Loop nest & Vector optimizations [loop, vec]
 
 
-LOOP BEGIN at /home/training/dd-20-28-39/aom/aom_dsp/aom_convolve.c(160,3) inlined into /home/training/dd-20-28-39/aom/aom_dsp/aom_convolve.c(207,3)
-   remark #15328: vectorization support: non-unit strided load was emulated for the variable <*src_x>, stride is unknown to compiler   [ /home/training/dd-20-28-39/aom/aom_dsp/aom_convolve.c(147,41) ]
-   remark #15328: vectorization support: non-unit strided load was emulated for the variable <*(src_x+2)>, stride is unknown to compiler   [ /home/training/dd-20-28-39/aom/aom_dsp/aom_convolve.c(147,41) ]
-   remark #15328: vectorization support: non-unit strided load was emulated for the variable <*(src_x+4)>, stride is unknown to compiler   [ /home/training/dd-20-28-39/aom/aom_dsp/aom_convolve.c(147,41) ]
-   remark #15328: vectorization support: non-unit strided load was emulated for the variable <*(src_x+6)>, stride is unknown to compiler   [ /home/training/dd-20-28-39/aom/aom_dsp/aom_convolve.c(147,41) ]
-   remark #15328: vectorization support: non-unit strided load was emulated for the variable <*(src_x+8)>, stride is unknown to compiler   [ /home/training/dd-20-28-39/aom/aom_dsp/aom_convolve.c(147,41) ]
-   remark #15328: vectorization support: non-unit strided load was emulated for the variable <*(src_x+10)>, stride is unknown to compiler   [ /home/training/dd-20-28-39/aom/aom_dsp/aom_convolve.c(147,41) ]
-   remark #15328: vectorization support: non-unit strided load was emulated for the variable <*(src_x+12)>, stride is unknown to compiler   [ /home/training/dd-20-28-39/aom/aom_dsp/aom_convolve.c(147,41) ]
-   remark #15328: vectorization support: non-unit strided load was emulated for the variable <*(src_x+14)>, stride is unknown to compiler   [ /home/training/dd-20-28-39/aom/aom_dsp/aom_convolve.c(147,41) ]
-   remark #15329: vectorization support: non-unit strided store was emulated for the variable <*(dst+(x-1)*2)>, stride is unknown to compiler   [ /home/training/dd-20-28-39/aom/aom_dsp/aom_convolve.c(166,7) ]
-   remark #15328: vectorization support: non-unit strided load was emulated for the variable <*src_x>, stride is unknown to compiler   [ /home/training/dd-20-28-39/aom/aom_dsp/aom_convolve.c(147,41) ]
-   remark #15328: vectorization support: non-unit strided load was emulated for the variable <*(src_x+2)>, stride is unknown to compiler   [ /home/training/dd-20-28-39/aom/aom_dsp/aom_convolve.c(147,41) ]
-   remark #15328: vectorization support: non-unit strided load was emulated for the variable <*(src_x+4)>, stride is unknown to compiler   [ /home/training/dd-20-28-39/aom/aom_dsp/aom_convolve.c(147,41) ]
-   remark #15328: vectorization support: non-unit strided load was emulated for the variable <*(src_x+6)>, stride is unknown to compiler   [ /home/training/dd-20-28-39/aom/aom_dsp/aom_convolve.c(147,41) ]
-   remark #15328: vectorization support: non-unit strided load was emulated for the variable <*(src_x+8)>, stride is unknown to compiler   [ /home/training/dd-20-28-39/aom/aom_dsp/aom_convolve.c(147,41) ]
-   remark #15328: vectorization support: non-unit strided load was emulated for the variable <*(src_x+10)>, stride is unknown to compiler   [ /home/training/dd-20-28-39/aom/aom_dsp/aom_convolve.c(147,41) ]
-   remark #15328: vectorization support: non-unit strided load was emulated for the variable <*(src_x+12)>, stride is unknown to compiler   [ /home/training/dd-20-28-39/aom/aom_dsp/aom_convolve.c(147,41) ]
-   remark #15328: vectorization support: non-unit strided load was emulated for the variable <*(src_x+14)>, stride is unknown to compiler   [ /home/training/dd-20-28-39/aom/aom_dsp/aom_convolve.c(147,41) ]
-   remark #15329: vectorization support: non-unit strided store was emulated for the variable <*(dst+(x-1)*2)>, stride is unknown to compiler   [ /home/training/dd-20-28-39/aom/aom_dsp/aom_convolve.c(166,7) ]
-   remark #15328: vectorization support: non-unit strided load was emulated for the variable <*src_x>, stride is unknown to compiler   [ /home/training/dd-20-28-39/aom/aom_dsp/aom_convolve.c(147,41) ]
-   remark #15328: vectorization support: non-unit strided load was emulated for the variable <*(src_x+2)>, stride is unknown to compiler   [ /home/training/dd-20-28-39/aom/aom_dsp/aom_convolve.c(147,41) ]
-   remark #15328: vectorization support: non-unit strided load was emulated for the variable <*(src_x+4)>, stride is unknown to compiler   [ /home/training/dd-20-28-39/aom/aom_dsp/aom_convolve.c(147,41) ]
-   remark #15328: vectorization support: non-unit strided load was emulated for the variable <*(src_x+6)>, stride is unknown to compiler   [ /home/training/dd-20-28-39/aom/aom_dsp/aom_convolve.c(147,41) ]
-   remark #15328: vectorization support: non-unit strided load was emulated for the variable <*(src_x+8)>, stride is unknown to compiler   [ /home/training/dd-20-28-39/aom/aom_dsp/aom_convolve.c(147,41) ]
-   remark #15328: vectorization support: non-unit strided load was emulated for the variable <*(src_x+10)>, stride is unknown to compiler   [ /home/training/dd-20-28-39/aom/aom_dsp/aom_convolve.c(147,41) ]
-   remark #15328: vectorization support: non-unit strided load was emulated for the variable <*(src_x+12)>, stride is unknown to compiler   [ /home/training/dd-20-28-39/aom/aom_dsp/aom_convolve.c(147,41) ]
-   remark #15328: vectorization support: non-unit strided load was emulated for the variable <*(src_x+14)>, stride is unknown to compiler   [ /home/training/dd-20-28-39/aom/aom_dsp/aom_convolve.c(147,41) ]
-   remark #15329: vectorization support: non-unit strided store was emulated for the variable <*(dst+(x-1)*2)>, stride is unknown to compiler   [ /home/training/dd-20-28-39/aom/aom_dsp/aom_convolve.c(166,7) ]
+LOOP BEGIN at /home/training/dd-20-28-39/aom/aom_dsp/aom_convolve.c(196,3) inlined into /home/training/dd-20-28-39/aom/aom_dsp/aom_convolve.c(243,3)
+   remark #15328: vectorization support: non-unit strided load was emulated for the variable <*src_x>, stride is unknown to compiler   [ /home/training/dd-20-28-39/aom/aom_dsp/aom_convolve.c(183,41) ]
+   remark #15328: vectorization support: non-unit strided load was emulated for the variable <*(src_x+2)>, stride is unknown to compiler   [ /home/training/dd-20-28-39/aom/aom_dsp/aom_convolve.c(183,41) ]
+   remark #15328: vectorization support: non-unit strided load was emulated for the variable <*(src_x+4)>, stride is unknown to compiler   [ /home/training/dd-20-28-39/aom/aom_dsp/aom_convolve.c(183,41) ]
+   remark #15328: vectorization support: non-unit strided load was emulated for the variable <*(src_x+6)>, stride is unknown to compiler   [ /home/training/dd-20-28-39/aom/aom_dsp/aom_convolve.c(183,41) ]
+   remark #15328: vectorization support: non-unit strided load was emulated for the variable <*(src_x+8)>, stride is unknown to compiler   [ /home/training/dd-20-28-39/aom/aom_dsp/aom_convolve.c(183,41) ]
+   remark #15328: vectorization support: non-unit strided load was emulated for the variable <*(src_x+10)>, stride is unknown to compiler   [ /home/training/dd-20-28-39/aom/aom_dsp/aom_convolve.c(183,41) ]
+   remark #15328: vectorization support: non-unit strided load was emulated for the variable <*(src_x+12)>, stride is unknown to compiler   [ /home/training/dd-20-28-39/aom/aom_dsp/aom_convolve.c(183,41) ]
+   remark #15328: vectorization support: non-unit strided load was emulated for the variable <*(src_x+14)>, stride is unknown to compiler   [ /home/training/dd-20-28-39/aom/aom_dsp/aom_convolve.c(183,41) ]
+   remark #15329: vectorization support: non-unit strided store was emulated for the variable <*(dst+(x-1)*2)>, stride is unknown to compiler   [ /home/training/dd-20-28-39/aom/aom_dsp/aom_convolve.c(202,7) ]
+   remark #15328: vectorization support: non-unit strided load was emulated for the variable <*src_x>, stride is unknown to compiler   [ /home/training/dd-20-28-39/aom/aom_dsp/aom_convolve.c(183,41) ]
+   remark #15328: vectorization support: non-unit strided load was emulated for the variable <*(src_x+2)>, stride is unknown to compiler   [ /home/training/dd-20-28-39/aom/aom_dsp/aom_convolve.c(183,41) ]
+   remark #15328: vectorization support: non-unit strided load was emulated for the variable <*(src_x+4)>, stride is unknown to compiler   [ /home/training/dd-20-28-39/aom/aom_dsp/aom_convolve.c(183,41) ]
+   remark #15328: vectorization support: non-unit strided load was emulated for the variable <*(src_x+6)>, stride is unknown to compiler   [ /home/training/dd-20-28-39/aom/aom_dsp/aom_convolve.c(183,41) ]
+   remark #15328: vectorization support: non-unit strided load was emulated for the variable <*(src_x+8)>, stride is unknown to compiler   [ /home/training/dd-20-28-39/aom/aom_dsp/aom_convolve.c(183,41) ]
+   remark #15328: vectorization support: non-unit strided load was emulated for the variable <*(src_x+10)>, stride is unknown to compiler   [ /home/training/dd-20-28-39/aom/aom_dsp/aom_convolve.c(183,41) ]
+   remark #15328: vectorization support: non-unit strided load was emulated for the variable <*(src_x+12)>, stride is unknown to compiler   [ /home/training/dd-20-28-39/aom/aom_dsp/aom_convolve.c(183,41) ]
+   remark #15328: vectorization support: non-unit strided load was emulated for the variable <*(src_x+14)>, stride is unknown to compiler   [ /home/training/dd-20-28-39/aom/aom_dsp/aom_convolve.c(183,41) ]
+   remark #15329: vectorization support: non-unit strided store was emulated for the variable <*(dst+(x-1)*2)>, stride is unknown to compiler   [ /home/training/dd-20-28-39/aom/aom_dsp/aom_convolve.c(202,7) ]
+   remark #15328: vectorization support: non-unit strided load was emulated for the variable <*src_x>, stride is unknown to compiler   [ /home/training/dd-20-28-39/aom/aom_dsp/aom_convolve.c(183,41) ]
+   remark #15328: vectorization support: non-unit strided load was emulated for the variable <*(src_x+2)>, stride is unknown to compiler   [ /home/training/dd-20-28-39/aom/aom_dsp/aom_convolve.c(183,41) ]
+   remark #15328: vectorization support: non-unit strided load was emulated for the variable <*(src_x+4)>, stride is unknown to compiler   [ /home/training/dd-20-28-39/aom/aom_dsp/aom_convolve.c(183,41) ]
+   remark #15328: vectorization support: non-unit strided load was emulated for the variable <*(src_x+6)>, stride is unknown to compiler   [ /home/training/dd-20-28-39/aom/aom_dsp/aom_convolve.c(183,41) ]
+   remark #15328: vectorization support: non-unit strided load was emulated for the variable <*(src_x+8)>, stride is unknown to compiler   [ /home/training/dd-20-28-39/aom/aom_dsp/aom_convolve.c(183,41) ]
+   remark #15328: vectorization support: non-unit strided load was emulated for the variable <*(src_x+10)>, stride is unknown to compiler   [ /home/training/dd-20-28-39/aom/aom_dsp/aom_convolve.c(183,41) ]
+   remark #15328: vectorization support: non-unit strided load was emulated for the variable <*(src_x+12)>, stride is unknown to compiler   [ /home/training/dd-20-28-39/aom/aom_dsp/aom_convolve.c(183,41) ]
+   remark #15328: vectorization support: non-unit strided load was emulated for the variable <*(src_x+14)>, stride is unknown to compiler   [ /home/training/dd-20-28-39/aom/aom_dsp/aom_convolve.c(183,41) ]
+   remark #15329: vectorization support: non-unit strided store was emulated for the variable <*(dst+(x-1)*2)>, stride is unknown to compiler   [ /home/training/dd-20-28-39/aom/aom_dsp/aom_convolve.c(202,7) ]
    remark #15305: vectorization support: vector length 16
    remark #15309: vectorization support: normalized vectorization overhead 0.140
    remark #15301: SIMD LOOP WAS VECTORIZED
@@ -158,40 +270,40 @@ LOOP BEGIN at /home/training/dd-20-28-39/aom/aom_dsp/aom_convolve.c(160,3) inlin
    remark #15478: estimated potential speedup: 0.040 
    remark #15488: --- end vector cost summary ---
 
-   LOOP BEGIN at /home/training/dd-20-28-39/aom/aom_dsp/aom_convolve.c(162,5) inlined into /home/training/dd-20-28-39/aom/aom_dsp/aom_convolve.c(207,3)
+   LOOP BEGIN at /home/training/dd-20-28-39/aom/aom_dsp/aom_convolve.c(198,5) inlined into /home/training/dd-20-28-39/aom/aom_dsp/aom_convolve.c(243,3)
    <Predicate Optimized v1>
       remark #25422: Invariant Condition at line 81 hoisted out of this loop
       remark #15548: loop was vectorized along with the outer loop
 
-      LOOP BEGIN at /home/training/dd-20-28-39/aom/aom_dsp/aom_convolve.c(147,3) inlined into /home/training/dd-20-28-39/aom/aom_dsp/aom_convolve.c(207,3)
+      LOOP BEGIN at /home/training/dd-20-28-39/aom/aom_dsp/aom_convolve.c(183,3) inlined into /home/training/dd-20-28-39/aom/aom_dsp/aom_convolve.c(243,3)
          remark #25436: completely unrolled by 8   (pre-vector) 
       LOOP END
    LOOP END
 
-   LOOP BEGIN at /home/training/dd-20-28-39/aom/aom_dsp/aom_convolve.c(162,5) inlined into /home/training/dd-20-28-39/aom/aom_dsp/aom_convolve.c(207,3)
+   LOOP BEGIN at /home/training/dd-20-28-39/aom/aom_dsp/aom_convolve.c(198,5) inlined into /home/training/dd-20-28-39/aom/aom_dsp/aom_convolve.c(243,3)
    <Predicate Optimized v3>
       remark #25422: Invariant Condition at line 81 hoisted out of this loop
       remark #15548: loop was vectorized along with the outer loop
    LOOP END
 
-   LOOP BEGIN at /home/training/dd-20-28-39/aom/aom_dsp/aom_convolve.c(162,5) inlined into /home/training/dd-20-28-39/aom/aom_dsp/aom_convolve.c(207,3)
+   LOOP BEGIN at /home/training/dd-20-28-39/aom/aom_dsp/aom_convolve.c(198,5) inlined into /home/training/dd-20-28-39/aom/aom_dsp/aom_convolve.c(243,3)
    <Predicate Optimized v4>
       remark #15548: loop was vectorized along with the outer loop
    LOOP END
 LOOP END
 
-LOOP BEGIN at /home/training/dd-20-28-39/aom/aom_dsp/aom_convolve.c(160,3) inlined into /home/training/dd-20-28-39/aom/aom_dsp/aom_convolve.c(207,3)
+LOOP BEGIN at /home/training/dd-20-28-39/aom/aom_dsp/aom_convolve.c(196,3) inlined into /home/training/dd-20-28-39/aom/aom_dsp/aom_convolve.c(243,3)
 <Remainder loop for vectorization>
 
-   LOOP BEGIN at /home/training/dd-20-28-39/aom/aom_dsp/aom_convolve.c(162,5) inlined into /home/training/dd-20-28-39/aom/aom_dsp/aom_convolve.c(207,3)
+   LOOP BEGIN at /home/training/dd-20-28-39/aom/aom_dsp/aom_convolve.c(198,5) inlined into /home/training/dd-20-28-39/aom/aom_dsp/aom_convolve.c(243,3)
    <Predicate Optimized v1>
    LOOP END
 
-   LOOP BEGIN at /home/training/dd-20-28-39/aom/aom_dsp/aom_convolve.c(162,5) inlined into /home/training/dd-20-28-39/aom/aom_dsp/aom_convolve.c(207,3)
+   LOOP BEGIN at /home/training/dd-20-28-39/aom/aom_dsp/aom_convolve.c(198,5) inlined into /home/training/dd-20-28-39/aom/aom_dsp/aom_convolve.c(243,3)
    <Predicate Optimized v3>
    LOOP END
 
-   LOOP BEGIN at /home/training/dd-20-28-39/aom/aom_dsp/aom_convolve.c(162,5) inlined into /home/training/dd-20-28-39/aom/aom_dsp/aom_convolve.c(207,3)
+   LOOP BEGIN at /home/training/dd-20-28-39/aom/aom_dsp/aom_convolve.c(198,5) inlined into /home/training/dd-20-28-39/aom/aom_dsp/aom_convolve.c(243,3)
    <Predicate Optimized v4>
    LOOP END
 LOOP END
@@ -202,29 +314,29 @@ Begin optimization report for: aom_highbd_convolve8_vert_c(const uint8_t *, ptrd
     Report from: Loop nest & Vector optimizations [loop, vec]
 
 
-LOOP BEGIN at /home/training/dd-20-28-39/aom/aom_dsp/aom_convolve.c(181,3) inlined into /home/training/dd-20-28-39/aom/aom_dsp/aom_convolve.c(221,3)
+LOOP BEGIN at /home/training/dd-20-28-39/aom/aom_dsp/aom_convolve.c(217,3) inlined into /home/training/dd-20-28-39/aom/aom_dsp/aom_convolve.c(257,3)
    remark #15542: loop was not vectorized: inner loop was already vectorized
 
-   LOOP BEGIN at /home/training/dd-20-28-39/aom/aom_dsp/aom_convolve.c(184,5) inlined into /home/training/dd-20-28-39/aom/aom_dsp/aom_convolve.c(221,3)
+   LOOP BEGIN at /home/training/dd-20-28-39/aom/aom_dsp/aom_convolve.c(220,5) inlined into /home/training/dd-20-28-39/aom/aom_dsp/aom_convolve.c(257,3)
    <Predicate Optimized v1>
       remark #25422: Invariant Condition at line 81 hoisted out of this loop
-      remark #15328: vectorization support: indirect load was emulated for the variable <src_y[k*src_stride]>, 64-bit indexed, part of address is nonlinearly computed   [ /home/training/dd-20-28-39/aom/aom_dsp/aom_convolve.c(140,48) ]
-      remark #15328: vectorization support: indirect load was emulated for the variable <y_filter[k]>, 64-bit indexed, part of address is nonlinearly computed   [ /home/training/dd-20-28-39/aom/aom_dsp/aom_convolve.c(140,66) ]
-      remark #15328: vectorization support: indirect load was emulated for the variable <src_y[k*src_stride]>, 64-bit indexed, part of address is nonlinearly computed   [ /home/training/dd-20-28-39/aom/aom_dsp/aom_convolve.c(140,48) ]
-      remark #15328: vectorization support: indirect load was emulated for the variable <y_filter[k]>, 64-bit indexed, part of address is nonlinearly computed   [ /home/training/dd-20-28-39/aom/aom_dsp/aom_convolve.c(140,66) ]
-      remark #15328: vectorization support: indirect load was emulated for the variable <src_y[k*src_stride]>, 64-bit indexed, part of address is nonlinearly computed   [ /home/training/dd-20-28-39/aom/aom_dsp/aom_convolve.c(140,48) ]
-      remark #15328: vectorization support: indirect load was emulated for the variable <y_filter[k]>, 64-bit indexed, part of address is nonlinearly computed   [ /home/training/dd-20-28-39/aom/aom_dsp/aom_convolve.c(140,66) ]
-      remark #15328: vectorization support: indirect load was emulated for the variable <src_y[k*src_stride]>, 64-bit indexed, part of address is nonlinearly computed   [ /home/training/dd-20-28-39/aom/aom_dsp/aom_convolve.c(140,48) ]
-      remark #15328: vectorization support: indirect load was emulated for the variable <y_filter[k]>, 64-bit indexed, part of address is nonlinearly computed   [ /home/training/dd-20-28-39/aom/aom_dsp/aom_convolve.c(140,66) ]
-      remark #15328: vectorization support: indirect load was emulated for the variable <src_y[k*src_stride]>, 64-bit indexed, part of address is nonlinearly computed   [ /home/training/dd-20-28-39/aom/aom_dsp/aom_convolve.c(140,48) ]
-      remark #15328: vectorization support: indirect load was emulated for the variable <y_filter[k]>, 64-bit indexed, part of address is nonlinearly computed   [ /home/training/dd-20-28-39/aom/aom_dsp/aom_convolve.c(140,66) ]
-      remark #15328: vectorization support: indirect load was emulated for the variable <src_y[k*src_stride]>, 64-bit indexed, part of address is nonlinearly computed   [ /home/training/dd-20-28-39/aom/aom_dsp/aom_convolve.c(140,48) ]
-      remark #15328: vectorization support: indirect load was emulated for the variable <y_filter[k]>, 64-bit indexed, part of address is nonlinearly computed   [ /home/training/dd-20-28-39/aom/aom_dsp/aom_convolve.c(140,66) ]
-      remark #15328: vectorization support: indirect load was emulated for the variable <src_y[k*src_stride]>, 64-bit indexed, part of address is nonlinearly computed   [ /home/training/dd-20-28-39/aom/aom_dsp/aom_convolve.c(140,48) ]
-      remark #15328: vectorization support: indirect load was emulated for the variable <y_filter[k]>, 64-bit indexed, part of address is nonlinearly computed   [ /home/training/dd-20-28-39/aom/aom_dsp/aom_convolve.c(140,66) ]
-      remark #15328: vectorization support: indirect load was emulated for the variable <src_y[k*src_stride]>, 64-bit indexed, part of address is nonlinearly computed   [ /home/training/dd-20-28-39/aom/aom_dsp/aom_convolve.c(140,48) ]
-      remark #15328: vectorization support: indirect load was emulated for the variable <y_filter[k]>, 64-bit indexed, part of address is nonlinearly computed   [ /home/training/dd-20-28-39/aom/aom_dsp/aom_convolve.c(140,66) ]
-      remark #15329: vectorization support: non-unit strided store was emulated for the variable <dst[y*dst_stride]>, stride is unknown to compiler   [ /home/training/dd-20-28-39/aom/aom_dsp/aom_convolve.c(188,7) ]
+      remark #15328: vectorization support: indirect load was emulated for the variable <src_y[k*src_stride]>, 64-bit indexed, part of address is nonlinearly computed   [ /home/training/dd-20-28-39/aom/aom_dsp/aom_convolve.c(176,48) ]
+      remark #15328: vectorization support: indirect load was emulated for the variable <y_filter[k]>, 64-bit indexed, part of address is nonlinearly computed   [ /home/training/dd-20-28-39/aom/aom_dsp/aom_convolve.c(176,66) ]
+      remark #15328: vectorization support: indirect load was emulated for the variable <src_y[k*src_stride]>, 64-bit indexed, part of address is nonlinearly computed   [ /home/training/dd-20-28-39/aom/aom_dsp/aom_convolve.c(176,48) ]
+      remark #15328: vectorization support: indirect load was emulated for the variable <y_filter[k]>, 64-bit indexed, part of address is nonlinearly computed   [ /home/training/dd-20-28-39/aom/aom_dsp/aom_convolve.c(176,66) ]
+      remark #15328: vectorization support: indirect load was emulated for the variable <src_y[k*src_stride]>, 64-bit indexed, part of address is nonlinearly computed   [ /home/training/dd-20-28-39/aom/aom_dsp/aom_convolve.c(176,48) ]
+      remark #15328: vectorization support: indirect load was emulated for the variable <y_filter[k]>, 64-bit indexed, part of address is nonlinearly computed   [ /home/training/dd-20-28-39/aom/aom_dsp/aom_convolve.c(176,66) ]
+      remark #15328: vectorization support: indirect load was emulated for the variable <src_y[k*src_stride]>, 64-bit indexed, part of address is nonlinearly computed   [ /home/training/dd-20-28-39/aom/aom_dsp/aom_convolve.c(176,48) ]
+      remark #15328: vectorization support: indirect load was emulated for the variable <y_filter[k]>, 64-bit indexed, part of address is nonlinearly computed   [ /home/training/dd-20-28-39/aom/aom_dsp/aom_convolve.c(176,66) ]
+      remark #15328: vectorization support: indirect load was emulated for the variable <src_y[k*src_stride]>, 64-bit indexed, part of address is nonlinearly computed   [ /home/training/dd-20-28-39/aom/aom_dsp/aom_convolve.c(176,48) ]
+      remark #15328: vectorization support: indirect load was emulated for the variable <y_filter[k]>, 64-bit indexed, part of address is nonlinearly computed   [ /home/training/dd-20-28-39/aom/aom_dsp/aom_convolve.c(176,66) ]
+      remark #15328: vectorization support: indirect load was emulated for the variable <src_y[k*src_stride]>, 64-bit indexed, part of address is nonlinearly computed   [ /home/training/dd-20-28-39/aom/aom_dsp/aom_convolve.c(176,48) ]
+      remark #15328: vectorization support: indirect load was emulated for the variable <y_filter[k]>, 64-bit indexed, part of address is nonlinearly computed   [ /home/training/dd-20-28-39/aom/aom_dsp/aom_convolve.c(176,66) ]
+      remark #15328: vectorization support: indirect load was emulated for the variable <src_y[k*src_stride]>, 64-bit indexed, part of address is nonlinearly computed   [ /home/training/dd-20-28-39/aom/aom_dsp/aom_convolve.c(176,48) ]
+      remark #15328: vectorization support: indirect load was emulated for the variable <y_filter[k]>, 64-bit indexed, part of address is nonlinearly computed   [ /home/training/dd-20-28-39/aom/aom_dsp/aom_convolve.c(176,66) ]
+      remark #15328: vectorization support: indirect load was emulated for the variable <src_y[k*src_stride]>, 64-bit indexed, part of address is nonlinearly computed   [ /home/training/dd-20-28-39/aom/aom_dsp/aom_convolve.c(176,48) ]
+      remark #15328: vectorization support: indirect load was emulated for the variable <y_filter[k]>, 64-bit indexed, part of address is nonlinearly computed   [ /home/training/dd-20-28-39/aom/aom_dsp/aom_convolve.c(176,66) ]
+      remark #15329: vectorization support: non-unit strided store was emulated for the variable <dst[y*dst_stride]>, stride is unknown to compiler   [ /home/training/dd-20-28-39/aom/aom_dsp/aom_convolve.c(224,7) ]
       remark #15305: vectorization support: vector length 16
       remark #15309: vectorization support: normalized vectorization overhead 0.021
       remark #15301: SIMD LOOP WAS VECTORIZED
@@ -236,35 +348,35 @@ LOOP BEGIN at /home/training/dd-20-28-39/aom/aom_dsp/aom_convolve.c(181,3) inlin
       remark #15478: estimated potential speedup: 0.710 
       remark #15488: --- end vector cost summary ---
 
-      LOOP BEGIN at /home/training/dd-20-28-39/aom/aom_dsp/aom_convolve.c(140,3) inlined into /home/training/dd-20-28-39/aom/aom_dsp/aom_convolve.c(221,3)
+      LOOP BEGIN at /home/training/dd-20-28-39/aom/aom_dsp/aom_convolve.c(176,3) inlined into /home/training/dd-20-28-39/aom/aom_dsp/aom_convolve.c(257,3)
          remark #25436: completely unrolled by 8   (pre-vector) 
       LOOP END
    LOOP END
 
-   LOOP BEGIN at /home/training/dd-20-28-39/aom/aom_dsp/aom_convolve.c(184,5) inlined into /home/training/dd-20-28-39/aom/aom_dsp/aom_convolve.c(221,3)
+   LOOP BEGIN at /home/training/dd-20-28-39/aom/aom_dsp/aom_convolve.c(220,5) inlined into /home/training/dd-20-28-39/aom/aom_dsp/aom_convolve.c(257,3)
    <Remainder loop for vectorization, Predicate Optimized v1>
    LOOP END
 
-   LOOP BEGIN at /home/training/dd-20-28-39/aom/aom_dsp/aom_convolve.c(184,5) inlined into /home/training/dd-20-28-39/aom/aom_dsp/aom_convolve.c(221,3)
+   LOOP BEGIN at /home/training/dd-20-28-39/aom/aom_dsp/aom_convolve.c(220,5) inlined into /home/training/dd-20-28-39/aom/aom_dsp/aom_convolve.c(257,3)
    <Predicate Optimized v3>
       remark #25422: Invariant Condition at line 81 hoisted out of this loop
-      remark #15328: vectorization support: indirect load was emulated for the variable <src_y[k*src_stride]>, 64-bit indexed, part of address is nonlinearly computed   [ /home/training/dd-20-28-39/aom/aom_dsp/aom_convolve.c(140,48) ]
-      remark #15328: vectorization support: indirect load was emulated for the variable <y_filter[k]>, 64-bit indexed, part of address is nonlinearly computed   [ /home/training/dd-20-28-39/aom/aom_dsp/aom_convolve.c(140,66) ]
-      remark #15328: vectorization support: indirect load was emulated for the variable <src_y[k*src_stride]>, 64-bit indexed, part of address is nonlinearly computed   [ /home/training/dd-20-28-39/aom/aom_dsp/aom_convolve.c(140,48) ]
-      remark #15328: vectorization support: indirect load was emulated for the variable <y_filter[k]>, 64-bit indexed, part of address is nonlinearly computed   [ /home/training/dd-20-28-39/aom/aom_dsp/aom_convolve.c(140,66) ]
-      remark #15328: vectorization support: indirect load was emulated for the variable <src_y[k*src_stride]>, 64-bit indexed, part of address is nonlinearly computed   [ /home/training/dd-20-28-39/aom/aom_dsp/aom_convolve.c(140,48) ]
-      remark #15328: vectorization support: indirect load was emulated for the variable <y_filter[k]>, 64-bit indexed, part of address is nonlinearly computed   [ /home/training/dd-20-28-39/aom/aom_dsp/aom_convolve.c(140,66) ]
-      remark #15328: vectorization support: indirect load was emulated for the variable <src_y[k*src_stride]>, 64-bit indexed, part of address is nonlinearly computed   [ /home/training/dd-20-28-39/aom/aom_dsp/aom_convolve.c(140,48) ]
-      remark #15328: vectorization support: indirect load was emulated for the variable <y_filter[k]>, 64-bit indexed, part of address is nonlinearly computed   [ /home/training/dd-20-28-39/aom/aom_dsp/aom_convolve.c(140,66) ]
-      remark #15328: vectorization support: indirect load was emulated for the variable <src_y[k*src_stride]>, 64-bit indexed, part of address is nonlinearly computed   [ /home/training/dd-20-28-39/aom/aom_dsp/aom_convolve.c(140,48) ]
-      remark #15328: vectorization support: indirect load was emulated for the variable <y_filter[k]>, 64-bit indexed, part of address is nonlinearly computed   [ /home/training/dd-20-28-39/aom/aom_dsp/aom_convolve.c(140,66) ]
-      remark #15328: vectorization support: indirect load was emulated for the variable <src_y[k*src_stride]>, 64-bit indexed, part of address is nonlinearly computed   [ /home/training/dd-20-28-39/aom/aom_dsp/aom_convolve.c(140,48) ]
-      remark #15328: vectorization support: indirect load was emulated for the variable <y_filter[k]>, 64-bit indexed, part of address is nonlinearly computed   [ /home/training/dd-20-28-39/aom/aom_dsp/aom_convolve.c(140,66) ]
-      remark #15328: vectorization support: indirect load was emulated for the variable <src_y[k*src_stride]>, 64-bit indexed, part of address is nonlinearly computed   [ /home/training/dd-20-28-39/aom/aom_dsp/aom_convolve.c(140,48) ]
-      remark #15328: vectorization support: indirect load was emulated for the variable <y_filter[k]>, 64-bit indexed, part of address is nonlinearly computed   [ /home/training/dd-20-28-39/aom/aom_dsp/aom_convolve.c(140,66) ]
-      remark #15328: vectorization support: indirect load was emulated for the variable <src_y[k*src_stride]>, 64-bit indexed, part of address is nonlinearly computed   [ /home/training/dd-20-28-39/aom/aom_dsp/aom_convolve.c(140,48) ]
-      remark #15328: vectorization support: indirect load was emulated for the variable <y_filter[k]>, 64-bit indexed, part of address is nonlinearly computed   [ /home/training/dd-20-28-39/aom/aom_dsp/aom_convolve.c(140,66) ]
-      remark #15329: vectorization support: non-unit strided store was emulated for the variable <dst[y*dst_stride]>, stride is unknown to compiler   [ /home/training/dd-20-28-39/aom/aom_dsp/aom_convolve.c(188,7) ]
+      remark #15328: vectorization support: indirect load was emulated for the variable <src_y[k*src_stride]>, 64-bit indexed, part of address is nonlinearly computed   [ /home/training/dd-20-28-39/aom/aom_dsp/aom_convolve.c(176,48) ]
+      remark #15328: vectorization support: indirect load was emulated for the variable <y_filter[k]>, 64-bit indexed, part of address is nonlinearly computed   [ /home/training/dd-20-28-39/aom/aom_dsp/aom_convolve.c(176,66) ]
+      remark #15328: vectorization support: indirect load was emulated for the variable <src_y[k*src_stride]>, 64-bit indexed, part of address is nonlinearly computed   [ /home/training/dd-20-28-39/aom/aom_dsp/aom_convolve.c(176,48) ]
+      remark #15328: vectorization support: indirect load was emulated for the variable <y_filter[k]>, 64-bit indexed, part of address is nonlinearly computed   [ /home/training/dd-20-28-39/aom/aom_dsp/aom_convolve.c(176,66) ]
+      remark #15328: vectorization support: indirect load was emulated for the variable <src_y[k*src_stride]>, 64-bit indexed, part of address is nonlinearly computed   [ /home/training/dd-20-28-39/aom/aom_dsp/aom_convolve.c(176,48) ]
+      remark #15328: vectorization support: indirect load was emulated for the variable <y_filter[k]>, 64-bit indexed, part of address is nonlinearly computed   [ /home/training/dd-20-28-39/aom/aom_dsp/aom_convolve.c(176,66) ]
+      remark #15328: vectorization support: indirect load was emulated for the variable <src_y[k*src_stride]>, 64-bit indexed, part of address is nonlinearly computed   [ /home/training/dd-20-28-39/aom/aom_dsp/aom_convolve.c(176,48) ]
+      remark #15328: vectorization support: indirect load was emulated for the variable <y_filter[k]>, 64-bit indexed, part of address is nonlinearly computed   [ /home/training/dd-20-28-39/aom/aom_dsp/aom_convolve.c(176,66) ]
+      remark #15328: vectorization support: indirect load was emulated for the variable <src_y[k*src_stride]>, 64-bit indexed, part of address is nonlinearly computed   [ /home/training/dd-20-28-39/aom/aom_dsp/aom_convolve.c(176,48) ]
+      remark #15328: vectorization support: indirect load was emulated for the variable <y_filter[k]>, 64-bit indexed, part of address is nonlinearly computed   [ /home/training/dd-20-28-39/aom/aom_dsp/aom_convolve.c(176,66) ]
+      remark #15328: vectorization support: indirect load was emulated for the variable <src_y[k*src_stride]>, 64-bit indexed, part of address is nonlinearly computed   [ /home/training/dd-20-28-39/aom/aom_dsp/aom_convolve.c(176,48) ]
+      remark #15328: vectorization support: indirect load was emulated for the variable <y_filter[k]>, 64-bit indexed, part of address is nonlinearly computed   [ /home/training/dd-20-28-39/aom/aom_dsp/aom_convolve.c(176,66) ]
+      remark #15328: vectorization support: indirect load was emulated for the variable <src_y[k*src_stride]>, 64-bit indexed, part of address is nonlinearly computed   [ /home/training/dd-20-28-39/aom/aom_dsp/aom_convolve.c(176,48) ]
+      remark #15328: vectorization support: indirect load was emulated for the variable <y_filter[k]>, 64-bit indexed, part of address is nonlinearly computed   [ /home/training/dd-20-28-39/aom/aom_dsp/aom_convolve.c(176,66) ]
+      remark #15328: vectorization support: indirect load was emulated for the variable <src_y[k*src_stride]>, 64-bit indexed, part of address is nonlinearly computed   [ /home/training/dd-20-28-39/aom/aom_dsp/aom_convolve.c(176,48) ]
+      remark #15328: vectorization support: indirect load was emulated for the variable <y_filter[k]>, 64-bit indexed, part of address is nonlinearly computed   [ /home/training/dd-20-28-39/aom/aom_dsp/aom_convolve.c(176,66) ]
+      remark #15329: vectorization support: non-unit strided store was emulated for the variable <dst[y*dst_stride]>, stride is unknown to compiler   [ /home/training/dd-20-28-39/aom/aom_dsp/aom_convolve.c(224,7) ]
       remark #15305: vectorization support: vector length 16
       remark #15309: vectorization support: normalized vectorization overhead 0.021
       remark #15301: SIMD LOOP WAS VECTORIZED
@@ -277,29 +389,29 @@ LOOP BEGIN at /home/training/dd-20-28-39/aom/aom_dsp/aom_convolve.c(181,3) inlin
       remark #15488: --- end vector cost summary ---
    LOOP END
 
-   LOOP BEGIN at /home/training/dd-20-28-39/aom/aom_dsp/aom_convolve.c(184,5) inlined into /home/training/dd-20-28-39/aom/aom_dsp/aom_convolve.c(221,3)
+   LOOP BEGIN at /home/training/dd-20-28-39/aom/aom_dsp/aom_convolve.c(220,5) inlined into /home/training/dd-20-28-39/aom/aom_dsp/aom_convolve.c(257,3)
    <Remainder loop for vectorization, Predicate Optimized v3>
    LOOP END
 
-   LOOP BEGIN at /home/training/dd-20-28-39/aom/aom_dsp/aom_convolve.c(184,5) inlined into /home/training/dd-20-28-39/aom/aom_dsp/aom_convolve.c(221,3)
+   LOOP BEGIN at /home/training/dd-20-28-39/aom/aom_dsp/aom_convolve.c(220,5) inlined into /home/training/dd-20-28-39/aom/aom_dsp/aom_convolve.c(257,3)
    <Predicate Optimized v4>
-      remark #15328: vectorization support: indirect load was emulated for the variable <src_y[k*src_stride]>, 64-bit indexed, part of address is nonlinearly computed   [ /home/training/dd-20-28-39/aom/aom_dsp/aom_convolve.c(140,48) ]
-      remark #15328: vectorization support: indirect load was emulated for the variable <y_filter[k]>, 64-bit indexed, part of address is nonlinearly computed   [ /home/training/dd-20-28-39/aom/aom_dsp/aom_convolve.c(140,66) ]
-      remark #15328: vectorization support: indirect load was emulated for the variable <src_y[k*src_stride]>, 64-bit indexed, part of address is nonlinearly computed   [ /home/training/dd-20-28-39/aom/aom_dsp/aom_convolve.c(140,48) ]
-      remark #15328: vectorization support: indirect load was emulated for the variable <y_filter[k]>, 64-bit indexed, part of address is nonlinearly computed   [ /home/training/dd-20-28-39/aom/aom_dsp/aom_convolve.c(140,66) ]
-      remark #15328: vectorization support: indirect load was emulated for the variable <src_y[k*src_stride]>, 64-bit indexed, part of address is nonlinearly computed   [ /home/training/dd-20-28-39/aom/aom_dsp/aom_convolve.c(140,48) ]
-      remark #15328: vectorization support: indirect load was emulated for the variable <y_filter[k]>, 64-bit indexed, part of address is nonlinearly computed   [ /home/training/dd-20-28-39/aom/aom_dsp/aom_convolve.c(140,66) ]
-      remark #15328: vectorization support: indirect load was emulated for the variable <src_y[k*src_stride]>, 64-bit indexed, part of address is nonlinearly computed   [ /home/training/dd-20-28-39/aom/aom_dsp/aom_convolve.c(140,48) ]
-      remark #15328: vectorization support: indirect load was emulated for the variable <y_filter[k]>, 64-bit indexed, part of address is nonlinearly computed   [ /home/training/dd-20-28-39/aom/aom_dsp/aom_convolve.c(140,66) ]
-      remark #15328: vectorization support: indirect load was emulated for the variable <src_y[k*src_stride]>, 64-bit indexed, part of address is nonlinearly computed   [ /home/training/dd-20-28-39/aom/aom_dsp/aom_convolve.c(140,48) ]
-      remark #15328: vectorization support: indirect load was emulated for the variable <y_filter[k]>, 64-bit indexed, part of address is nonlinearly computed   [ /home/training/dd-20-28-39/aom/aom_dsp/aom_convolve.c(140,66) ]
-      remark #15328: vectorization support: indirect load was emulated for the variable <src_y[k*src_stride]>, 64-bit indexed, part of address is nonlinearly computed   [ /home/training/dd-20-28-39/aom/aom_dsp/aom_convolve.c(140,48) ]
-      remark #15328: vectorization support: indirect load was emulated for the variable <y_filter[k]>, 64-bit indexed, part of address is nonlinearly computed   [ /home/training/dd-20-28-39/aom/aom_dsp/aom_convolve.c(140,66) ]
-      remark #15328: vectorization support: indirect load was emulated for the variable <src_y[k*src_stride]>, 64-bit indexed, part of address is nonlinearly computed   [ /home/training/dd-20-28-39/aom/aom_dsp/aom_convolve.c(140,48) ]
-      remark #15328: vectorization support: indirect load was emulated for the variable <y_filter[k]>, 64-bit indexed, part of address is nonlinearly computed   [ /home/training/dd-20-28-39/aom/aom_dsp/aom_convolve.c(140,66) ]
-      remark #15328: vectorization support: indirect load was emulated for the variable <src_y[k*src_stride]>, 64-bit indexed, part of address is nonlinearly computed   [ /home/training/dd-20-28-39/aom/aom_dsp/aom_convolve.c(140,48) ]
-      remark #15328: vectorization support: indirect load was emulated for the variable <y_filter[k]>, 64-bit indexed, part of address is nonlinearly computed   [ /home/training/dd-20-28-39/aom/aom_dsp/aom_convolve.c(140,66) ]
-      remark #15329: vectorization support: non-unit strided store was emulated for the variable <dst[y*dst_stride]>, stride is unknown to compiler   [ /home/training/dd-20-28-39/aom/aom_dsp/aom_convolve.c(188,7) ]
+      remark #15328: vectorization support: indirect load was emulated for the variable <src_y[k*src_stride]>, 64-bit indexed, part of address is nonlinearly computed   [ /home/training/dd-20-28-39/aom/aom_dsp/aom_convolve.c(176,48) ]
+      remark #15328: vectorization support: indirect load was emulated for the variable <y_filter[k]>, 64-bit indexed, part of address is nonlinearly computed   [ /home/training/dd-20-28-39/aom/aom_dsp/aom_convolve.c(176,66) ]
+      remark #15328: vectorization support: indirect load was emulated for the variable <src_y[k*src_stride]>, 64-bit indexed, part of address is nonlinearly computed   [ /home/training/dd-20-28-39/aom/aom_dsp/aom_convolve.c(176,48) ]
+      remark #15328: vectorization support: indirect load was emulated for the variable <y_filter[k]>, 64-bit indexed, part of address is nonlinearly computed   [ /home/training/dd-20-28-39/aom/aom_dsp/aom_convolve.c(176,66) ]
+      remark #15328: vectorization support: indirect load was emulated for the variable <src_y[k*src_stride]>, 64-bit indexed, part of address is nonlinearly computed   [ /home/training/dd-20-28-39/aom/aom_dsp/aom_convolve.c(176,48) ]
+      remark #15328: vectorization support: indirect load was emulated for the variable <y_filter[k]>, 64-bit indexed, part of address is nonlinearly computed   [ /home/training/dd-20-28-39/aom/aom_dsp/aom_convolve.c(176,66) ]
+      remark #15328: vectorization support: indirect load was emulated for the variable <src_y[k*src_stride]>, 64-bit indexed, part of address is nonlinearly computed   [ /home/training/dd-20-28-39/aom/aom_dsp/aom_convolve.c(176,48) ]
+      remark #15328: vectorization support: indirect load was emulated for the variable <y_filter[k]>, 64-bit indexed, part of address is nonlinearly computed   [ /home/training/dd-20-28-39/aom/aom_dsp/aom_convolve.c(176,66) ]
+      remark #15328: vectorization support: indirect load was emulated for the variable <src_y[k*src_stride]>, 64-bit indexed, part of address is nonlinearly computed   [ /home/training/dd-20-28-39/aom/aom_dsp/aom_convolve.c(176,48) ]
+      remark #15328: vectorization support: indirect load was emulated for the variable <y_filter[k]>, 64-bit indexed, part of address is nonlinearly computed   [ /home/training/dd-20-28-39/aom/aom_dsp/aom_convolve.c(176,66) ]
+      remark #15328: vectorization support: indirect load was emulated for the variable <src_y[k*src_stride]>, 64-bit indexed, part of address is nonlinearly computed   [ /home/training/dd-20-28-39/aom/aom_dsp/aom_convolve.c(176,48) ]
+      remark #15328: vectorization support: indirect load was emulated for the variable <y_filter[k]>, 64-bit indexed, part of address is nonlinearly computed   [ /home/training/dd-20-28-39/aom/aom_dsp/aom_convolve.c(176,66) ]
+      remark #15328: vectorization support: indirect load was emulated for the variable <src_y[k*src_stride]>, 64-bit indexed, part of address is nonlinearly computed   [ /home/training/dd-20-28-39/aom/aom_dsp/aom_convolve.c(176,48) ]
+      remark #15328: vectorization support: indirect load was emulated for the variable <y_filter[k]>, 64-bit indexed, part of address is nonlinearly computed   [ /home/training/dd-20-28-39/aom/aom_dsp/aom_convolve.c(176,66) ]
+      remark #15328: vectorization support: indirect load was emulated for the variable <src_y[k*src_stride]>, 64-bit indexed, part of address is nonlinearly computed   [ /home/training/dd-20-28-39/aom/aom_dsp/aom_convolve.c(176,48) ]
+      remark #15328: vectorization support: indirect load was emulated for the variable <y_filter[k]>, 64-bit indexed, part of address is nonlinearly computed   [ /home/training/dd-20-28-39/aom/aom_dsp/aom_convolve.c(176,66) ]
+      remark #15329: vectorization support: non-unit strided store was emulated for the variable <dst[y*dst_stride]>, stride is unknown to compiler   [ /home/training/dd-20-28-39/aom/aom_dsp/aom_convolve.c(224,7) ]
       remark #15305: vectorization support: vector length 16
       remark #15309: vectorization support: normalized vectorization overhead 0.021
       remark #15301: SIMD LOOP WAS VECTORIZED
@@ -312,7 +424,7 @@ LOOP BEGIN at /home/training/dd-20-28-39/aom/aom_dsp/aom_convolve.c(181,3) inlin
       remark #15488: --- end vector cost summary ---
    LOOP END
 
-   LOOP BEGIN at /home/training/dd-20-28-39/aom/aom_dsp/aom_convolve.c(184,5) inlined into /home/training/dd-20-28-39/aom/aom_dsp/aom_convolve.c(221,3)
+   LOOP BEGIN at /home/training/dd-20-28-39/aom/aom_dsp/aom_convolve.c(220,5) inlined into /home/training/dd-20-28-39/aom/aom_dsp/aom_convolve.c(257,3)
    <Remainder loop for vectorization, Predicate Optimized v4>
    LOOP END
 LOOP END
@@ -324,7 +436,7 @@ Begin optimization report for: aom_highbd_convolve_copy_c(const uint8_t *, ptrdi
     Report from: Loop nest & Vector optimizations [loop, vec]
 
 
-LOOP BEGIN at /home/training/dd-20-28-39/aom/aom_dsp/aom_convolve.c(239,3)
-   remark #15527: loop was not vectorized: function call to memcpy(void *__restrict__, const void *__restrict__, size_t) cannot be vectorized   [ /home/training/dd-20-28-39/aom/aom_dsp/aom_convolve.c(240,5) ]
+LOOP BEGIN at /home/training/dd-20-28-39/aom/aom_dsp/aom_convolve.c(275,3)
+   remark #15527: loop was not vectorized: function call to memcpy(void *__restrict__, const void *__restrict__, size_t) cannot be vectorized   [ /home/training/dd-20-28-39/aom/aom_dsp/aom_convolve.c(276,5) ]
 LOOP END
 ===========================================================================
