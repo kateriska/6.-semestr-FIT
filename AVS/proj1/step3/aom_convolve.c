@@ -38,15 +38,32 @@ static void convolve_horiz(const uint8_t *src, ptrdiff_t src_stride,
                            const InterpKernel *x_filters, int x0_q4,
                            int x_step_q4, int w, int h) {
   src -= SUBPEL_TAPS / 2 - 1;
+
   for (int y = 0; y < h; ++y) {
     int x_q4 = x0_q4;
-    #pragma omp simd 
-    for (int x = 0; x < w; ++x) {
+
+    if ((x_step_q4 == (1 << SUBPEL_BITS)))
+    {
+      const int16_t *const x_filter = x_filters[x_q4 & SUBPEL_MASK];
+      int16_t x_q4_shift = x_q4 >> SUBPEL_BITS;
+      #pragma omp simd
+      for (int x = 0; x < w; ++x) {
+        const uint8_t *const src_x = &src[x_q4_shift++];
+        const int sum = horz_scalar_product(src_x, x_filter);
+        dst[x] = clip_pixel(ROUND_POWER_OF_TWO(sum, FILTER_BITS));
+        x_q4 += x_step_q4;
+      }
+    }
+    else
+    {
+      #pragma omp simd
+      for (int x = 0; x < w; ++x) {
       const uint8_t *const src_x = &src[x_q4 >> SUBPEL_BITS];
       const int16_t *const x_filter = x_filters[x_q4 & SUBPEL_MASK];
       const int sum = horz_scalar_product(src_x, x_filter);
       dst[x] = clip_pixel(ROUND_POWER_OF_TWO(sum, FILTER_BITS));
       x_q4 += x_step_q4;
+      }
     }
     src += src_stride;
     dst += dst_stride;
@@ -61,14 +78,34 @@ static void convolve_vert(const uint8_t *src, ptrdiff_t src_stride,
 
   for (int x = 0; x < w; ++x) {
     int y_q4 = y0_q4;
-    #pragma omp simd
-    for (int y = 0; y < h; ++y) {
-      const unsigned char *src_y = &src[(y_q4 >> SUBPEL_BITS) * src_stride];
+
+    if ((y_step_q4 == (1 << SUBPEL_BITS)))
+    {
       const int16_t *const y_filter = y_filters[y_q4 & SUBPEL_MASK];
-      const int sum = vert_scalar_product(src_y, src_stride, y_filter);
-      dst[y * dst_stride] = clip_pixel(ROUND_POWER_OF_TWO(sum, FILTER_BITS));
-      y_q4 += y_step_q4;
+      int16_t y_q4_shift = y_q4 >> SUBPEL_BITS;
+      #pragma omp simd
+      for (int y = 0; y < h; ++y) {
+        const unsigned char *src_y = &src[(y_q4_shift++) * src_stride];
+        const int sum = vert_scalar_product(src_y, src_stride, y_filter);
+        dst[y * dst_stride] = clip_pixel(ROUND_POWER_OF_TWO(sum, FILTER_BITS));
+        y_q4 += y_step_q4;
+      }
     }
+    else
+    {
+      #pragma omp simd
+      for (int y = 0; y < h; ++y) {
+        const unsigned char *src_y = &src[(y_q4 >> SUBPEL_BITS) * src_stride];
+        const int16_t *const y_filter = y_filters[y_q4 & SUBPEL_MASK];
+        const int sum = vert_scalar_product(src_y, src_stride, y_filter);
+        dst[y * dst_stride] = clip_pixel(ROUND_POWER_OF_TWO(sum, FILTER_BITS));
+        y_q4 += y_step_q4;
+      }
+    }
+
+
+
+
     ++src;
     ++dst;
   }
@@ -154,10 +191,10 @@ static void highbd_convolve_horiz(const uint8_t *src8, ptrdiff_t src_stride,
   uint16_t *src = CONVERT_TO_SHORTPTR(src8);
   uint16_t *dst = CONVERT_TO_SHORTPTR(dst8);
   src -= SUBPEL_TAPS / 2 - 1;
-  
+
+  #pragma omp simd
   for (int y = 0; y < h; ++y) {
     int x_q4 = x0_q4;
-    #pragma omp simd
     for (int x = 0; x < w; ++x) {
       const uint16_t *const src_x = &src[x_q4 >> SUBPEL_BITS];
       const int16_t *const x_filter = x_filters[x_q4 & SUBPEL_MASK];
