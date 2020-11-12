@@ -1,0 +1,47 @@
+3. 
+a) Povedlo se vektorizovat všechny vzniklé cykly ve funkci? Proč?
+Vždy jsem se snažila vektorizovat pouze vnořené smyčky. Zde se vždy jednalo o smyčky ve směru y. Avšak vektorizace se vždy nezdařila. Samozřejmě v případech, kdy byla vektorizována vnitřní smyčka už nebyla vektorizována i vnější smyčka.
+
+Avšak u vertikálního filtru není vektorizována smyčka ve směru y pro ukládání výsledků.
+
+LOOP BEGIN at /home/training/dd-20-28-39/aom/av1/common/convolve.c(327,5)
+      remark #15313: simd loop was not vectorized: unsupported data type
+      remark #15552: loop was not vectorized with "simd"
+      remark #25456: Number of Array Refs Scalar Replaced In Loop: 1
+   LOOP END
+LOOP END
+
+b)
+Otestujte dosažené zrychlení na videu rush hour, aby jste ověřili „přenositelnost” optimalizací na jiné video. Dosáhli jste stejných výsledků jako v případě videa park joy?
+
+Krátké video Park Joy, tabulka upravovaných zásadních funkcí (convolve_vert, convolve_horiz, av1_dist_wtd_convolve_2d_c):
++----------------------------+----------------------+----------------------+------------+--------------+
+|                            | Původní CPU Time [s] | Finální CPU Time [s] | Rozdíl [s] | Úbytek o [%] |
++----------------------------+----------------------+----------------------+------------+--------------+
+| convolve_vert              | 2.905                | 0.795                | 2.11       | 72.633       |
++----------------------------+----------------------+----------------------+------------+--------------+
+| convolve_horiz             | 2.24                 | 0.44                 | 1.8        | 80.357       |
++----------------------------+----------------------+----------------------+------------+--------------+
+| av1_dist_wtd_convolve_2d_c | 6.86                 | 4.43                 | 2.43       | 35.423       |
++----------------------------+----------------------+----------------------+------------+--------------+
+
+Můžeme vidět, že aplikování step3 na vertikální konvoluci nám CPU Time nesnížilo, byť zvýšilo (před step3 byl výpočet této funkce u park joy 0.23 s). Avšak aplikování step3 na horizontální konvoluci nám podstatně snížilo CPU Time.
+
+Dlouhé video Rush Hour, tabulka upravovaných zásadních funkcí (convolve_vert, convolve_horiz, av1_dist_wtd_convolve_2d_c):
++----------------------------+----------------------+----------------------+------------+--------------+
+|                            | Původní CPU Time [s] | Finální CPU Time [s] | Rozdíl [s] | Úbytek o [%] |
++----------------------------+----------------------+----------------------+------------+--------------+
+| convolve_vert              | 96.865               | 23.57                | 73.295     | 75.667       |
++----------------------------+----------------------+----------------------+------------+--------------+
+| convolve_horiz             | 63.86                | 11.91                | 51.95      | 81.350       |
++----------------------------+----------------------+----------------------+------------+--------------+
+| av1_dist_wtd_convolve_2d_c | 212.83               | 146.59               | 66.24      | 31.123       |
++----------------------------+----------------------+----------------------+------------+--------------+
+
+
+Jak můžeme v tabulkách výše vidět, úbytek CPU Time pro obě videa je docela srovnatelný. 
+
+
+c) Jaké jsou výhody psaní „vektorizovatelného” a jinak paralelizovatelného kódu a využívaní kompilátoru oproti psaní v jazyce symbolických instrukcí nebo využívání intrinsic funkcí? (Pro inspiraci se podívejte např. do aom/av1/common/x86/).
+
+Vektorizovatelný nebo jinak paralezitovatelný kód je přenosný narozdíl od např. intristic funkcí. Samozřejmě využití intristic funkcí může být výkonově efektivní, ale taková výkonnost už je na úkor dobré přenositelnosti. Proto je paralizovatelný kód lépe přenosným a nezaměřujeme se pouze na konkrétní stroj, ale na široké využití a široké podmínky. Dále můžeme paralelizovatelný kód lépe optimalizovat, využít plánování instrukcí.
