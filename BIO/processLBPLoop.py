@@ -74,8 +74,8 @@ def computeAverageColorForBlock(lbp_image):
     rows = np.size(lbp_image, 0)
     cols = np.size(lbp_image, 1)
 
-    block_div = 7
-    step = 14
+    block_div = 5
+    step = 10
     white_block_pixels = [[]]
 
     for i in range(block_div, rows-block_div, step):
@@ -93,16 +93,26 @@ def computeAverageColorForBlock(lbp_image):
 
             for u in range(i-block_div, i+block_div):
                 for v in range(j-block_div, j+block_div):
-                    if (average_block_color == 255):
-                        np.append(white_block_pixels, [u,v])
+                    #if (average_block_color == 255):
+                        #np.append(white_block_pixels, [u,v])
                     lbp_image[u, v] = [average_block_color,average_block_color,average_block_color]
 
+
+    '''
+    while True:
+        cv2.imshow("Orientation Field", lbp_image)
+        key = cv2.waitKey(1) & 0xFF
+            # if the q key was pressed, break from the loop
+        if key == ord("q"):
+            break
+    cv2.destroyAllWindows()
+    '''
 
     for i in range(0, rows):
         for j in range(0, cols):
             gray_level_value = lbp_image[i][j][0]
             print(gray_level_value)
-            if (238 <= gray_level_value <= 255):
+            if (204 <= gray_level_value <= 255):
                 white_block_pixels.append([i,j])
 
     #print(white_block_pixels)
@@ -110,7 +120,7 @@ def computeAverageColorForBlock(lbp_image):
 
     return white_block_pixels
 
-def markWhiteBlocks(img, white_block_pixels):
+def markWhiteBlocks(img, white_block_pixels, background_pixels):
     print(white_block_pixels)
     rows = np.size(img, 0)
     cols = np.size(img, 1)
@@ -127,6 +137,14 @@ def markWhiteBlocks(img, white_block_pixels):
     print("Marked pixels length:" + str(len(marked_pixels)))
     '''
 
+    filtered_blocks = [[]]
+
+    for p in white_block_pixels:
+        print(p)
+        if p not in background_pixels:
+            filtered_blocks.append(p)
+
+
 
     for i in range(0, rows):
         for j in range(0, cols):
@@ -135,16 +153,17 @@ def markWhiteBlocks(img, white_block_pixels):
             pixel_coordinate_list.append(j)
             print(pixel_coordinate_list)
 
-            if pixel_coordinate_list in white_block_pixels:
+            if pixel_coordinate_list in filtered_blocks:
                 img[i, j] = [220,20,60]
     return img
 
 def getLBPfeatures():
 
-    for file in glob.glob('./Imgs/Imgs1/*'):
+    for file in glob.glob('./Imgs/Imgs3/*'):
         file_substr = file.split('/')[-1] # get name of processed file
         img = cv2.imread(file,0)
         img = cv2.normalize(img,None,0,255,cv2.NORM_MINMAX)
+        background_pixels = processSegmentation.findBackgroundPixels(img)
         img = processSegmentation.imgSegmentation(img)
         cv2.imwrite("./processedImg/segImg.png", img)
 
@@ -172,8 +191,8 @@ def getLBPfeatures():
         white_block_pixels = computeAverageColorForBlock(lbp_image)
     #print(img.shape)
     #print(lbp_image.shape)
-        marked_img = markWhiteBlocks(img, white_block_pixels)
-        cv2.imwrite("./markedImg/markedImg1/" + file_substr, marked_img)
+        marked_img = markWhiteBlocks(img, white_block_pixels, background_pixels)
+        cv2.imwrite("./markedImg/markedImg3Final/" + file_substr, marked_img)
     #cv2.imwrite("./markedImg/" + file_substr)
     # show LBP image and LBP histogram
     '''

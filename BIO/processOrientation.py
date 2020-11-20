@@ -82,7 +82,29 @@ def orientFieldEstimation(orig_img, height, width):
     #cv2.waitKey(0)
     #cv2.destroyAllWindows()
 
-    return color_img, right_angle_pixels
+    return color_img, right_angle_pixels, orientation
+
+def gaborFiltering(img, orientation):
+    step = 14
+    block_div = 7
+    rows = np.size(img, 0)
+    cols = np.size(img, 1)
+    img = np.float32(img)
+    print(img.dtype)
+
+    gabor_filters = np.zeros_like(img)
+
+    for i in range(block_div, rows-block_div, step):
+        for j in range(block_div, cols-block_div, step):
+            block_orientation = orientation[int(i / step)][int(j / step)]
+
+            for u in range(i-block_div, i+block_div):
+                for v in range(j-block_div, j+block_div):
+                    g_kernel = cv2.getGaborKernel((6, 6), 10, block_orientation, 5, 0, 0, ktype=cv2.CV_32F)
+                    filtered_block = cv2.filter2D(img, cv2.CV_8UC1, g_kernel)
+                    gabor_filters.append(g_kernel)
+
+
 
 def getOrientationFeatures(file):
     img = cv2.imread(file,0)
@@ -103,7 +125,10 @@ def getOrientationFeatures(file):
     height = img.shape[0]
     width = img.shape[1]
 
-    oriented_image, right_angle_pixels = orientFieldEstimation(img, height, width)
+    oriented_image, right_angle_pixels, orientation = orientFieldEstimation(img, height, width)
+    gaborFiltering(img_clahe, orientation)
+
+
     print(right_angle_pixels)
     '''
 
