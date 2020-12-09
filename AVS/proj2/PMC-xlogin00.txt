@@ -1,0 +1,56 @@
+Architektury Výpočetních Systémů (AVS 2020)
+Projekt č. 2 (PMC)
+Login: xlogin00
+
+Úloha 1: Paralelizace původního řešení
+===============================================================================
+
+1) Kterou ze smyček (viz zadání) je vhodnější paralelizovat a co způsobuje 
+   neefektivitu paralelizaci té druhé?
+
+Vhodnější je paralizovat smyčku ve funkci unsigned LoopMeshBuilder::marchCubes(const ParametricScalarField &field). Neefektivní paralizaci druhé smyčky (která by měla za následek velké zpomalení programu) způsobuje závislost mezi voláním funkce, ve které se druhá smyčka nachází (float LoopMeshBuilder::evaluateFieldAt(const Vec3_t<float> &pos, const ParametricScalarField &field), funkcí unsigned BaseMeshBuilder::buildCube(const Vec3_t<float> &position, const ParametricScalarField &field). Druhá zmíněná funkce je pak volána ve smyčce ve funkci unsigned LoopMeshBuilder::marchCubes(const ParametricScalarField &field). Reálně paralelizovatelná je proto jen část výpočtu a celý výpočet se tedy hodně zpomalí a režie vynaložená pro paralelizaci je příliš vysoká.
+
+2) Jaké plánování (rozdělení práce mezi vlákna) jste zvolili a proč? 
+   Jaký vliv má velikost "chunk" při dynamickém plánování (8, 16, 32, 64)?
+
+Využila jsem guided plánování, které má nižší synchronizační režii jak např. dynamic a mělo by se jednat o nejefektivnější způsob plánování.
+
+
+3) Jakým způsobem zajišťujete ukládání trojúhelníků z několika vláken současně?
+Bylo nutné vytvořit kritickou sekci #pragma omp critical, kdy daný úsek může vždy v daném čase vykonávat pouze jedno vlákno. 
+
+
+Úloha 2: Paralelní průchod stromem
+===============================================================================
+
+1) Stručně popište použití OpenMP tasků ve vašem řešení.
+
+2) Jakým způsobem jste realizovali sesbírání celkového počtu trojúhelníků?
+
+3) Jaký vliv má na vaše řešení tzv. "cut-off"? Je vhodné vytvářet nový 
+   task pro každou krychli na nejnižší úrovni?
+
+4) Jakým způsobem zajišťujete ukládání trojúhelníků z několika vláken současně?
+
+
+Úloha 3: Předvýpočet hodnot pole
+===============================================================================
+
+1) Dochází v případě tohoto řešení k omezení výkonu propustností paměti? 
+   Došlo k nějakým změnám ve využití paměťového subsystému v porovnání 
+   s úlohou 1?
+   (Ověřte nástrojem Intel VTune na některé z větších mřížek -- např. 512)
+
+2) V jaké situaci bude toto řešení nejvýhodnější (nejrychlejší)?
+
+
+Úloha 4: Grafy škálování všech řešení
+===============================================================================
+
+1) Stručně zhodnoťte efektivitu vytvořených řešení (na základě grafů škálování).
+
+2) V jakém případě (v závislosti na počtu bodů ve vstupním souboru a velikosti 
+   mřížky) bude vaše řešení 1. úlohy neefektivní? (pokud takový případ existuje)
+
+3) Je (nebo není) stromový algoritmus efektivnější z pohledu slabého škálování 
+   vzhledem ke vstupu?
