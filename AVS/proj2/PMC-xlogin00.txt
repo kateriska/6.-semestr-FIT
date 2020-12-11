@@ -24,13 +24,39 @@ Bylo nutné vytvořit kritickou sekci #pragma omp critical, kdy daný úsek mů�
 ===============================================================================
 
 1) Stručně popište použití OpenMP tasků ve vašem řešení.
+Při volání funkce unsigned TreeMeshBuilder::octaTree(const ParametricScalarField &field, unsigned mGridSize, const Vec3_t<float> &cubeOffset) bude využito paralelismu, vytvoří se tedy tým vláken (#pragma omp parallel). Dále bude blok vykonáván pouze jednou jedním vláknem z daného týmu. Implementace pak může vynechat bariéru na konci sdíleného regionu (#pragma omp single nowait).
+
+Při každé tvorbě nového potomka je vytvořen nový task. Pro aktualizaci finálního počtu bylo zapotřebí využití #pragma omp atomic, aby se daná proměnná inkrementovala atomicky a zápis vláken do této proměnné je tedy kontrolován. Na konci je poté potřeba počkat na všechny generované tasky (#pragma omp taskwait), tedy i jejich následníky. 
+
+Ukládání trojúhelníků z několika vláken je opět jako v Úloze 1 zajištěno pomocí #pragma omp critical.
 
 2) Jakým způsobem jste realizovali sesbírání celkového počtu trojúhelníků?
+Na začátku je nutné ověřit podmínku, zda je možné aby jeho podprostorem procházel hledaný povrch. Ověřila jsem tedy nerovnici uvedenou v zadání. Na nejnižší úrpvni se volá funkce buildCube, jinak se vytvoří potomci, kdy pro každého z nich je vytvořen nový task. Rekurzivně se poté znovu volá funkce octaTree a v každé iteraci je spočítán daný počet, který se přičítá atomicky do proměnné count, která obsahuje finální počet všech trojúhelníků.
 
 3) Jaký vliv má na vaše řešení tzv. "cut-off"? Je vhodné vytvářet nový 
    task pro každou krychli na nejnižší úrovni?
 
+Hodnoty pro bun_zipper_res4.obj:
++---------------+-------------------+----------------+---------------------+
+| Cut Off Value | Elapsed Time [ms] | File Size [KB] | Mesh Triangle Count |
++---------------+-------------------+----------------+---------------------+
+| 0.2           | 223               | 21696          | 168168              |
++---------------+-------------------+----------------+---------------------+
+| 0.5           | 210               | 21696          | 168168              |
++---------------+-------------------+----------------+---------------------+
+| 0.8           | 217               | 21696          | 168168              |
++---------------+-------------------+----------------+---------------------+
+| 1             | 36                | 5442           | 42476               |
++---------------+-------------------+----------------+---------------------+
+| 1.5           | 37                | 5442           | 42476               |
++---------------+-------------------+----------------+---------------------+
+| 2             | 7                 | 694            | 5516                |
++---------------+-------------------+----------------+---------------------+
+
+Vidíme, že nastavení cut-off na nižší hodnotu jak 1 má za následek velmi velké navýšení času výpočtu. Na druhou stranu při hodnotě cut_off např. 2 pak nejsou vykreslené všechny trojúhelníky daného objektu. Není vhodné vytvářet nový task na nejnižší úrovni, protože na této úrovni pouze generujeme dané trojúhelníky.
+
 4) Jakým způsobem zajišťujete ukládání trojúhelníků z několika vláken současně?
+Pro tento problém bylo opět jak u Úlohy 1 využito #pragma omp critical, kdy daný úsek kódu je v daném čase vykonáván pouze jedním vláknem.
 
 
 Úloha 3: Předvýpočet hodnot pole
