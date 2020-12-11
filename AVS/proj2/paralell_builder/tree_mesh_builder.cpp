@@ -29,9 +29,11 @@ unsigned TreeMeshBuilder::marchCubes(const ParametricScalarField &field)
 
     unsigned count = 0;
 
-    #pragma omp parallel
-    #pragma omp single nowait
-    count = octaTree(field, mGridSize, Vec3_t<float>());
+    #pragma omp parallel shared(count)
+    {
+      #pragma omp single nowait
+      count = octaTree(field, mGridSize, Vec3_t<float>());
+    }
 
 
     return count;
@@ -44,10 +46,9 @@ unsigned TreeMeshBuilder::octaTree(const ParametricScalarField &field, unsigned 
   float half_block_length = (mGridSize * mGridResolution) / 2.0;
 
   const Vec3_t<float> block_midpoint(
-		cubeOffset.x * mGridResolution + half_block_length,
-		cubeOffset.y * mGridResolution + half_block_length,
-		cubeOffset.z * mGridResolution + half_block_length
-	);
+		half_block_length + cubeOffset.x * mGridResolution,
+		half_block_length + cubeOffset.y * mGridResolution,
+		half_block_length + cubeOffset.z * mGridResolution);
 
   float F_p = evaluateFieldAt(block_midpoint, field);
 
@@ -68,17 +69,21 @@ unsigned TreeMeshBuilder::octaTree(const ParametricScalarField &field, unsigned 
 
   for (const Vec3_t<float> v: sc_vertexNormPos)
 	{
-    const Vec3_t<float> newCubeChildren(
-				cubeOffset.x + v.x * mGridSize,
-				cubeOffset.y + v.y * mGridSize,
-				cubeOffset.z + v.z * mGridSize);
+    #pragma omp task firstprivate(v) shared(count)
+    {
+      const Vec3_t<float> newCubeChildren(
+				v.x * mGridSize + cubeOffset.x,
+				v.y * mGridSize + cubeOffset.y,
+				v.z * mGridSize + cubeOffset.z);
 
       int iteration_count =  octaTree(field, mGridSize, newCubeChildren);
 
       #pragma omp atomic
       count = count + iteration_count;
+    }
   }
 
+  #pragma omp taskwait
   return count;
 
 
