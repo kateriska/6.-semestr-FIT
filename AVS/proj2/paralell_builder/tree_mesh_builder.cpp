@@ -31,7 +31,7 @@ unsigned TreeMeshBuilder::marchCubes(const ParametricScalarField &field)
 
     #pragma omp parallel shared(count)
     {
-      #pragma omp single nowait
+      #pragma omp single
       count = octaTree(field, mGridSize, Vec3_t<float>());
     }
 
@@ -45,41 +45,51 @@ unsigned TreeMeshBuilder::octaTree(const ParametricScalarField &field, unsigned 
 
   float half_block_length = (mGridSize * mGridResolution) / 2.0;
 
+  // compute midpoint of block
   const Vec3_t<float> block_midpoint(
 		half_block_length + cubeOffset.x * mGridResolution,
 		half_block_length + cubeOffset.y * mGridResolution,
 		half_block_length + cubeOffset.z * mGridResolution);
 
+  // check for every child equation 6.3 (children should not be empty)
   float F_p = evaluateFieldAt(block_midpoint, field);
 
   float a = mGridSize * mGridResolution;
-  float check_empty_block_expression = mIsoLevel + (sqrt(3.0) / 2.0) * a;
+  float check_empty_child_expression = mIsoLevel + (sqrt(3.0) / 2.0) * a;
 
-  if (F_p > check_empty_block_expression)
+  if (F_p > check_empty_child_expression)
   {
     return 0;
   }
 
   if (mGridSize <= 1)
 	{
-		return buildCube(cubeOffset, field);
+    // finally call build cube on lowest level
+    unsigned emited_triangles = 0;
+
+    emited_triangles = buildCube(cubeOffset, field);
+
+		return emited_triangles;
 	}
 
+  // compute new smaller size of grid
   mGridSize = mGridSize / 2.0;
 
   for (const Vec3_t<float> v: sc_vertexNormPos)
 	{
     #pragma omp task firstprivate(v) shared(count)
     {
-      const Vec3_t<float> newCubeChildren(
+      // separate children to new children and recursivelly call octaTree
+      const Vec3_t<float> new_cube_child(
 				v.x * mGridSize + cubeOffset.x,
 				v.y * mGridSize + cubeOffset.y,
 				v.z * mGridSize + cubeOffset.z);
 
-      int iteration_count =  octaTree(field, mGridSize, newCubeChildren);
+      // compute count of triangles for this iteration
+      int iteration_count =  octaTree(field, mGridSize, new_cube_child);
 
       #pragma omp atomic
-      count = count + iteration_count;
+      count = count + iteration_count; // compute final count of triangles
     }
   }
 

@@ -22,91 +22,51 @@ CachedMeshBuilder::CachedMeshBuilder(unsigned gridEdgeSize)
 
 unsigned CachedMeshBuilder::marchCubes(const ParametricScalarField &field)
 {
-  // 1. Compute total number of cubes in the grid.
-  int totalCubesCount = (mGridSize+1)*(mGridSize+1)*(mGridSize+1);
-  std::vector <float> array_of_coordinates[totalCubesCount];
-  unsigned totalTriangles = 0;
+  // cached builder based on loop builder
 
-  for (int i = 0; i < totalCubesCount; ++i)
+  // compute total number of cubes in the grid with + 1 in each dimension
+  int total_cached_cubes_count = (mGridSize + 1) * (mGridSize + 1) * (mGridSize + 1);
+  std::vector <float> array_of_coordinates[total_cached_cubes_count]; // for storing pre-computed values
+  unsigned total_triangles = 0;
+
+  // loop for pre-computation of coordinates
+  #pragma omp parallel for schedule(guided)
+  for (int i = 0; i < total_cached_cubes_count; ++i)
   {
+    // compute p coordinates based on 6.4 equation
+    float p_value_x = i % (mGridSize + 1) * mGridResolution;
+    float p_value_y = (i / (mGridSize + 1)) % (mGridSize + 1) * mGridResolution;
+    float p_value_z = i / ((mGridSize + 1) * (mGridSize + 1)) * mGridResolution;
 
-    auto p_value = (i) * mGridResolution;
-    auto c_back_transformation = (p_value / mGridResolution) + (1/2);
+    // transform back p coordinates to c coordinates based on 6.5 equation
+    float c_back_transformation_x = (p_value_x / mGridResolution) + (1/2);
+    float c_back_transformation_y = (p_value_y / mGridResolution) + (1/2);
+    float c_back_transformation_z = (p_value_z / mGridResolution) + (1/2);
 
-    auto p_value_x = i % (mGridSize+1) * mGridResolution;
-    auto p_value_y = (i / (mGridSize+1)) % (mGridSize+1) * mGridResolution;
-    auto p_value_z = i / ((mGridSize+1)*(mGridSize +1)) *mGridResolution;
-
-    auto c_back_transformation_x = (p_value_x / mGridResolution) + (1/2);
-    auto c_back_transformation_y = (p_value_y / mGridResolution) + (1/2);
-    auto c_back_transformation_z = (p_value_z / mGridResolution) + (1/2);
-
-
-
-
-
+    // store pre-computed values in array_of_coordinates
     array_of_coordinates[i].push_back(c_back_transformation_x);
     array_of_coordinates[i].push_back(c_back_transformation_y);
     array_of_coordinates[i].push_back(c_back_transformation_z);
 
   }
 
-  for (int i = 0; i < totalCubesCount; ++i)
-  {
-    Vec3_t<float> cubeOffset( array_of_coordinates[i][0],
-                             array_of_coordinates[i][1],
-                              array_of_coordinates[i][2]);
-    unsigned emitedTriangles = buildCube(cubeOffset, field);
-    #pragma omp critical
-    totalTriangles += emitedTriangles;
-  }
-
-
-
-
-
-  /*
-  for (int i = 0; i < totalCubesCount; i++)
-  {
-    for (auto it = array_of_coordinates[i].begin(); it != array_of_coordinates[i].end(); it++)
-    {
-      auto c_back_transformation = (*it / mGridResolution) + (1/2);
-      *it = c_back_transformation;
-    }
-
-    Vec3_t<float> cubeOffset( array_of_coordinates[i][0],
-                             array_of_coordinates[i][1],
-                              array_of_coordinates[i][2]);
-
-    unsigned emitedTriangles = buildCube(cubeOffset, field);
-    '''
-
-    //#pragma omp critical
-    totalTriangles += emitedTriangles;
-
-  }
-
-
-/*
-  // 2. Loop over each coordinate in the 3D grid.
+  // finally build emited triangles
   #pragma omp parallel for schedule(guided)
-  for(size_t i = 0; i < totalCubesCount; ++i)
+  for (int i = 0; i < total_cached_cubes_count; ++i)
   {
-      // 3. Compute 3D position in the grid.
-      Vec3_t<float> cubeOffset( i % mGridSize,
-                               (i / mGridSize) % mGridSize,
-                                i / (mGridSize*mGridSize));
+    // load pre-computed values
+    Vec3_t<float> cubeOffset( array_of_coordinates[i][0],
+                             array_of_coordinates[i][1],
+                              array_of_coordinates[i][2]);
 
-      // 4. Evaluate "Marching Cube" at given position in the grid and
-      //    store the number of triangles generated.
+    unsigned emited_triangles = buildCube(cubeOffset, field);
+
+    #pragma omp critical
+    total_triangles += emited_triangles;
+  }
 
 
-      unsigned emitedTriangles = buildCube(cubeOffset, field);
-      #pragma omp critical
-      totalTriangles += emitedTriangles;
-*/
-
-  return totalTriangles;
+  return total_triangles;
 }
 
 float CachedMeshBuilder::evaluateFieldAt(const Vec3_t<float> &pos, const ParametricScalarField &field)
