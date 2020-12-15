@@ -8,7 +8,7 @@ Login: xlogin00
 1) Kterou ze smyček (viz zadání) je vhodnější paralelizovat a co způsobuje 
    neefektivitu paralelizaci té druhé?
 
-Vhodnější je paralizovat smyčku ve funkci unsigned LoopMeshBuilder::marchCubes(const ParametricScalarField &field). Neefektivní paralizaci druhé smyčky (která by měla za následek velké zpomalení programu) způsobuje skutečnost, že režie vynaložená na danou paralelizaci je příliš vysoká a celý výpočet se tedy hodně zpomalí. 
+Vhodnější je paralizovat smyčku ve funkci unsigned LoopMeshBuilder::marchCubes(const ParametricScalarField &field). Neefektivní paralizaci druhé smyčky (která by měla za následek velké zpomalení programu) způsobuje skutečnost, že režie vynaložená na danou paralelizaci je příliš vysoká (nevyplatí se, protože výpočty ve smyčce jsou moc jednoduché) a celý výpočet se tedy hodně zpomalí. 
 
 2) Jaké plánování (rozdělení práce mezi vlákna) jste zvolili a proč? 
    Jaký vliv má velikost "chunk" při dynamickém plánování (8, 16, 32, 64)?
@@ -91,12 +91,15 @@ Pro tento problém bylo opět jak u Úlohy 1 využito #pragma omp critical, kdy 
 ===============================================================================
 
 1) Stručně zhodnoťte efektivitu vytvořených řešení (na základě grafů škálování).
-Silné škálování:
-
-Octree dokáže s více vlákny počítat za kratší čas jak referenční Loop řešení.
+Obecně je více efektivnějším spíše Octree. Dosahuje větší efektivity oproti Loop jak při škálování na základě velikosti mřížky, tak při silném i slabém škálování. 
 
 2) V jakém případě (v závislosti na počtu bodů ve vstupním souboru a velikosti 
    mřížky) bude vaše řešení 1. úlohy neefektivní? (pokud takový případ existuje)
 
+Řešení pro 1. úlohu (implemetace Loop) bude neefektivní při velké velikosti vstupu a nízkém počtu vláken. Výhodné je Octree využít zvláště při nižší velikosti mřížky, kdy je rozdíl mezi časem výpočtu pro Octree a Loop největší.
+
 3) Je (nebo není) stromový algoritmus efektivnější z pohledu slabého škálování 
    vzhledem ke vstupu?
+
+Octree je vzhledem k Loop efektivnější. Obecně zde výpočet trvá kratší dobu, ať už vezmeme jakýkoliv počet vláken i velikost vstupu pro dané vlákno.
+
