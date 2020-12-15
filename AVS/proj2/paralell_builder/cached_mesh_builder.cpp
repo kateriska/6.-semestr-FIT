@@ -14,6 +14,7 @@
 
 #include "cached_mesh_builder.h"
 
+
 CachedMeshBuilder::CachedMeshBuilder(unsigned gridEdgeSize)
     : BaseMeshBuilder(gridEdgeSize, "Cached")
 {
@@ -23,79 +24,79 @@ CachedMeshBuilder::CachedMeshBuilder(unsigned gridEdgeSize)
 unsigned CachedMeshBuilder::marchCubes(const ParametricScalarField &field)
 {
   // cached builder based on loop builder
-
+  int totalTriangles = 0;
   // compute total number of cubes in the grid with + 1 in each dimension
-  int total_cached_cubes_count = (mGridSize + 1) * (mGridSize + 1) * (mGridSize + 1);
-  std::vector <float> array_of_coordinates[total_cached_cubes_count]; // for storing pre-computed values
-  unsigned total_triangles = 0;
+  size_t total_cached_cubes_count = (mGridSize + 1) * (mGridSize + 1) * (mGridSize + 1);
+  // compute total number of cubes (based on loop solution)
+  size_t total_cubes_count = mGridSize * mGridSize * mGridSize;
 
-  // loop for pre-computation of coordinates
+  // for storing pre-computed sqrts in 1d cache array
+  evaluated_values = new float [total_cached_cubes_count];
+
+  const Vec3_t<float> *pPoints = field.getPoints().data();
+  const unsigned count = unsigned(field.getPoints().size());
+
+  // loop for pre-computation of coordinates and sqrts
   #pragma omp parallel for schedule(guided)
-  for (int i = 0; i < total_cached_cubes_count; ++i)
+  for (size_t i = 0; i < total_cached_cubes_count; ++i)
   {
     // compute p coordinates based on 6.4 equation
-    float p_value_x = i % (mGridSize + 1) * mGridResolution;
-    float p_value_y = (i / (mGridSize + 1)) % (mGridSize + 1) * mGridResolution;
-    float p_value_z = i / ((mGridSize + 1) * (mGridSize + 1)) * mGridResolution;
+    float p_value_x = (i % (mGridSize + 1)) * mGridResolution;
+    float p_value_y = ((i / (mGridSize + 1)) % (mGridSize + 1)) * mGridResolution;
+    float p_value_z = (i / ((mGridSize + 1) * (mGridSize + 1))) * mGridResolution;
 
-    // transform back p coordinates to c coordinates based on 6.5 equation
-    float c_back_transformation_x = (p_value_x / mGridResolution) + (1/2);
-    float c_back_transformation_y = (p_value_y / mGridResolution) + (1/2);
-    float c_back_transformation_z = (p_value_z / mGridResolution) + (1/2);
+    // pre-compute evaluate function
 
-    // store pre-computed values in array_of_coordinates
-    array_of_coordinates[i].push_back(c_back_transformation_x);
-    array_of_coordinates[i].push_back(c_back_transformation_y);
-    array_of_coordinates[i].push_back(c_back_transformation_z);
+    float value = std::numeric_limits<float>::max();
+
+    for (unsigned j = 0; j < count; ++j)
+    {
+        float distanceSquared  = (p_value_x - pPoints[j].x) * (p_value_x - pPoints[j].x);
+        distanceSquared       += (p_value_y - pPoints[j].y) * (p_value_y - pPoints[j].y);
+        distanceSquared       += (p_value_z - pPoints[j].z) * (p_value_z - pPoints[j].z);
+
+        // Comparing squares instead of real distance to avoid unnecessary
+        // "sqrt"s in the loop.
+        value = std::min(value, distanceSquared);
+    }
+
+    float computed_value = sqrt(value);
+
+    // store computed value of sqrt for this coordinates in global 1d array which works as cache
+    evaluated_values[i] = computed_value;
 
   }
 
   // finally build emited triangles
   #pragma omp parallel for schedule(guided)
-  for (int i = 0; i < total_cached_cubes_count; ++i)
+  for (size_t i = 0; i < total_cubes_count; ++i)
   {
-    // load pre-computed values
-    Vec3_t<float> cubeOffset( array_of_coordinates[i][0],
-                             array_of_coordinates[i][1],
-                              array_of_coordinates[i][2]);
+    // compute 3D position in the grid
+    Vec3_t<float> cubeOffset( i % (mGridSize + 1),
+                                ( i / (mGridSize + 1)) % (mGridSize + 1),
+                                  i / ((mGridSize + 1) * (mGridSize + 1)));
 
-    unsigned emited_triangles = buildCube(cubeOffset, field);
+    // evaluate "Marching Cube" at given position in the grid and store the number of triangles generated
+    unsigned emitedTriangles = buildCube(cubeOffset, field);
 
+    // count total number of generated triangles 
     #pragma omp critical
-    total_triangles += emited_triangles;
+    totalTriangles += emitedTriangles;
   }
-
-
-  return total_triangles;
+  return totalTriangles;
 }
 
 float CachedMeshBuilder::evaluateFieldAt(const Vec3_t<float> &pos, const ParametricScalarField &field)
 {
-  // NOTE: This method is called from "buildCube(...)"!
+  // transform back p coordinates to c coordinates based on 6.5 equation
+  float c_back_transformation_x = floor(pos.x / mGridResolution + 0.5);
+  float c_back_transformation_y = floor(pos.y / mGridResolution + 0.5) * (mGridSize + 1);
+  float c_back_transformation_z = floor(pos.z / mGridResolution + 0.5) * (mGridSize + 1) * (mGridSize + 1);
 
-  // 1. Store pointer to and number of 3D points in the field
-  //    (to avoid "data()" and "size()" call in the loop).
-  const Vec3_t<float> *pPoints = field.getPoints().data();
-  const unsigned count = unsigned(field.getPoints().size());
-
-  float value = std::numeric_limits<float>::max();
-
-  // 2. Find minimum square distance from points "pos" to any point in the
-  //    field.
-  //#pragma omp parallel for
-  for(unsigned i = 0; i < count; ++i)
-  {
-      float distanceSquared  = (pos.x - pPoints[i].x) * (pos.x - pPoints[i].x);
-      distanceSquared       += (pos.y - pPoints[i].y) * (pos.y - pPoints[i].y);
-      distanceSquared       += (pos.z - pPoints[i].z) * (pos.z - pPoints[i].z);
-
-      // Comparing squares instead of real distance to avoid unnecessary
-      // "sqrt"s in the loop.
-      value = std::min(value, distanceSquared);
-  }
-
-  // 3. Finally take square root of the minimal square distance to get the real distance
-  return sqrt(value);
+  // compute access index to 1d cache array of pre-computed values
+  int access_index = c_back_transformation_x + c_back_transformation_y + c_back_transformation_z;
+  float cached_value = evaluated_values[access_index];
+  return cached_value; // get cached value from array of pre-computed values
 }
 
 void CachedMeshBuilder::emitTriangle(const BaseMeshBuilder::Triangle_t &triangle)

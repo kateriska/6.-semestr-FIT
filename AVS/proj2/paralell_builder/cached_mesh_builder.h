@@ -25,6 +25,7 @@ protected:
     void emitTriangle(const Triangle_t &triangle);
     const Triangle_t *getTrianglesArray() const { return mTriangles.data(); }
     std::vector<Triangle_t> mTriangles; ///< Temporary array of triangles
+    float * evaluated_values; // for storing pre-computed values of evaluate function
 };
 
 #endif // CACHED_MESH_BUILDER_H
