@@ -26,9 +26,9 @@ unsigned CachedMeshBuilder::marchCubes(const ParametricScalarField &field)
   // cached builder based on loop builder
   int totalTriangles = 0;
   // compute total number of cubes in the grid with + 1 in each dimension
-  size_t total_cached_cubes_count = (mGridSize + 1) * (mGridSize + 1) * (mGridSize + 1);
+  int total_cached_cubes_count = (mGridSize + 1) * (mGridSize + 1) * (mGridSize + 1);
   // compute total number of cubes (based on loop solution)
-  size_t total_cubes_count = mGridSize * mGridSize * mGridSize;
+  int total_cubes_count = mGridSize * mGridSize * mGridSize;
 
   // for storing pre-computed sqrts in 1d cache array
   evaluated_values = new float [total_cached_cubes_count];
@@ -38,7 +38,7 @@ unsigned CachedMeshBuilder::marchCubes(const ParametricScalarField &field)
 
   // loop for pre-computation of coordinates and sqrts
   #pragma omp parallel for schedule(guided)
-  for (size_t i = 0; i < total_cached_cubes_count; ++i)
+  for (int i = 0; i < total_cached_cubes_count; ++i)
   {
     // compute p coordinates based on 6.4 equation
     float p_value_x = (i % (mGridSize + 1)) * mGridResolution;
@@ -69,17 +69,17 @@ unsigned CachedMeshBuilder::marchCubes(const ParametricScalarField &field)
 
   // finally build emited triangles
   #pragma omp parallel for schedule(guided)
-  for (size_t i = 0; i < total_cubes_count; ++i)
+  for (int i = 0; i < total_cubes_count; ++i)
   {
     // compute 3D position in the grid
     Vec3_t<float> cubeOffset( i % (mGridSize + 1),
-                                ( i / (mGridSize + 1)) % (mGridSize + 1),
-                                  i / ((mGridSize + 1) * (mGridSize + 1)));
+                              ( i / (mGridSize + 1)) % (mGridSize + 1),
+                              i / ((mGridSize + 1) * (mGridSize + 1)));
 
     // evaluate "Marching Cube" at given position in the grid and store the number of triangles generated
     unsigned emitedTriangles = buildCube(cubeOffset, field);
 
-    // count total number of generated triangles 
+    // count total number of generated triangles
     #pragma omp critical
     totalTriangles += emitedTriangles;
   }
