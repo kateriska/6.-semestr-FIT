@@ -8,14 +8,14 @@ Login: xlogin00
 1) Kterou ze smyček (viz zadání) je vhodnější paralelizovat a co způsobuje 
    neefektivitu paralelizaci té druhé?
 
-Vhodnější je paralizovat smyčku ve funkci unsigned LoopMeshBuilder::marchCubes(const ParametricScalarField &field). Neefektivní paralizaci druhé smyčky (která by měla za následek velké zpomalení programu) způsobuje skutečnost, že režie vynaložená na danou paralelizaci je příliš vysoká (nevyplatí se, protože výpočty ve smyčce jsou moc jednoduché) a celý výpočet se tedy hodně zpomalí. 
+Vhodnější je paralizovat smyčku ve funkci unsigned LoopMeshBuilder::marchCubes(const ParametricScalarField &field). Neefektivní paralizaci druhé smyčky (která by měla za následek velké zpomalení programu) způsobuje skutečnost, že režie vynaložená na danou paralelizaci je příliš vysoká (nevyplatí se, protože výpočty ve smyčce jsou jednoduché) a celý výpočet se tedy hodně zpomalí. 
 
 2) Jaké plánování (rozdělení práce mezi vlákna) jste zvolili a proč? 
    Jaký vliv má velikost "chunk" při dynamickém plánování (8, 16, 32, 64)?
 
 Využila jsem guided plánování, které má nižší synchronizační režii jak např. dynamic a mělo by se jednat o nejefektivnější způsob plánování.
 
-Hodnoty pro bun_zipper_res4.obj:
+Hodnoty pro bun_zipper_res4.obj, default velikost mřížky:
 +-----------------+------------+-------------------+
 | Scheduling Type | Chunk Size | Elapsed Time [ms] |
 +-----------------+------------+-------------------+
@@ -30,7 +30,7 @@ Hodnoty pro bun_zipper_res4.obj:
 | dynamic         | 64         | 306               |
 +-----------------+------------+-------------------+
 
-Dle měření má dynamické plánování obecně větší čas výpočtu, jak plánování guided. Čím je chunk_size větší, tím je menší synchronizační režie, ale hrubší vyvážení zátěže.
+Dle měření má dynamické plánování obecně větší čas výpočtu jak plánování guided. Čím je chunk_size větší, tím je menší synchronizační režie, ale hrubší vyvážení zátěže.
 
 
 3) Jakým způsobem zajišťujete ukládání trojúhelníků z několika vláken současně?
@@ -41,19 +41,19 @@ Bylo nutné vytvořit kritickou sekci #pragma omp critical, kdy daný úsek mů�
 ===============================================================================
 
 1) Stručně popište použití OpenMP tasků ve vašem řešení.
-Při volání funkce unsigned TreeMeshBuilder::octaTree(const ParametricScalarField &field, unsigned mGridSize, const Vec3_t<float> &cubeOffset) bude využito paralelismu, vytvoří se tedy tým vláken (#pragma omp parallel). Dále bude blok vykonáván pouze jednou jedním vláknem z daného týmu (#pragma omp single nowait).
+Při volání funkce unsigned TreeMeshBuilder::octaTree(const ParametricScalarField &field, unsigned mGridSize, const Vec3_t<float> &cubeOffset) bude využito paralelismu, vytvoří se tedy tým vláken (#pragma omp parallel). Dále bude blok vykonáván pouze jednou jedním vláknem z daného týmu (#pragma omp single).
 
-Při každé tvorbě nového potomka je vytvořen nový task. Pro aktualizaci finálního počtu bylo zapotřebí využití #pragma omp atomic, aby se daná proměnná pro finální počet trojúhelníků inkrementovala atomicky a zápis vláken do této proměnné je tedy kontrolován. Na konci je poté potřeba počkat na všechny generované tasky (#pragma omp taskwait), tedy i jejich následníky. 
+Při každé tvorbě nového potomka je vytvořen nový task (#pragma omp task). Pro aktualizaci finálního počtu bylo zapotřebí využití #pragma omp atomic, aby se daná proměnná pro finální počet trojúhelníků inkrementovala atomicky a zápis vláken do této proměnné je tedy kontrolován. Na konci je poté potřeba počkat na všechny generované tasky (#pragma omp taskwait), tedy i jejich následníky. 
 
 Ukládání trojúhelníků z několika vláken je opět jako v Úloze 1 zajištěno pomocí #pragma omp critical.
 
 2) Jakým způsobem jste realizovali sesbírání celkového počtu trojúhelníků?
-Na začátku je nutné ověřit podmínku, zda je možné aby jeho podprostorem procházel hledaný povrch (rovnice 6.3 v zadání). Ověřila jsem tedy danou nerovnici uvedenou v zadání. Na nejnižší úrovni se volá funkce buildCube, jinak se velikost mřížky rozdělí na polovinu (velikost mřížky předpokládáme dle zadání pouze o mocninách 2) a vytvoří se noví potomci, kdy pro každého z nich je vytvořen nový task. Rekurzivně se poté znovu volá funkce octaTree a v každé iteraci je spočítán daný počet, který se přičítá atomicky do proměnné count, která obsahuje finální počet všech trojúhelníků.
+Na začátku je nutné ověřit podmínku, zda je možné aby jeho podprostorem procházel hledaný povrch (nerovnice 6.3 v zadání). Ověřila jsem tedy danou nerovnici. Na nejnižší úrovni se volá funkce buildCube, jinak se velikost mřížky rozdělí na polovinu (velikost mřížky předpokládáme dle zadání pouze o mocninách 2) a vytvoří se noví potomci, kdy pro každého z nich je vytvořen nový task. Rekurzivně se poté znovu volá funkce octaTree a v každé iteraci je spočítán daný počet, který se přičítá atomicky do proměnné count, která obsahuje finální počet všech trojúhelníků.
 
 3) Jaký vliv má na vaše řešení tzv. "cut-off"? Je vhodné vytvářet nový 
    task pro každou krychli na nejnižší úrovni?
 
-Hodnoty pro bun_zipper_res4.obj:
+Hodnoty pro bun_zipper_res4.obj, default velikost mřížky:
 +---------------+-------------------+----------------+---------------------+
 | Cut Off Value | Elapsed Time [ms] | File Size [KB] | Mesh Triangle Count |
 +---------------+-------------------+----------------+---------------------+
@@ -84,19 +84,38 @@ Pro tento problém bylo opět jak u Úlohy 1 využito #pragma omp critical, kdy 
    s úlohou 1?
    (Ověřte nástrojem Intel VTune na některé z větších mřížek -- např. 512)
 
+Byla využita Memory Access analýza s použitím nástroje VTune pro velikost mřížky 512.
+
+Hodnoty pro bun_zipper_res4.obj, velikost mřížky 512:
+Loop verze: Memory Bound celkové: 7.0 %
+	    Funkce evaluateFieldAt: 0.1 %
+	    Funkce marchCubes: 34.4 %
+Cached verze: Memory Bound celkové: 11.3 %
+	      Funkce evaluateFieldAt: 21.2 %
+	      Funkce marchCubes: 1.4 %
+
+Dle výsledků vidíme, že dochází k vyššímu omezení výkonu propustnosti pro funkci evaluateFieldAt pro Cached verzi. Jedná se o funkci, kde právě přistupujeme k daným hodnotám 1D pole, které obsahuje předpočítané odmocniny. Pokud implementaci této funkce srovnáme s její implementací v Loop verzi, kdy se nevyužívá žádné pole předvypočítaných hodnot, ale daná hodnota se zde musí vypočítat, tak zjistíme, že v Loop verzi v příslušné funkci byla hodnota Memory Bound velmi nízká (0.1 %) ve srovnání s hodnotou 21.2 %, které funkce dosáhla v Cached variantě.
+
 2) V jaké situaci bude toto řešení nejvýhodnější (nejrychlejší)?
+Dle grafů škálování na základě velikosti mřížky můžeme vidět, že Cached verze je nejvhodnější při nízké velikosti mřížky.
 
 
 Úloha 4: Grafy škálování všech řešení
 ===============================================================================
 
 1) Stručně zhodnoťte efektivitu vytvořených řešení (na základě grafů škálování).
-Obecně je více efektivnějším spíše Octree. Dosahuje větší efektivity oproti Loop jak při škálování na základě velikosti mřížky, tak při silném i slabém škálování. 
+
+Z grafu škálování na základě velikosti mřížky vyplývá, že obecně nejméně efektivním řešením je Loop.
+Octree je méně efektivní než Cached při malé velikosti mřížky, ale s rostoucí velikostí mřížky dosahuje lepších výsledků. Při malé velikosti mřížky je nejvýhodnější využít variantu Cached.
+
+Z grafu slabého škálování můžeme zjistit následující: Cached verze se pro jakékoliv velikosti vstupu pro vlákno pohybuje v úzkém časovém intervalu (ve srovnání s Octree a Loop). Octree verze je velmi výhodná ve srovnání s ostatními variantami zvláště pro menší velikost vstupu pro vlákno. Loop verze je nejvíce srovnatelná s Cached pro malé velikosti vstupu pro vlákno. U vyšších velikostí vstupu pro vlákno (např. 160) už je podstatně horší, co se týče doby výpočtu.
+
+Z grafu silného škálování vyplývá následující: Pro Cached verzi leží čas pro výpočet v nejužším intervalu pro všechny velikosti vstupu (ve srovnání s dvěma zbývajícími metodami). Octree pracuje nejlépe pro malé velikosti vstupů, ovšem pro vyšší velikosti vstupu by už bylo výhodnější využít Cached. Loop se poté pro malé velikosti vstupu chová podobně jako Cached, ale pro vyšší velikosti vstupu se už chová hůře.
 
 2) V jakém případě (v závislosti na počtu bodů ve vstupním souboru a velikosti 
    mřížky) bude vaše řešení 1. úlohy neefektivní? (pokud takový případ existuje)
 
-Řešení pro 1. úlohu (implemetace Loop) bude neefektivní při velké velikosti vstupu a nízkém počtu vláken. Výhodné je Octree využít zvláště při nižší velikosti mřížky, kdy je rozdíl mezi časem výpočtu pro Octree a Loop největší.
+Řešení pro 1. úlohu (implemetace Loop) bude neefektivní při velké velikosti vstupu a nízkém počtu vláken. 
 
 3) Je (nebo není) stromový algoritmus efektivnější z pohledu slabého škálování 
    vzhledem ke vstupu?
