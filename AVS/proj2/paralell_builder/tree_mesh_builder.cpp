@@ -1,11 +1,11 @@
 /**
  * @file    tree_mesh_builder.cpp
  *
- * @author  FULL NAME <xlogin00@stud.fit.vutbr.cz>
+ * @author  Kateruna Fortova <xforto00@stud.fit.vutbr.cz>
  *
  * @brief   Parallel Marching Cubes implementation using OpenMP tasks + octree early elimination
  *
- * @date    DATE
+ * @date    16.12.2020
  **/
 
 #include <iostream>
