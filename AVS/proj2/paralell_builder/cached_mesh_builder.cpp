@@ -24,7 +24,7 @@ CachedMeshBuilder::CachedMeshBuilder(unsigned gridEdgeSize)
 unsigned CachedMeshBuilder::marchCubes(const ParametricScalarField &field)
 {
   // cached builder based on loop builder
-  int totalTriangles = 0;
+  int count = 0;
   // compute total number of cubes in the grid with + 1 in each dimension
   int total_cached_cubes_count = (mGridSize + 1) * (mGridSize + 1) * (mGridSize + 1);
   // compute total number of cubes (based on loop solution)
@@ -34,7 +34,7 @@ unsigned CachedMeshBuilder::marchCubes(const ParametricScalarField &field)
   evaluated_values = new float [total_cached_cubes_count];
 
   const Vec3_t<float> *pPoints = field.getPoints().data();
-  const unsigned count = unsigned(field.getPoints().size());
+  const unsigned field_points_count = unsigned(field.getPoints().size());
 
   // loop for pre-computation of coordinates and sqrts
   #pragma omp parallel for schedule(guided)
@@ -49,7 +49,7 @@ unsigned CachedMeshBuilder::marchCubes(const ParametricScalarField &field)
 
     float value = std::numeric_limits<float>::max();
 
-    for (unsigned j = 0; j < count; ++j)
+    for (unsigned j = 0; j < field_points_count; ++j)
     {
         float distanceSquared  = (p_value_x - pPoints[j].x) * (p_value_x - pPoints[j].x);
         distanceSquared       += (p_value_y - pPoints[j].y) * (p_value_y - pPoints[j].y);
@@ -77,13 +77,13 @@ unsigned CachedMeshBuilder::marchCubes(const ParametricScalarField &field)
                               i / ((mGridSize + 1) * (mGridSize + 1)));
 
     // evaluate "Marching Cube" at given position in the grid and store the number of triangles generated
-    unsigned emitedTriangles = buildCube(cubeOffset, field);
+    unsigned emited_triangles = buildCube(cubeOffset, field);
 
     // count total number of generated triangles
     #pragma omp critical
-    totalTriangles += emitedTriangles;
+    count += emited_triangles;
   }
-  return totalTriangles;
+  return count;
 }
 
 float CachedMeshBuilder::evaluateFieldAt(const Vec3_t<float> &pos, const ParametricScalarField &field)

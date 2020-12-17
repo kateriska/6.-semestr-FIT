@@ -65,9 +65,7 @@ unsigned TreeMeshBuilder::octaTree(const ParametricScalarField &field, unsigned 
   if (mGridSize <= 1)
 	{
     // finally call build cube on lowest level
-    unsigned emited_triangles = 0;
-
-    emited_triangles = buildCube(cubeOffset, field);
+    unsigned emited_triangles = buildCube(cubeOffset, field);
 
 		return emited_triangles;
 	}
