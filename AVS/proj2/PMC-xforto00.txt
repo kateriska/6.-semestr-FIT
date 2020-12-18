@@ -124,7 +124,7 @@ Z grafu silného škálování vyplývá následující: Pro Cached verzi leží
 
 Co se týče závislosti na velikosti mřížky, nejedná se pro Loop v žádné části příslušného grafu škálování na základě velikosti mřížky opravdu o velmi neefektivní řešení. V tomto grafu vidíme, že rozdíly mezi všemi třemi variantami nejsou tolik markantní, co se týče doby výpočtu. 
 
-Kde už však můžeme pozorovat jistou vyšší neefektivitu, minimálně ve srovnání s varianou Cached je případ, kdy máme velkou velikost vstupu a nízký počet vláken.
+Kde už však můžeme pozorovat jistou vyšší neefektivitu, minimálně ve srovnání s variantou Cached je případ, kdy máme velkou velikost vstupu a nízký počet vláken.
 
 3) Je (nebo není) stromový algoritmus efektivnější z pohledu slabého škálování 
    vzhledem ke vstupu?
