@@ -104,7 +104,7 @@ Jak vidíme, v případě Cached varianty došlo ke skoro 2.3 násobnému navý�
 U varianty Cached tedy častějí dochází k výpadkům v last-level cache a více požadavků se musí obsluhovat DRAM, která má však značnou latenci.  
 
 2) V jaké situaci bude toto řešení nejvýhodnější (nejrychlejší)?
-Dle grafu škálování na základě velikosti mřížky můžeme vidět, že Cached verze je nejvhodnější při nízké velikosti mřížky, protože má pro tento případ nejnižší dobu výpočtu.
+Dle grafu škálování na základě velikosti mřížky můžeme vidět, že Cached verze je nejvhodnější při nízké velikosti mřížky, protože má pro tento případ nejnižší dobu výpočtu ve srovnání s Octree a Loop.
 
 
 Úloha 4: Grafy škálování všech řešení
