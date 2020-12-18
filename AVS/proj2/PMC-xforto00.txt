@@ -19,19 +19,18 @@ Hodnoty pro bun_zipper_res4.obj, default velikost mřížky:
 +-----------------+------------+-------------------+
 | Scheduling Type | Chunk Size | Elapsed Time [ms] |
 +-----------------+------------+-------------------+
-| guided          |            | 197               |
+| guided          |            | 175               |
 +-----------------+------------+-------------------+
-| dynamic         | 8          | 435               |
+| dynamic         | 8          | 229               |
 +-----------------+------------+-------------------+
-| dynamic         | 16         | 490               |
+| dynamic         | 16         | 238               |
 +-----------------+------------+-------------------+
-| dynamic         | 32         | 201               |
+| dynamic         | 32         | 258               |
 +-----------------+------------+-------------------+
-| dynamic         | 64         | 306               |
+| dynamic         | 64         | 298               |
 +-----------------+------------+-------------------+
 
-Dle měření má dynamické plánování obecně větší čas výpočtu jak plánování guided. Čím je chunk_size větší, tím je menší synchronizační režie, ale hrubší vyvážení zátěže.
-
+Dle měření má dynamické plánování obecně spíše větší čas výpočtu jak plánování guided. Čím je chunk_size větší, tím je menší synchronizační režie, ale hrubší vyvážení zátěže. A jak vidíme v naměřených hodnotách, doba výpočtu se spíše zvyšuje (závisí však často na aktuálním běhu programu).
 
 3) Jakým způsobem zajišťujete ukládání trojúhelníků z několika vláken současně?
 Bylo nutné vytvořit kritickou sekci #pragma omp critical, kdy daný úsek může vždy v daném čase vykonávat pouze jedno vlákno. 
@@ -57,20 +56,20 @@ Hodnoty pro bun_zipper_res4.obj, default velikost mřížky:
 +---------------+-------------------+----------------+---------------------+
 | Cut Off Value | Elapsed Time [ms] | File Size [KB] | Mesh Triangle Count |
 +---------------+-------------------+----------------+---------------------+
-| 0.2           | 244               | 21696          | 168168              |
+| 0.2           | 213               | 21696          | 168168              |
 +---------------+-------------------+----------------+---------------------+
-| 0.5           | 211               | 21696          | 168168              |
+| 0.5           | 240               | 21696          | 168168              |
 +---------------+-------------------+----------------+---------------------+
-| 0.8           | 206               | 21696          | 168168              |
+| 0.8           | 246               | 21696          | 168168              |
 +---------------+-------------------+----------------+---------------------+
-| 1             | 35                | 5442           | 42476               |
+| 1             | 38                | 5442           | 42476               |
 +---------------+-------------------+----------------+---------------------+
-| 1.5           | 36                | 5442           | 42476               |
+| 1.5           | 42                | 5442           | 42476               |
 +---------------+-------------------+----------------+---------------------+
-| 2             | 14                | 694            | 5516                |
+| 2             | 8                 | 694            | 5516                |
 +---------------+-------------------+----------------+---------------------+
 
-Vidíme, že nastavení cut-off na nižší hodnotu jak 1 má za následek velmi velké navýšení času výpočtu (ve srovnání s tím, když danou hodnotu cut-off nastavíme na 1). Na druhou stranu při hodnotě cut_off např. 2 pak nejsou vykreslené všechny trojúhelníky daného objektu. Není vhodné vytvářet nový task na nejnižší úrovni, protože na této úrovni pouze generujeme samotné polygony pro všechny krychle náležející do daného podprostoru.
+Vidíme, že nastavení cut-off na nižší hodnotu jak 1 má za následek velmi velké navýšení času výpočtu (ve srovnání s tím, když danou hodnotu cut-off nastavíme na 1). Na druhou stranu při hodnotě cut-off např. 2 i když se může zdát, že čas výpočtu je rychlejší, tak je zde jeden zásadní problém - nejsou vykreslené všechny trojúhelníky daného objektu. Není vhodné vytvářet nový task na nejnižší úrovni, protože na této úrovni pouze generujeme samotné polygony pro všechny krychle náležející do daného podprostoru.
 
 4) Jakým způsobem zajišťujete ukládání trojúhelníků z několika vláken současně?
 Pro tento problém bylo opět jak u Úlohy 1 využito #pragma omp critical, kdy daný úsek kódu je v daném čase vykonáván pouze jedním vláknem.
@@ -87,25 +86,25 @@ Pro tento problém bylo opět jak u Úlohy 1 využito #pragma omp critical, kdy 
 Byla využita Memory Access analýza s použitím nástroje VTune pro velikost mřížky 512.
 
 Hodnoty pro bun_zipper_res4.obj, velikost mřížky 512:
-Loop verze: Memory Bound celkové: 7.0 %
+Loop verze: Memory Bound celkové: 7.8 %
 	    Funkce evaluateFieldAt: 0.1 %
-	    Funkce marchCubes: 34.4 %
-Cached verze: Memory Bound celkové: 11.3 %, VTune již varuje před vysokou hodnotou
-	      Funkce evaluateFieldAt: 21.2 %
-	      Funkce marchCubes: 1.4 %
+	    Funkce marchCubes: 34 %
+Cached verze: Memory Bound celkové: 11.2 %, VTune již varuje před vysokou hodnotou
+	      Funkce evaluateFieldAt: 25 %
+	      Funkce marchCubes: 2.9 %
 
-Dle výsledků vidíme, že dochází k vyššímu omezení výkonu propustnosti pro funkci evaluateFieldAt pro Cached verzi. Jedná se o funkci, kde právě přistupujeme k daným hodnotám 1D pole, které obsahuje předpočítané odmocniny. Pokud implementaci této funkce srovnáme s její implementací v Loop verzi, kdy se nevyužívá žádné pole předvypočítaných hodnot, ale daná hodnota se zde musí vypočítat, tak zjistíme, že v Loop verzi v příslušné funkci byla hodnota Memory Bound velmi nízká (0.1 %) ve srovnání s hodnotou 21.2 %, které funkce dosáhla v Cached variantě.
+Dle výsledků vidíme, že dochází k vyššímu omezení výkonu propustnosti pro funkci evaluateFieldAt pro Cached verzi. Jedná se o funkci, kde právě přistupujeme k daným hodnotám 1D pole, které obsahuje předpočítané odmocniny. Pokud implementaci této funkce srovnáme s její implementací v Loop verzi, kdy se nevyužívá žádné pole předvypočítaných hodnot, ale daná hodnota se zde musí vypočítat, tak zjistíme, že v Loop verzi v příslušné funkci byla hodnota Memory Bound velmi nízká (0.1 %) ve srovnání s hodnotou 25 %, které funkce dosáhla v Cached variantě.
 
 Dále bylo zjištěno a porovnáno celkové LLC Miss Count:
 Hodnoty pro bun_zipper_res4.obj, velikost mřížky 512:
-Loop verze: 292 008 760
-Cached verze: 732 021 960
+Loop verze: 322 009 660
+Cached verze: 735 022 050
 
-Jak vidíme, v případě Cached varianty došlo k přibližně 2.5 násobnému navýšení hodnoty LLC Miss Count.
+Jak vidíme, v případě Cached varianty došlo ke skoro 2.3 násobnému navýšení hodnoty LLC Miss Count.
 U varianty Cached tedy častějí dochází k výpadkům v last-level cache a více požadavků se musí obsluhovat DRAM, která má však značnou latenci.  
 
 2) V jaké situaci bude toto řešení nejvýhodnější (nejrychlejší)?
-Dle grafů škálování na základě velikosti mřížky můžeme vidět, že Cached verze je nejvhodnější při nízké velikosti mřížky.
+Dle grafu škálování na základě velikosti mřížky můžeme vidět, že Cached verze je nejvhodnější při nízké velikosti mřížky, protože má pro tento případ nejnižší dobu výpočtu.
 
 
 Úloha 4: Grafy škálování všech řešení
@@ -114,19 +113,23 @@ Dle grafů škálování na základě velikosti mřížky můžeme vidět, že C
 1) Stručně zhodnoťte efektivitu vytvořených řešení (na základě grafů škálování).
 
 Z grafu škálování na základě velikosti mřížky vyplývá, že obecně nejméně efektivním řešením je Loop.
-Octree je méně efektivní než Cached při malé velikosti mřížky, ale s rostoucí velikostí mřížky dosahuje lepších výsledků. Při malé velikosti mřížky je nejvýhodnější využít variantu Cached.
+Octree je méně efektivní než Cached a Loop při malé velikosti mřížky, ale s rostoucí velikostí mřížky dosahuje lepších výsledků. Při malé velikosti mřížky je nejvýhodnější využít variantu Cached.
 
 Z grafu slabého škálování můžeme zjistit následující: Cached verze se pro jakékoliv velikosti vstupu pro vlákno pohybuje v úzkém časovém intervalu doby výpočtu (ve srovnání s Octree a Loop). Octree verze je velmi výhodná ve srovnání s ostatními variantami zvláště pro menší velikost vstupu pro vlákno. Loop verze je nejvíce srovnatelná s Cached pro malé velikosti vstupu pro vlákno. U vyšších velikostí vstupu pro vlákno (např. 160) už je podstatně horší, co se týče doby výpočtu.
 
-Z grafu silného škálování vyplývá následující: Pro Cached verzi leží čas pro výpočet v nejužším časovém intervalu výpočtu pro všechny velikosti vstupu (ve srovnání s dvěma zbývajícími metodami). Octree pracuje nejlépe pro malé velikosti vstupů, ovšem pro vyšší velikosti vstupu by už bylo výhodnější využít Cached. Loop se poté pro malé velikosti vstupu chová podobně jako Cached, ale pro vyšší velikosti vstupu se už chová hůře.
+Z grafu silného škálování vyplývá následující: Pro Cached verzi leží čas pro výpočet v nejužším časovém intervalu výpočtu pro všechny velikosti vstupu (ve srovnání se dvěma zbývajícími metodami). Octree pracuje nejlépe pro malé velikosti vstupů, ovšem pro vyšší velikosti vstupu by už bylo výhodnější využít Cached. Loop se poté pro malé velikosti vstupu chová podobně jako Cached, ale pro vyšší velikosti vstupu se už chová hůře a doba výpočtu je vyšší.
 
 2) V jakém případě (v závislosti na počtu bodů ve vstupním souboru a velikosti 
    mřížky) bude vaše řešení 1. úlohy neefektivní? (pokud takový případ existuje)
 
-Řešení pro 1. úlohu (implemetace Loop) bude neefektivní při velké velikosti vstupu a nízkém počtu vláken. 
+Co se týče závislosti na velikosti mřížky, nejedná se pro Loop v žádné části příslušného grafu škálování na základě velikosti mřížky opravdu o velmi neefektivní řešení. V tomto grafu vidíme, že rozdíly mezi všemi třemi variantami nejsou tolik markantní, co se týče doby výpočtu. 
+
+Kde už však můžeme pozorovat jistou vyšší neefektivitu, minimálně ve srovnání s varianou Cached je případ, kdy máme velkou velikost vstupu a nízký počet vláken.
 
 3) Je (nebo není) stromový algoritmus efektivnější z pohledu slabého škálování 
    vzhledem ke vstupu?
 
-Octree je vzhledem k Loop efektivnější. Obecně zde výpočet trvá kratší dobu, ať už vezmeme jakýkoliv počet vláken i velikost vstupu pro dané vlákno.
+Octree je nejefektivnějším ze všech tří variant, pokud počítáme s nižší velikosti vstupu pro vlákno. Pokud máme např. velikost vstupu pro vlákno 80, tak už je doba výpočtu srovnatelná s Cached a pro nejvyšší měřenou velikost vstupu pro vlákno 160 je již efektivnějším Cached.
+
+Co se týče však porovnání Octree s Loop, tak tam je Octree opravdu stále efektivnějším. Obecně zde výpočet trvá kratší dobu, ať už vezmeme jakýkoliv počet vláken i velikost vstupu pro dané vlákno.
 
