@@ -1,0 +1,40 @@
+Author: Katerina Fortova
+Course: Biometric Systems
+Academic Year: 2020 / 21
+Project Topic: Feature Extraction in Fingerprint Images and Marking Diseased Regions
+
+This program requests installed Python 3.6 and these libraries:
+- numpy (NumPy library)
+- cv2 (OpenCV library)
+- matplotlib (Matplotlib library)
+- skimage (scikit-image library)
+- pywt (PyWavelets library)
+
+Libraries can be installed via pip3 and these commands:
+sudo apt install python3-pip
+pip3 install opencv-python
+pip3 install scikit-image
+pip3 install PyWavelets
+
+Other libraries like NumPy or Matplotlib should be installed along with these 3 libraries automatically.
+
+The program is run with command:
+python3.6 bioProject.py <arguments>, where arguments can be following:
+
+markfile <img_path> - Mark diseased regions in fingerprint image, showed image can be closed by pressing "q" key on keyboard
+markfolder <folder_id> - Mark diseased regions for folder of images, where <folder_id> could be 1 or 2 (1 - Eczema, 2 - Verrucas)
+orb <img_path> - Find and show ORB features of fingerprint
+lbp <img_path> - Show LBP image and histogram
+wavelet <img_path> - Show details of image processed with Wavelet transform
+sobel <img_path> - Show image processed by Sobel and Laplacian operator
+
+IMPORTANT NOTE:
+Because WIS has limited size for uploaded archive, it is necessary to download datasets via script before running the project:
+chmod +x downloadDatasets.sh
+./downloadDatasets.sh
+
+Two datasets with eczema or verrucas will be downloaded to ./dataset folder.
+Two folders with example of processed images with marked diseased regions will be downloaded to ./markedImg folder.
+Processed results of markfolder command can be found in ./markedImg/myMarkedImg
+Marking fingerprints (especially with eczema) usually takes some minutes.
+sobel and wavelet commands also show features from GLCM matrix in console.

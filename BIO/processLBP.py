@@ -76,7 +76,7 @@ def getLBPfeatures(file):
     img_gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
     lbp_image = np.zeros((height, width,3), np.uint8)
 
-# processing LBP algorithm
+    # processing LBP algorithm
     lbp_values = []
     for i in range(0, height):
         for j in range(0, width):

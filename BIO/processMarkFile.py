@@ -58,18 +58,8 @@ def processLBP(img, x, y, lbp_values):
     lbp_values.append(value_dec) # append new decimal value of pixel to array of whole processed lbp image
     return value_dec
 
-def findWhiteRegions(height, width, lbp_image):
-    print(lbp_image.shape)
-    for i in range(0, height):
-        for j in range(0, width):
-            #print(lbp_image[i][j])
-            gray_level_value = lbp_image[i][j][0]
-            #print(gray_level_value)
-            if (gray_level_value == 255):
-                lbp_image[i, j] = [220,20,60]
 
-    return lbp_image
-
+# function for computing average gray level value of LBP for block of pixels
 def computeAverageColorForBlock(lbp_image):
     rows = np.size(lbp_image, 0)
     cols = np.size(lbp_image, 1)
@@ -89,86 +79,54 @@ def computeAverageColorForBlock(lbp_image):
                     sum_gray_level_pixels += gray_level_value
 
             average_block_color = round(sum_gray_level_pixels / pixel_count)
-            #print(average_block_color)
 
             for u in range(i-block_div, i+block_div):
                 for v in range(j-block_div, j+block_div):
-                    #if (average_block_color == 255):
-                        #np.append(white_block_pixels, [u,v])
-                    lbp_image[u, v] = [average_block_color,average_block_color,average_block_color]
+                    lbp_image[u, v] = [average_block_color,average_block_color,average_block_color] # set each pixel to gray level value of particular block
 
-
-    '''
-    while True:
-        cv2.imshow("Orientation Field", lbp_image)
-        key = cv2.waitKey(1) & 0xFF
-            # if the q key was pressed, break from the loop
-        if key == ord("q"):
-            break
-    cv2.destroyAllWindows()
-    '''
 
     for i in range(0, rows):
         for j in range(0, cols):
             gray_level_value = lbp_image[i][j][0]
-            print(gray_level_value)
             if (204 <= gray_level_value <= 255):
-                white_block_pixels.append([i,j])
-
-    #print(white_block_pixels)
+                white_block_pixels.append([i,j]) # save white or very light gray blocks of pixels to list
 
 
     return white_block_pixels
 
+# function for marking diseased blocks in fingerprint
 def markWhiteBlocks(img, white_block_pixels, background_pixels):
-    print(white_block_pixels)
     rows = np.size(img, 0)
     cols = np.size(img, 1)
 
-    # filter pixels which are only in white_block_pixels and not right_angle_pixels
-    marked_pixels = []
-    print("White block pixels length:" + str(len(white_block_pixels)))
-    '''
-    for i in range(len(white_block_pixels)):
-        #print(white_block_pixels[i])
-        if white_block_pixels[i] not in right_angle_pixels:
-            marked_pixels.append(white_block_pixels[i])
-    #print(marked_pixels)
-    print("Marked pixels length:" + str(len(marked_pixels)))
-    '''
+    filtered_blocks = [[]] # init array for saving filtered pixels
 
-    filtered_blocks = [[]]
-
+    # filter pixels which are in white_block_pixels but not in background_pixels
     for p in white_block_pixels:
-        print(p)
         if p not in background_pixels:
+            print("Coordinates of processed diseased pixel: " + str(p))
             filtered_blocks.append(p)
-
-
 
     for i in range(0, rows):
         for j in range(0, cols):
             pixel_coordinate_list = []
             pixel_coordinate_list.append(i)
             pixel_coordinate_list.append(j)
-            print(pixel_coordinate_list)
 
             if pixel_coordinate_list in filtered_blocks:
-                img[i, j] = [220,20,60]
+                print("Marking pixel as diseased: " + str(pixel_coordinate_list))
+                img[i, j] = [220,20,60] # mark diseased blocks with bright color
     return img
 
 def getMarkFile(file):
-
-
     file_substr = file.split('/')[-1] # get name of processed file
     img = cv2.imread(file,0)
     img = cv2.normalize(img,None,0,255,cv2.NORM_MINMAX)
-    background_pixels = processSegmentation.findBackgroundPixels(img)
+    background_pixels = processSegmentation.findBackgroundPixels(img) # find coordinates of background pixels
     img = processSegmentation.imgSegmentation(img)
     cv2.imwrite("./processedImg/segImg.png", img)
 
     img = cv2.imread('./processedImg/segImg.png',0)
-
 
     clahe = cv2.createCLAHE(clipLimit=5.0, tileGridSize=(8,8))
     img = clahe.apply(img)
@@ -192,7 +150,7 @@ def getMarkFile(file):
 
 
     while True:
-        cv2.imshow("Marked noisy regions", marked_img)
+        cv2.imshow("Marked diseased regions", marked_img)
         key = cv2.waitKey(1) & 0xFF
     # if the q key was pressed, break from the loop
         if key == ord("q"):

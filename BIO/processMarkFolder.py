@@ -58,18 +58,7 @@ def processLBP(img, x, y, lbp_values):
     lbp_values.append(value_dec) # append new decimal value of pixel to array of whole processed lbp image
     return value_dec
 
-def findWhiteRegions(height, width, lbp_image):
-    print(lbp_image.shape)
-    for i in range(0, height):
-        for j in range(0, width):
-            #print(lbp_image[i][j])
-            gray_level_value = lbp_image[i][j][0]
-            #print(gray_level_value)
-            if (gray_level_value == 255):
-                lbp_image[i, j] = [220,20,60]
-
-    return lbp_image
-
+# function for computing average gray level value of LBP for block of pixels
 def computeAverageColorForBlock(lbp_image):
     rows = np.size(lbp_image, 0)
     cols = np.size(lbp_image, 1)
@@ -89,77 +78,53 @@ def computeAverageColorForBlock(lbp_image):
                     sum_gray_level_pixels += gray_level_value
 
             average_block_color = round(sum_gray_level_pixels / pixel_count)
-            #print(average_block_color)
 
             for u in range(i-block_div, i+block_div):
                 for v in range(j-block_div, j+block_div):
-                    #if (average_block_color == 255):
-                        #np.append(white_block_pixels, [u,v])
                     lbp_image[u, v] = [average_block_color,average_block_color,average_block_color]
-
-
-    '''
-    while True:
-        cv2.imshow("Orientation Field", lbp_image)
-        key = cv2.waitKey(1) & 0xFF
-            # if the q key was pressed, break from the loop
-        if key == ord("q"):
-            break
-    cv2.destroyAllWindows()
-    '''
 
     for i in range(0, rows):
         for j in range(0, cols):
             gray_level_value = lbp_image[i][j][0]
-            print(gray_level_value)
             if (204 <= gray_level_value <= 255):
-                white_block_pixels.append([i,j])
-
-    #print(white_block_pixels)
+                white_block_pixels.append([i,j]) # save white or very light gray blocks of pixels to list
 
 
     return white_block_pixels
 
+# function for marking diseased blocks in fingerprint
 def markWhiteBlocks(img, white_block_pixels, background_pixels):
-    print(white_block_pixels)
     rows = np.size(img, 0)
     cols = np.size(img, 1)
 
-    # filter pixels which are only in white_block_pixels and not right_angle_pixels
-    marked_pixels = []
-    print("White block pixels length:" + str(len(white_block_pixels)))
-    '''
-    for i in range(len(white_block_pixels)):
-        #print(white_block_pixels[i])
-        if white_block_pixels[i] not in right_angle_pixels:
-            marked_pixels.append(white_block_pixels[i])
-    #print(marked_pixels)
-    print("Marked pixels length:" + str(len(marked_pixels)))
-    '''
+    filtered_blocks = [[]] # init array for saving filtered pixels
 
-    filtered_blocks = [[]]
-
+    # filter pixels which are in white_block_pixels but not in background_pixels
     for p in white_block_pixels:
-        print(p)
         if p not in background_pixels:
+            print("Coordinates of processed diseased pixel: " + str(p))
             filtered_blocks.append(p)
-
-
 
     for i in range(0, rows):
         for j in range(0, cols):
             pixel_coordinate_list = []
             pixel_coordinate_list.append(i)
             pixel_coordinate_list.append(j)
-            print(pixel_coordinate_list)
 
             if pixel_coordinate_list in filtered_blocks:
+                print("Marking pixel as diseased: " + str(pixel_coordinate_list))
                 img[i, j] = [220,20,60]
     return img
 
-def getMarkFolder():
+def getMarkFolder(folder_id):
 
-    for file in glob.glob('./Imgs/Imgs3/*'):
+    # choose dataset of eczema (1) or verrucas (2) for processing
+    if (folder_id == "1"):
+        folder_path = './dataset/dataset1/*'
+    elif (folder_id == "2"):
+        folder_path = './dataset/dataset2/*'
+
+    for file in glob.glob(folder_path):
         file_substr = file.split('/')[-1] # get name of processed file
         img = cv2.imread(file,0)
         img = cv2.normalize(img,None,0,255,cv2.NORM_MINMAX)
@@ -185,37 +150,9 @@ def getMarkFolder():
             for j in range(0, width):
                 lbp_image[i, j] = processLBP(img_gray, i, j, lbp_values)
 
-    #hist_lbp = cv2.calcHist([lbp_image], [0], None, [256], [0, 256])
-
-    #lbp_image = findWhiteRegions(height, width, lbp_image)
         white_block_pixels = computeAverageColorForBlock(lbp_image)
-    #print(img.shape)
-    #print(lbp_image.shape)
         marked_img = markWhiteBlocks(img, white_block_pixels, background_pixels)
-        cv2.imwrite("./markedImg/markedImg3Final/" + file_substr, marked_img)
-    #cv2.imwrite("./markedImg/" + file_substr)
-    # show LBP image and LBP histogram
-    '''
-    figure = plt.figure(figsize=(30, 30))
-    image_plot = figure.add_subplot(1,2,1)
-    image_plot.imshow(marked_img)
-    image_plot.set_xticks([])
-    image_plot.set_yticks([])
-    image_plot.set_title("LBP image", fontsize=10)
-    current_plot = figure.add_subplot(1, 2, 2)
-    current_plot.plot(hist_lbp, color = (0, 0, 0.2))
-
-    current_plot.set_xlim([0,256])
-    current_plot.set_ylim([0,10000])
-    current_plot.set_title("LBP histogram", fontsize=10)
-    current_plot.set_xlabel("Intensity")
-    current_plot.set_ylabel("Count of pixels")
-    ytick_list = [int(i) for i in current_plot.get_yticks()]
-    current_plot.set_yticklabels(ytick_list,rotation = 90)
-    plt.show()
-
-    cv2.waitKey(0)
-    cv2.destroyAllWindows()
-    '''
+        # save marked images to folder
+        cv2.imwrite("./markedImg/myMarkedImg/" + file_substr, marked_img)
 
     return
